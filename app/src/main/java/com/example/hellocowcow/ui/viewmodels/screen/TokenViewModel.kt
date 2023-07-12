@@ -1,4 +1,4 @@
-package com.example.hellocowcow.ui.viewmodels
+package com.example.hellocowcow.ui.viewmodels.screen
 
 import androidx.lifecycle.ViewModel
 import com.example.hellocowcow.domain.models.DomainToken

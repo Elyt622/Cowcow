@@ -1,4 +1,4 @@
-package com.example.hellocowcow.ui.viewmodels
+package com.example.hellocowcow.ui.viewmodels.activity
 
 import androidx.lifecycle.ViewModel
 
