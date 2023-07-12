@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace 'com.example.xportalconnect'
+    namespace 'com.example.hellocowcow'
     compileSdk 33
 
     defaultConfig {
