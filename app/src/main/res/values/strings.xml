@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Hello CowCow</string>
+    <string name="deep_link_url">kotlin-mvx-connect</string>
+</resources>
