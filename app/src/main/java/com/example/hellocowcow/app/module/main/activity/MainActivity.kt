@@ -12,14 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.hellocowcow.ui.composables.MainScaffold
 import com.example.hellocowcow.ui.theme.XportalConnectTheme
-import com.example.hellocowcow.ui.viewmodels.MainViewModel
+import com.example.hellocowcow.ui.viewmodels.activity.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 import timber.log.Timber
 import timber.log.Timber.Forest.plant
-import timber.log.Timber.Forest.tag
-import kotlin.coroutines.EmptyCoroutineContext
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
