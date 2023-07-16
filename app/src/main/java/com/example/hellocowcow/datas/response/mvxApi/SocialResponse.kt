@@ -1,4 +1,4 @@
-package com.example.hellocowcow.datas.response
+package com.example.hellocowcow.datas.response.mvxApi
 
 import com.google.gson.annotations.SerializedName
 
