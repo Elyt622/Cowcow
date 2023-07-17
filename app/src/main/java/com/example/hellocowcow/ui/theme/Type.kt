@@ -25,6 +25,14 @@ val Typography2 = Typography(
         fontSize = 11.5.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
+    ),
+
+    labelMedium = TextStyle(
+        fontFamily = FontFamily(Font(R.font.fredoka_one)),
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.5.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp
     )
 )
 
