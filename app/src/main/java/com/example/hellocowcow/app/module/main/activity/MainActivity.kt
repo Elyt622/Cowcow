@@ -44,32 +44,7 @@ class MainActivity : ComponentActivity() {
                 ) { Body() }
             }
         }
-
-        /*val requestParameters = Auth.Params.Request(
-            topic = topic,
-            chainId = "mvx:D",
-            getString(R.string.deep_link_url),
-            randomNonce(),
-            "https://kotlin.requester.walletconnect-test.com/",
-            null,
-            null,
-            null,
-            "Sign in with wallet",
-            null,
-            null
-        )
-
-        AuthClient.request(requestParameters,
-            onSuccess = {
-
-            },
-            onError = {
-
-            }
-        )*/
     }
-
-    //fun randomNonce(): String = Random.nextBytes(16).bytesToHex()
 
     @Composable
     fun Body() {
