@@ -35,13 +35,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.hellocowcow.R
 import com.example.hellocowcow.ui.viewmodels.screen.TokenViewModel
+import kotlin.math.roundToInt
 
 @Composable
 fun TokenScreen(
     viewModel: TokenViewModel
 ) {
     val context = LocalContext.current
-    val uiState by viewModel.uiState.collectAsState()
+    val uiStateT by viewModel.uiStateT.collectAsState()
+    val uiStateR by viewModel.uiStateR.collectAsState()
 
     val cardColors = CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.primary,
@@ -100,26 +102,27 @@ fun TokenScreen(
                     Row(
                         Modifier.padding(8.dp)
                     ) {
-                        when (uiState) {
-                            is TokenViewModel.UiState.Loading -> Box(
+                        when (uiStateT) {
+                            is TokenViewModel.UiStateToken.Loading -> Box(
                                 modifier = Modifier.width(60.dp),
                                 contentAlignment = Alignment.Center
                             ) {
                                 CircularProgressIndicator(color = Color.Black)
                             }
 
-                            is TokenViewModel.UiState.Success -> Text(
-                                text = (uiState as TokenViewModel.UiState.Success)
+                            is TokenViewModel.UiStateToken.Success -> Text(
+                                text = (uiStateT as TokenViewModel.UiStateToken.Success)
                                     .data.price.toString()
                                     .substring(0, 5),
                                 fontSize = 35.sp
                             )
 
-                            is TokenViewModel.UiState.Error ->
+                            is TokenViewModel.UiStateToken.Error ->
                                 Toast.makeText(
                                     context,
-                                    (uiState as TokenViewModel.UiState.Error).error,
-                                    Toast.LENGTH_LONG)
+                                    (uiStateT as TokenViewModel.UiStateToken.Error).error,
+                                    Toast.LENGTH_LONG
+                                )
                                     .show()
                         }
 
@@ -149,8 +152,14 @@ fun TokenScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Total Ciculation Supply",
+                    text = "Total Circulation Supply",
                     fontSize = 20.sp,
+                    color = MaterialTheme.colorScheme.primary
+                )
+
+                Text(
+                    text = "* without unclaimed Moove",
+                    fontSize = 11.sp,
                     color = MaterialTheme.colorScheme.primary
                 )
 
@@ -163,24 +172,25 @@ fun TokenScreen(
                     Row(
                         Modifier.padding(8.dp)
                     ) {
-                        when (uiState) {
-                            is TokenViewModel.UiState.Loading -> Box(
+                        when (uiStateT) {
+                            is TokenViewModel.UiStateToken.Loading -> Box(
                                 modifier = Modifier.width(60.dp),
                                 contentAlignment = Alignment.Center
                             ) {
                                 CircularProgressIndicator(color = Color.Black)
                             }
 
-                            is TokenViewModel.UiState.Success -> Text(
-                                text = (uiState as TokenViewModel.UiState.Success)
+                            is TokenViewModel.UiStateToken.Success -> Text(
+                                text = (uiStateT as TokenViewModel.UiStateToken.Success)
                                     .data.circulatingSupply.toString(),
                                 fontSize = 35.sp
                             )
 
-                            is TokenViewModel.UiState.Error -> Toast.makeText(
+                            is TokenViewModel.UiStateToken.Error -> Toast.makeText(
                                 context,
-                                (uiState as TokenViewModel.UiState.Error).error,
-                                Toast.LENGTH_LONG)
+                                (uiStateT as TokenViewModel.UiStateToken.Error).error,
+                                Toast.LENGTH_LONG
+                            )
                                 .show()
                         }
 
@@ -225,24 +235,24 @@ fun TokenScreen(
                     Row(
                         Modifier.padding(8.dp)
                     ) {
-                        when (uiState) {
-                            is TokenViewModel.UiState.Loading -> Box(
+                        when (uiStateR) {
+                            is TokenViewModel.UiStateReward.Loading -> Box(
                                 modifier = Modifier.width(60.dp),
                                 contentAlignment = Alignment.Center
                             ) {
                                 CircularProgressIndicator(color = Color.Black)
                             }
 
-                            is TokenViewModel.UiState.Success -> Text(
-                                text = (uiState as TokenViewModel.UiState.Success).data.price.toString()
-                                    .substring(0, 5),
+                            is TokenViewModel.UiStateReward.Success -> Text(
+                                text = (uiStateR as TokenViewModel.UiStateReward.Success).data.unclaimedMoove,
                                 fontSize = 35.sp
                             )
 
-                            is TokenViewModel.UiState.Error -> Toast.makeText(
+                            is TokenViewModel.UiStateReward.Error -> Toast.makeText(
                                 context,
-                                (uiState as TokenViewModel.UiState.Error).error,
-                                Toast.LENGTH_LONG)
+                                (uiStateR as TokenViewModel.UiStateReward.Error).error,
+                                Toast.LENGTH_LONG
+                            )
                                 .show()
                         }
 
@@ -254,6 +264,163 @@ fun TokenScreen(
                             imageVector = ImageVector.vectorResource(id = R.drawable.moovelogo),
                             contentDescription = ""
                         )
+                    }
+                }
+
+                Spacer(modifier = Modifier.size(20.dp))
+
+                Divider(
+                    color = MaterialTheme.colorScheme.primary,
+                    thickness = 1.dp
+                )
+            }
+
+            Column(
+                Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "MarketCap",
+                    fontSize = 20.sp,
+                    color = MaterialTheme.colorScheme.primary
+                )
+
+                Spacer(modifier = Modifier.size(10.dp))
+
+                ElevatedCard(
+                    colors = cardColors,
+                    elevation = CardDefaults.cardElevation(20.dp)
+                ) {
+                    Row(
+                        Modifier.padding(8.dp)
+                    ) {
+                        when (uiStateT) {
+                            is TokenViewModel.UiStateToken.Loading -> Box(
+                                modifier = Modifier.width(60.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                CircularProgressIndicator(color = Color.Black)
+                            }
+
+                            is TokenViewModel.UiStateToken.Success -> Text(
+                                text = (uiStateT as TokenViewModel.UiStateToken.Success).data.marketCap?.roundToInt()
+                                    .toString() + " $",
+                                fontSize = 35.sp
+                            )
+
+                            is TokenViewModel.UiStateToken.Error -> Toast.makeText(
+                                context,
+                                (uiStateT as TokenViewModel.UiStateToken.Error).error,
+                                Toast.LENGTH_LONG
+                            )
+                                .show()
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.size(20.dp))
+
+                Divider(
+                    color = MaterialTheme.colorScheme.primary,
+                    thickness = 1.dp
+                )
+            }
+
+            Column(
+                Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Holders",
+                    fontSize = 20.sp,
+                    color = MaterialTheme.colorScheme.primary
+                )
+
+                Spacer(modifier = Modifier.size(10.dp))
+
+                ElevatedCard(
+                    colors = cardColors,
+                    elevation = CardDefaults.cardElevation(20.dp)
+                ) {
+                    Row(
+                        Modifier.padding(8.dp)
+                    ) {
+                        when (uiStateT) {
+                            is TokenViewModel.UiStateToken.Loading -> Box(
+                                modifier = Modifier.width(60.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                CircularProgressIndicator(color = Color.Black)
+                            }
+
+                            is TokenViewModel.UiStateToken.Success -> Text(
+                                text = (uiStateT as TokenViewModel.UiStateToken.Success).data.accounts.toString(),
+                                fontSize = 35.sp
+                            )
+
+                            is TokenViewModel.UiStateToken.Error -> Toast.makeText(
+                                context,
+                                (uiStateT as TokenViewModel.UiStateToken.Error).error,
+                                Toast.LENGTH_LONG
+                            )
+                                .show()
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.size(20.dp))
+
+                Divider(
+                    color = MaterialTheme.colorScheme.primary,
+                    thickness = 1.dp
+                )
+            }
+
+            Column(
+                Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Transactions",
+                    fontSize = 20.sp,
+                    color = MaterialTheme.colorScheme.primary
+                )
+
+                Spacer(modifier = Modifier.size(10.dp))
+
+                ElevatedCard(
+                    colors = cardColors,
+                    elevation = CardDefaults.cardElevation(20.dp)
+                ) {
+                    Row(
+                        Modifier.padding(8.dp)
+                    ) {
+                        when (uiStateT) {
+                            is TokenViewModel.UiStateToken.Loading -> Box(
+                                modifier = Modifier.width(60.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                CircularProgressIndicator(color = Color.Black)
+                            }
+
+                            is TokenViewModel.UiStateToken.Success -> Text(
+                                text = (uiStateT as TokenViewModel.UiStateToken.Success).data.transactions.toString(),
+                                fontSize = 35.sp
+                            )
+
+                            is TokenViewModel.UiStateToken.Error -> Toast.makeText(
+                                context,
+                                (uiStateT as TokenViewModel.UiStateToken.Error).error,
+                                Toast.LENGTH_LONG
+                            )
+                                .show()
+                        }
                     }
                 }
 
