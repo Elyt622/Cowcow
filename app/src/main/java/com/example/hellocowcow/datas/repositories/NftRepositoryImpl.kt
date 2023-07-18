@@ -2,6 +2,8 @@ package com.example.hellocowcow.datas.repositories
 
 import com.example.hellocowcow.datas.network.api.MvxApi
 import com.example.hellocowcow.datas.response.mvxApi.NftResponse
+import com.example.hellocowcow.datas.response.mvxApi.RewardRequest
+import com.example.hellocowcow.datas.response.mvxApi.RewardResponse
 import com.example.hellocowcow.domain.repositories.NftRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
@@ -19,4 +21,24 @@ class NftRepositoryImpl @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
+    override fun getNft(
+        identifier: String
+    ) : Single<NftResponse> =
+        mvxApi.getNft(identifier)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    override
+    fun getAllDataUsers(
+        request: RewardRequest
+    ) : Single<RewardResponse> =
+        mvxApi.getAllDataUsers(request)
+
+    override
+    fun getCowsWithCollection(
+        identifiers: String,
+        size: Int,
+        from: Int
+    ) : Single<List<NftResponse>> =
+        mvxApi.getCowsWithCollection(identifiers, size, from)
 }
