@@ -6,12 +6,12 @@ import com.example.hellocowcow.datas.response.mvxApi.RewardRequest
 import com.example.hellocowcow.domain.repositories.NftRepository
 import com.walletconnect.util.bytesToHex
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import timber.log.Timber
 import java.net.HttpURLConnection
 import java.net.URL
 import javax.inject.Inject
@@ -56,7 +56,10 @@ class StakeViewModel @Inject constructor(
                     val endIndex = kotlin.math.min(i + 4, decoded.length)
                     val segment = decoded.substring(i, endIndex)
                     if (!segment.contains("0000"))
-                        segmentedHexList.add(segment)
+                        if(segment.startsWith("00"))
+                            segmentedHexList.add(segment.substring(2))
+                        else
+                            segmentedHexList.add(segment)
                 }
                 val destinationArray = segmentedHexList
                     .subList(
@@ -75,11 +78,8 @@ class StakeViewModel @Inject constructor(
                     else
                         identifiersStr.append("COW-cd463d-$element]")
                 }
-                val single1 = nftRepository.getCowsWithCollection(identifiersStr.toString(), 100, 0).toObservable()
-                val single2 = nftRepository.getCowsWithCollection(identifiersStr.toString(), 100, 25).toObservable()
-                val single3 = nftRepository.getCowsWithCollection(identifiersStr.toString(), 100, 50).toObservable()
-                Observable.merge(single1, single2, single3)
-                    .subscribeOn(Schedulers.io())
+                Timber.tag("DEBUG").d(identifiersStr.toString())
+                nftRepository.getCowsWithCollection(identifiersStr.toString(), list.size, 0).toObservable()
             }.subscribeOn(Schedulers.io())
             .subscribeBy {
                 it.subscribeBy (
