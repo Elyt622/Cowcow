@@ -57,10 +57,10 @@ fun StakeScreen(
                         ) {
                             HorizontalPager(
                                 state = pagerState,
-                                pageCount = 1,
+                                pageCount = 2,
                            ) { index ->
                                 GlideImage(
-                                    model = nft.url,
+                                    model = arrayOf(nft.url,"https://xoxno.com/api/getCow?identifier=${nft.identifier}")[index],
                                     contentDescription = nft.collection,
                                     modifier = Modifier
                                         .padding(start = 8.dp, end = 8.dp, top = 8.dp)
