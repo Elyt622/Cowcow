@@ -11,7 +11,7 @@ interface NftRepository {
         address: String
     ) : Single<List<NftResponse>>
 
-    fun getNft(
+    fun getNftMvx(
         identifier: String
     ) : Single<NftResponse>
 
@@ -24,4 +24,8 @@ interface NftRepository {
         size: Int,
         from: Int
     ) : Single<List<NftResponse>>
+
+    fun getNftXoxno(
+        identifier: String
+    ) : Single<com.example.hellocowcow.datas.response.xoxnoApi.NftResponse>
 }
