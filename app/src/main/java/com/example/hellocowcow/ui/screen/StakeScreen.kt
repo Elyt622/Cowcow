@@ -1,5 +1,6 @@
 package com.example.hellocowcow.ui.screen
 
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
@@ -15,6 +16,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,16 +29,20 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.example.hellocowcow.app.module.NftActivity
 import com.example.hellocowcow.ui.theme.Typography2
 import com.example.hellocowcow.ui.viewmodels.screen.StakeViewModel
 
-@OptIn(ExperimentalGlideComposeApi::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalGlideComposeApi::class, ExperimentalFoundationApi::class,
+    ExperimentalMaterial3Api::class
+)
 @Composable
 fun StakeScreen(
     viewModel: StakeViewModel
 ) {
 
     val uiState by viewModel.uiState.collectAsState()
+    val context = LocalContext.current
 
     val cardColors = CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.primary,
@@ -53,7 +59,16 @@ fun StakeScreen(
                     items((uiState as StakeViewModel.UiState.Success).data) { nft ->
                         ElevatedCard(
                             colors = cardColors,
-                            modifier = Modifier.padding(8.dp)
+                            modifier = Modifier.padding(8.dp),
+                            elevation = CardDefaults.cardElevation(8.dp),
+                            onClick = {
+                                val intent = Intent(
+                                    context,
+                                    NftActivity::class.java
+                                )
+                                intent.putExtra("IDENTIFIER", nft.identifier)
+                                context.startActivity(intent)
+                            }
                         ) {
                             HorizontalPager(
                                 state = pagerState,
@@ -76,11 +91,6 @@ fun StakeScreen(
                                     color = MaterialTheme.colorScheme.background,
                                     text = nft.name.toString(),
                                     style = Typography2.bodyLarge
-                                )
-                                Text(
-                                    color = MaterialTheme.colorScheme.background,
-                                    text = "Rank : " + nft.rank.toString(),
-                                    style = Typography2.labelMedium
                                 )
                             }
                         }
