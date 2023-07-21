@@ -5,7 +5,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.hellocowcow.data.Datas
+import com.example.hellocowcow.data.Data
 import com.example.hellocowcow.domain.models.ItemNav
 import com.example.hellocowcow.ui.screen.CollectionScreen
 import com.example.hellocowcow.ui.screen.HomeScreen
@@ -17,7 +17,7 @@ fun HostController(navHostController: NavHostController) {
     NavHost(
         navController = navHostController,
         startDestination = ItemNav.Home.route
-    ) {Datas.items.forEach { item ->
+    ) {Data.items.forEach { item ->
         composable(item.route){
             when (it.destination.route) {
 

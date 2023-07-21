@@ -13,7 +13,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.hellocowcow.data.Datas
+import com.example.hellocowcow.data.Data
 
 @Composable
 fun BottomBar(navController: NavController) {
@@ -37,7 +37,7 @@ fun BottomBar(navController: NavController) {
                 elevation = 20.dp
             )
     ) {
-        Datas.items.forEach { item ->
+        Data.items.forEach { item ->
             NavigationBarItem(
                 icon = { Icon(imageVector = item.icon, contentDescription = item.label) },
                 label =
