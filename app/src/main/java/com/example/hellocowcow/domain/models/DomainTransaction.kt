@@ -1,6 +1,6 @@
 package com.example.hellocowcow.domain.models
 
-import com.example.hellocowcow.datas.response.mvxApi.ActionResponse
+import com.example.hellocowcow.data.response.mvxApi.ActionResponse
 
 data class DomainTransaction(
     var txHash: String? = null,

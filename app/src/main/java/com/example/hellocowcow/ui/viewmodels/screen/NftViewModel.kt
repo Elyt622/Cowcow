@@ -1,7 +1,7 @@
 package com.example.hellocowcow.ui.viewmodels.screen
 
 import androidx.lifecycle.ViewModel
-import com.example.hellocowcow.datas.response.xoxnoApi.NftResponse
+import com.example.hellocowcow.data.response.xoxnoApi.NftResponse
 import com.example.hellocowcow.domain.repositories.NftRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.kotlin.subscribeBy

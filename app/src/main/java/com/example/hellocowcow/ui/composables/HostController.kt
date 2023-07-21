@@ -5,7 +5,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.hellocowcow.datas.Datas
+import com.example.hellocowcow.data.Datas
 import com.example.hellocowcow.domain.models.ItemNav
 import com.example.hellocowcow.ui.screen.CollectionScreen
 import com.example.hellocowcow.ui.screen.HomeScreen

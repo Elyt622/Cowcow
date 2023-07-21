@@ -52,9 +52,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.example.hellocowcow.datas.response.xoxnoApi.AttributesResponse
-import com.example.hellocowcow.datas.response.xoxnoApi.NftResponse
-import com.example.hellocowcow.datas.response.xoxnoApi.OffersInfoResponse
+import com.example.hellocowcow.data.response.xoxnoApi.AttributesResponse
+import com.example.hellocowcow.data.response.xoxnoApi.NftResponse
+import com.example.hellocowcow.data.response.xoxnoApi.OffersInfoResponse
 import com.example.hellocowcow.ui.theme.XportalConnectTheme
 import com.example.hellocowcow.ui.viewmodels.screen.NftViewModel
 import dagger.hilt.android.AndroidEntryPoint

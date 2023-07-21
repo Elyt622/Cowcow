@@ -1,8 +1,8 @@
 package com.example.hellocowcow.app.di.network
 
-import com.example.hellocowcow.datas.network.api.CCToolsApi
-import com.example.hellocowcow.datas.network.api.XoxnoApi
-import com.example.hellocowcow.datas.network.api.MvxApi
+import com.example.hellocowcow.data.network.api.CCToolsApi
+import com.example.hellocowcow.data.network.api.XoxnoApi
+import com.example.hellocowcow.data.network.api.MvxApi
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides

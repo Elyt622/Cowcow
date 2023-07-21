@@ -1,7 +1,7 @@
 package com.example.hellocowcow.ui.viewmodels.screen
 
 import androidx.lifecycle.ViewModel
-import com.example.hellocowcow.datas.response.ccToolsApi.CCToolsResponse
+import com.example.hellocowcow.data.response.ccToolsApi.CCToolsResponse
 import com.example.hellocowcow.domain.repositories.CCToolsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
