@@ -33,7 +33,7 @@ data class NftResponse (
     @SerializedName("metadata"             ) var metadata             : MetadataResponse? = MetadataResponse(),
     @SerializedName("originalMedia"        ) var originalMedia        : OriginalMediaResponse? = OriginalMediaResponse(),
     @SerializedName("saleInfoNft"          ) var saleInfoNft          : SaleInfoNftResponse? = SaleInfoNftResponse(),
-    @SerializedName("offersInfo"           ) var offersInfo           : ArrayList<String> = arrayListOf(),
+    @SerializedName("offersInfo"           ) var offersInfo           : ArrayList<OffersInfoResponse> = arrayListOf(),
     @SerializedName("gameData"             ) var gameData             : ArrayList<String> = arrayListOf(),
     @SerializedName("owner"                ) var owner                : String?           = null,
     @SerializedName("ownerUsername"        ) var ownerUsername        : String?           = null,
