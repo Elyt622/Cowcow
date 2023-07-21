@@ -35,6 +35,8 @@ class NftRepositoryImpl @Inject constructor(
         request: RewardRequest
     ) : Single<RewardResponse> =
         mvxApi.getAllDataUsers(request)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 
     override
     fun getCowsWithCollection(
@@ -43,10 +45,14 @@ class NftRepositoryImpl @Inject constructor(
         from: Int
     ) : Single<List<NftResponse>> =
         mvxApi.getCowsWithCollection(identifiers, size, from)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 
     override
     fun getNftXoxno(
         identifier: String
     ) : Single<com.example.hellocowcow.datas.response.xoxnoApi.NftResponse> =
         xoxnoApi.getNft(identifier)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 }
