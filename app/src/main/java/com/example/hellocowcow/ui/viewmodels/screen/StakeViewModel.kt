@@ -6,14 +6,11 @@ import com.example.hellocowcow.data.response.mvxApi.RewardRequest
 import com.example.hellocowcow.domain.repositories.NftRepository
 import com.walletconnect.util.bytesToHex
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import timber.log.Timber
-import java.net.HttpURLConnection
-import java.net.URL
 import javax.inject.Inject
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
@@ -93,34 +90,6 @@ class StakeViewModel @Inject constructor(
                         _uiState.value = UiState.Error(error.message.toString())
                     }
                 ).isDisposed
-            }
-
-     private fun checkImageExists(
-         imageUrl: String
-     ): Single<Boolean> =
-         Single.just(try {
-            val url = URL(imageUrl)
-            val connection = url.openConnection() as HttpURLConnection
-            connection.requestMethod = "HEAD"
-            connection.connect()
-            val responseCode = connection.responseCode
-            responseCode == HttpURLConnection.HTTP_OK
-        } catch (e: Exception) {
-            false
-        })
-
-    fun loadImages(
-        nft: NftResponse
-    ) : Single<Array<String>> =
-        checkImageExists("https://xoxno.com/api/getCow?identifier=${nft.identifier}")
-            .map { imageExist ->
-                if (imageExist)
-                    arrayOf(
-                        nft.url.toString(),
-                        "https://xoxno.com/api/getCow?identifier=${nft.identifier}"
-                    )
-                else
-                    arrayOf(nft.url.toString())
             }
 
 
