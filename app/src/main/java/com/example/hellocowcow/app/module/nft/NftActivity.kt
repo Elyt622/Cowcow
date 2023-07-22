@@ -174,6 +174,9 @@ class NftActivity : ComponentActivity() {
 )
 @Composable
 fun OnSuccess(nft: NftResponse) {
+    val cardColors = CardDefaults.cardColors(
+        containerColor = MaterialTheme.colorScheme.background
+    )
     Column(
         Modifier
             .padding(
@@ -204,15 +207,27 @@ fun OnSuccess(nft: NftResponse) {
                             scaleX = 1.04F
                         )
                     )
-                    Text(
-                        text = "Upgraded",
-                        Modifier
+                    Row(
+                        horizontalArrangement = Arrangement.End,
+                        verticalAlignment = Alignment.Top,
+                        modifier = Modifier
+                            .padding(end = 8.dp, top = 8.dp)
                             .fillMaxSize()
-                            .padding(8.dp),
-                        textAlign = TextAlign.Right,
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.background
-                    )
+                    ) {
+                        ElevatedCard(
+                            elevation = CardDefaults
+                                .elevatedCardElevation(16.dp),
+                            colors = cardColors
+                        ) {
+                            Text(
+                                text = "Upgraded",
+                                Modifier
+                                    .padding(8.dp),
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    }
                 }
             else {
                 GlideImage(
