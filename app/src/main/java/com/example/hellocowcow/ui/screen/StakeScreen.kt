@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
@@ -48,7 +46,6 @@ fun StakeScreen(
         containerColor = MaterialTheme.colorScheme.primary,
         contentColor = Color.Black
     )
-    val pagerState = rememberPagerState()
 
     when (uiState) {
         is StakeViewModel.UiState.Success -> {
@@ -70,17 +67,13 @@ fun StakeScreen(
                                 context.startActivity(intent)
                             }
                         ) {
-                            HorizontalPager(
-                                state = pagerState,
-                                pageCount = 2,
-                           ) { index ->
-                                GlideImage(
-                                    model = arrayOf(nft.url,"https://xoxno.com/api/getCow?identifier=${nft.identifier}")[index],
-                                    contentDescription = nft.collection,
-                                    modifier = Modifier
-                                        .padding(start = 8.dp, end = 8.dp, top = 8.dp)
-                                )
-                            }
+                            GlideImage(
+                                model = nft.url,
+                                contentDescription = nft.collection,
+                                modifier = Modifier
+                                    .padding(start = 8.dp, end = 8.dp, top = 8.dp)
+                            )
+
                             Column(
                                 Modifier
                                     .align(Alignment.CenterHorizontally)
