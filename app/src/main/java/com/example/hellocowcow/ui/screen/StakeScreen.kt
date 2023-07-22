@@ -2,7 +2,6 @@ package com.example.hellocowcow.ui.screen
 
 import android.content.Intent
 import android.widget.Toast
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,7 +30,7 @@ import com.example.hellocowcow.app.module.nft.NftActivity
 import com.example.hellocowcow.ui.theme.Typography2
 import com.example.hellocowcow.ui.viewmodels.screen.StakeViewModel
 
-@OptIn(ExperimentalGlideComposeApi::class, ExperimentalFoundationApi::class,
+@OptIn(ExperimentalGlideComposeApi::class,
     ExperimentalMaterial3Api::class
 )
 @Composable
