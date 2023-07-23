@@ -57,14 +57,6 @@ fun WalletScreen(
                                 modifier = Modifier
                                     .padding(start = 8.dp, end = 8.dp, top = 8.dp)
                             )
-
-                            /*GlideImage(
-                                model = "https://xoxno.com/api/getCow?identifier=" + nft.identifier,
-                                contentDescription = nft.collection,
-                                modifier = Modifier
-                                    .padding(start = 8.dp, end = 8.dp, top = 8.dp)
-                            )*/
-
                             Column(
                                 Modifier
                                     .align(Alignment.CenterHorizontally)
