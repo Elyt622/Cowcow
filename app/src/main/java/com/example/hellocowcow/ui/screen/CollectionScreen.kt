@@ -72,7 +72,7 @@ fun CollectionScreen(
             Text(
                 text = "Moove Together.",
                 fontSize = 28.sp,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onPrimary,
                 modifier = Modifier
                     .fillMaxWidth(),
                 textAlign = TextAlign.Center,
