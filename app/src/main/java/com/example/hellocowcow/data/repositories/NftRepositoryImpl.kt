@@ -5,8 +5,10 @@ import com.example.hellocowcow.data.network.api.XoxnoApi
 import com.example.hellocowcow.data.response.mvxApi.NftResponse
 import com.example.hellocowcow.data.response.mvxApi.RewardRequest
 import com.example.hellocowcow.data.response.mvxApi.RewardResponse
+import com.example.hellocowcow.data.response.xoxnoApi.CollectionResponse
 import com.example.hellocowcow.domain.repositories.NftRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
@@ -25,7 +27,7 @@ class NftRepositoryImpl @Inject constructor(
 
     override fun getNftMvx(
         identifier: String
-    ) : Single<NftResponse> =
+    ): Single<NftResponse> =
         mvxApi.getNft(identifier)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -33,7 +35,7 @@ class NftRepositoryImpl @Inject constructor(
     override
     fun getAllDataUsers(
         request: RewardRequest
-    ) : Single<RewardResponse> =
+    ): Single<RewardResponse> =
         mvxApi.getAllDataUsers(request)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -43,7 +45,7 @@ class NftRepositoryImpl @Inject constructor(
         identifiers: String,
         size: Int,
         from: Int
-    ) : Single<List<NftResponse>> =
+    ): Single<List<NftResponse>> =
         mvxApi.getCowsWithCollection(identifiers, size, from)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -51,8 +53,17 @@ class NftRepositoryImpl @Inject constructor(
     override
     fun getNftXoxno(
         identifier: String
-    ) : Single<com.example.hellocowcow.data.response.xoxnoApi.NftResponse> =
+    ): Single<com.example.hellocowcow.data.response.xoxnoApi.NftResponse> =
         xoxnoApi.getNft(identifier)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+
+    override
+    fun getCowsListing(
+        address: String
+    ): Observable<CollectionResponse> =
+        xoxnoApi.getCowsListing(address)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
 }
