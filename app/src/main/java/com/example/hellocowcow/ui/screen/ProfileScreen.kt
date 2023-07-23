@@ -18,10 +18,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.example.hellocowcow.ui.viewmodels.screen.ProfileViewModel
 
-@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun ProfileScreen(
     viewModel: ProfileViewModel,
