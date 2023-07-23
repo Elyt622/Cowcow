@@ -8,9 +8,6 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.hellocowcow.data.Data
@@ -31,11 +28,7 @@ fun BottomBar(navController: NavController) {
     val currentRoute = navStackBackEntry?.destination?.route
 
     NavigationBar (
-        containerColor = MaterialTheme.colorScheme.background,
-        modifier = Modifier
-            .shadow(
-                elevation = 20.dp
-            )
+        containerColor = MaterialTheme.colorScheme.background
     ) {
         Data.items.forEach { item ->
             NavigationBarItem(
