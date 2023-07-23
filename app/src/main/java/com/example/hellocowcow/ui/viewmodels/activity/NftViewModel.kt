@@ -1,4 +1,4 @@
-package com.example.hellocowcow.ui.viewmodels.screen
+package com.example.hellocowcow.ui.viewmodels.activity
 
 import androidx.lifecycle.ViewModel
 import com.example.hellocowcow.data.response.xoxnoApi.NftResponse
