@@ -9,7 +9,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.hellocowcow.ui.composables.MainScaffold
 import com.example.hellocowcow.ui.theme.XportalConnectTheme
 import com.example.hellocowcow.ui.viewmodels.activity.MainViewModel
@@ -51,11 +50,4 @@ class MainActivity : ComponentActivity() {
         MainScaffold()
     }
 
-    @Preview(showBackground = true)
-    @Composable
-    fun GreetingPreview() {
-        XportalConnectTheme {
-            Body()
-        }
-    }
 }
