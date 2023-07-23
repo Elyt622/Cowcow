@@ -40,14 +40,14 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme
                         .colorScheme
                         .background
-                ) { Body() }
+                ) { Body("erd1nstzyd7j224nv2e2ju37sdk6xlhq5cqvh67je0dz3e9h3k6tz9jsrslxlu") }
             }
         }
     }
 
     @Composable
-    fun Body() {
-        MainScaffold()
+    fun Body(address: String) {
+        MainScaffold(address)
     }
 
 }

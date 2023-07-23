@@ -1,5 +1,7 @@
 package com.example.hellocowcow.ui.viewmodels.screen
 
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.hellocowcow.data.response.mvxApi.NftResponse
 import com.example.hellocowcow.domain.repositories.NftRepository
@@ -14,6 +16,13 @@ class WalletViewModel @Inject constructor(
     private val nftRepository: NftRepository
 ) : ViewModel() {
 
+    private val _address = mutableStateOf("")
+    val address: State<String> get() = _address
+
+    fun setAddress(value: String) {
+        _address.value = value
+    }
+
     sealed class UiState {
         object NoData : UiState()
         object Loading : UiState()
@@ -24,9 +33,8 @@ class WalletViewModel @Inject constructor(
     private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val uiState: StateFlow<UiState> = _uiState
 
-    fun getAllCowsInWallet(
-        address: String
-    ) = nftRepository.getAllCowsInWallet(address)
+    fun getAllCowsInWallet() =
+        nftRepository.getAllCowsInWallet(address.value)
         .subscribeBy (
             onSuccess = { nfts ->
                 if (nfts.isNotEmpty())

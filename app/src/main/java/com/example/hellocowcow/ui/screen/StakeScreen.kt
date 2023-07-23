@@ -40,7 +40,7 @@ fun StakeScreen(
 
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
-
+    viewModel.getAllDataUsers()
     val cardColors = CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.primary,
         contentColor = Color.Black

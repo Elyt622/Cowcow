@@ -34,13 +34,11 @@ fun WalletScreen(
 ) {
 
     val uiState by viewModel.uiState.collectAsState()
-
+    viewModel.getAllCowsInWallet()
     val cardColors = CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.primary,
         contentColor = Color.Black
     )
-
-    viewModel.getAllCowsInWallet("erd10t86rsk3rzaap7gqkcgp930d24rw8wusx8e6z4ncfgqxqp3s29ss4fvkz6")
 
     when (uiState) {
         is WalletViewModel.UiState.Success -> {

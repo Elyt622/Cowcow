@@ -18,12 +18,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.hellocowcow.ui.viewmodels.screen.MarketViewModel
 import com.example.hellocowcow.ui.viewmodels.screen.ProfileViewModel
+import com.example.hellocowcow.ui.viewmodels.screen.StakeViewModel
+import com.example.hellocowcow.ui.viewmodels.screen.WalletViewModel
 
 @Composable
 fun ProfileScreen(
     viewModel: ProfileViewModel,
-    name: String
+    name: String,
+    address: String
 ) {
 
 
@@ -41,12 +45,12 @@ fun ProfileScreen(
                 .fillMaxWidth(),
             textAlign = TextAlign.Center
         )
-        TabScreen()
+        TabScreen(address)
     }
 }
 
 @Composable
-fun TabScreen() {
+fun TabScreen(_address: String) {
 
     var tabIndex by remember { mutableStateOf(0) }
 
@@ -69,9 +73,22 @@ fun TabScreen() {
             }
         }
         when (tabIndex) {
-            0 -> WalletScreen(hiltViewModel())
-            1 -> StakeScreen(hiltViewModel())
-            2 -> MarketScreen(hiltViewModel())
+            0 -> {
+                val address = remember { mutableStateOf(_address) }
+                val viewModel: WalletViewModel = hiltViewModel()
+                viewModel.setAddress(address.value)
+                WalletScreen(viewModel)
+            }
+            1 -> {
+                val viewModel: StakeViewModel = hiltViewModel()
+                viewModel.setAddress(_address)
+                StakeScreen(viewModel)
+            }
+            2 -> {
+                val viewModel: MarketViewModel = hiltViewModel()
+                viewModel.setAddress(_address)
+                MarketScreen(viewModel)
+            }
         }
     }
 }

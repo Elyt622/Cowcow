@@ -1,20 +1,18 @@
 package com.example.hellocowcow.ui.composables
 
 import android.annotation.SuppressLint
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScaffold() {
+fun MainScaffold(address: String) {
 
     val navController = rememberNavController()
 
     Scaffold(
-        content = { HostController(navHostController = navController) },
+        content = { HostController(navHostController = navController, address) },
         bottomBar = { BottomBar(navController = navController) }
     )
 }

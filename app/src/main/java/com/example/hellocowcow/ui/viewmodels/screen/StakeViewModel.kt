@@ -1,5 +1,7 @@
 package com.example.hellocowcow.ui.viewmodels.screen
 
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.hellocowcow.data.response.mvxApi.NftResponse
 import com.example.hellocowcow.data.response.mvxApi.RewardRequest
@@ -10,7 +12,6 @@ import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import timber.log.Timber
 import javax.inject.Inject
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
@@ -20,8 +21,11 @@ class StakeViewModel @Inject constructor(
     private val nftRepository: NftRepository
 ) : ViewModel() {
 
-    init {
-        getAllDataUsers()
+    private val _address = mutableStateOf("")
+    val address: State<String> get() = _address
+
+    fun setAddress(value: String) {
+        _address.value = value
     }
 
     sealed class UiState {
@@ -42,7 +46,7 @@ class StakeViewModel @Inject constructor(
                 "getAllDataForUser",
                 "0",
                 arrayListOf(),
-                "erd1xwnpvwxdwt4ptnmwhyygfm5gzafu2fwxchax9evf6myk3cr00xpsq6np2y"
+                address.value
             )
         )
             .subscribeOn(Schedulers.io())

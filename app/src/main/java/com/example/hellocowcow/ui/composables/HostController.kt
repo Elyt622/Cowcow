@@ -13,7 +13,10 @@ import com.example.hellocowcow.ui.screen.ProfileScreen
 import com.example.hellocowcow.ui.screen.TokenScreen
 
 @Composable
-fun HostController(navHostController: NavHostController) {
+fun HostController(
+    navHostController: NavHostController,
+    address: String
+) {
     NavHost(
         navController = navHostController,
         startDestination = ItemNav.Home.route
@@ -24,7 +27,7 @@ fun HostController(navHostController: NavHostController) {
                 ItemNav.Home.route -> { HomeScreen(hiltViewModel()) }
                 ItemNav.Token.route -> { TokenScreen(hiltViewModel()) }
                 ItemNav.Collection.route -> { CollectionScreen(hiltViewModel()) }
-                ItemNav.Profile.route -> { ProfileScreen(hiltViewModel(), name = "Profile") }
+                ItemNav.Profile.route -> { ProfileScreen(hiltViewModel(), name = "Profile", address) }
             }
         }
     }
