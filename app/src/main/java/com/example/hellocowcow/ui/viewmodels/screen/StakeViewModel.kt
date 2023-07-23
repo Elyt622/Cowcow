@@ -79,7 +79,6 @@ class StakeViewModel @Inject constructor(
                     else
                         identifiersStr.append("COW-cd463d-$element]")
                 }
-                Timber.tag("DEBUG").d(identifiersStr.toString())
                 nftRepository.getCowsWithCollection(identifiersStr.toString(), list.size, 0).toObservable()
             }.subscribeOn(Schedulers.io())
             .subscribeBy {
