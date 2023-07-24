@@ -7,10 +7,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.hellocowcow.data.Data
 import com.example.hellocowcow.domain.models.ItemNav
-import com.example.hellocowcow.ui.screen.CollectionScreen
-import com.example.hellocowcow.ui.screen.HomeScreen
-import com.example.hellocowcow.ui.screen.ProfileScreen
-import com.example.hellocowcow.ui.screen.TokenScreen
+import com.example.hellocowcow.ui.viewmodels.screen.collection.screen.collection.CollectionScreen
+import com.example.hellocowcow.ui.viewmodels.screen.collection.screen.home.HomeScreen
+import com.example.hellocowcow.ui.viewmodels.screen.collection.screen.profile.ProfileScreen
+import com.example.hellocowcow.ui.viewmodels.screen.collection.screen.token.TokenScreen
 
 @Composable
 fun HostController(
@@ -27,7 +27,7 @@ fun HostController(
                 ItemNav.Home.route -> { HomeScreen(hiltViewModel()) }
                 ItemNav.Token.route -> { TokenScreen(hiltViewModel()) }
                 ItemNav.Collection.route -> { CollectionScreen(hiltViewModel()) }
-                ItemNav.Profile.route -> { ProfileScreen(hiltViewModel(), name = "Profile", address) }
+                ItemNav.Profile.route -> { ProfileScreen(hiltViewModel(), address) }
             }
         }
     }

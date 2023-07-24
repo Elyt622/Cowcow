@@ -1,4 +1,4 @@
-package com.example.hellocowcow.ui.screen
+package com.example.hellocowcow.ui.viewmodels.screen.collection.screen.profile
 
 import android.content.Intent
 import android.widget.Toast
@@ -28,7 +28,7 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.hellocowcow.app.module.nft.NftActivity
 import com.example.hellocowcow.ui.theme.Typography2
-import com.example.hellocowcow.ui.viewmodels.screen.MarketViewModel
+import com.example.hellocowcow.ui.viewmodels.screen.profile.MarketViewModel
 
 @OptIn(ExperimentalGlideComposeApi::class, ExperimentalMaterial3Api::class)
 @Composable

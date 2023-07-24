@@ -1,4 +1,4 @@
-package com.example.hellocowcow.ui.screen
+package com.example.hellocowcow.ui.viewmodels.screen.collection.screen.profile
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,18 +17,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.hellocowcow.ui.viewmodels.screen.MarketViewModel
-import com.example.hellocowcow.ui.viewmodels.screen.ProfileViewModel
-import com.example.hellocowcow.ui.viewmodels.screen.StakeViewModel
-import com.example.hellocowcow.ui.viewmodels.screen.WalletViewModel
+import com.example.hellocowcow.ui.viewmodels.screen.profile.MarketViewModel
+import com.example.hellocowcow.ui.viewmodels.screen.profile.ProfileViewModel
+import com.example.hellocowcow.ui.viewmodels.screen.profile.StakeViewModel
+import com.example.hellocowcow.ui.viewmodels.screen.profile.WalletViewModel
 
 @Composable
 fun ProfileScreen(
     viewModel: ProfileViewModel,
-    name: String,
     address: String
 ) {
-
 
     Column(
         Modifier.padding(bottom = 50.dp),
@@ -36,7 +34,7 @@ fun ProfileScreen(
     ) {
 
         Text(
-            text = "Hello $name !",
+            text = "Hello $address !",
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier
                 .padding(16.dp)

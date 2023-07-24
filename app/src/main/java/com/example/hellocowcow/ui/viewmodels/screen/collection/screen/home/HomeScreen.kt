@@ -1,4 +1,4 @@
-package com.example.hellocowcow.ui.screen
+package com.example.hellocowcow.ui.viewmodels.screen.collection.screen.home
 
 import android.content.Intent
 import androidx.compose.foundation.Image
@@ -19,7 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.hellocowcow.R
 import com.example.hellocowcow.app.module.InfoActivity
-import com.example.hellocowcow.ui.viewmodels.screen.HomeViewModel
+import com.example.hellocowcow.ui.viewmodels.screen.home.HomeViewModel
 
 @Composable
 fun HomeScreen(

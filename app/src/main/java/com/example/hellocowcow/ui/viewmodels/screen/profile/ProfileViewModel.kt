@@ -1,4 +1,4 @@
-package com.example.hellocowcow.ui.viewmodels.screen
+package com.example.hellocowcow.ui.viewmodels.screen.profile
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

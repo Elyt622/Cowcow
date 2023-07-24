@@ -1,4 +1,4 @@
-package com.example.hellocowcow.ui.viewmodels.screen
+package com.example.hellocowcow.ui.viewmodels.screen.profile
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf

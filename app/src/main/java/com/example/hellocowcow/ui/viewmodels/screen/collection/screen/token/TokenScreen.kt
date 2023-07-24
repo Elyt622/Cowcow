@@ -1,4 +1,4 @@
-package com.example.hellocowcow.ui.screen
+package com.example.hellocowcow.ui.viewmodels.screen.collection.screen.token
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -34,24 +34,25 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.hellocowcow.R
-import com.example.hellocowcow.ui.viewmodels.screen.CollectionViewModel
+import com.example.hellocowcow.ui.viewmodels.screen.token.TokenViewModel
+import kotlin.math.roundToInt
 
 @Composable
-fun CollectionScreen(
-    viewModel: CollectionViewModel
+fun TokenScreen(
+    viewModel: TokenViewModel
 ) {
     val context = LocalContext.current
-    val uiState by viewModel.uiState.collectAsState()
+    val uiStateT by viewModel.uiStateT.collectAsState()
+    val uiStateR by viewModel.uiStateR.collectAsState()
 
     val cardColors = CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.primary,
         contentColor = Color.Black
     )
 
-    Surface(
-        modifier = Modifier
-            .padding(bottom = 10.dp)
-            .verticalScroll(rememberScrollState()),
+    Surface(modifier = Modifier
+        .padding(bottom = 10.dp)
+        .verticalScroll(rememberScrollState()),
         color = MaterialTheme.colorScheme.background
     ) {
         Column(
@@ -68,7 +69,6 @@ fun CollectionScreen(
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold
             )
-
             Text(
                 text = "Moove Together.",
                 fontSize = 28.sp,
@@ -88,10 +88,11 @@ fun CollectionScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Cows Unbonding",
+                    text = "Moove Price",
                     fontSize = 20.sp,
                     color = MaterialTheme.colorScheme.primary
                 )
+
                 Spacer(modifier = Modifier.size(10.dp))
 
                 ElevatedCard(
@@ -101,287 +102,25 @@ fun CollectionScreen(
                     Row(
                         Modifier.padding(8.dp)
                     ) {
-                        when (uiState) {
-                            is CollectionViewModel.UiState.Loading -> Box(
+                        when (uiStateT) {
+                            is TokenViewModel.UiStateToken.Loading -> Box(
                                 modifier = Modifier.width(60.dp),
                                 contentAlignment = Alignment.Center
                             ) {
                                 CircularProgressIndicator(color = Color.Black)
                             }
 
-                            is CollectionViewModel.UiState.Success -> Text(
-                                text = (uiState as CollectionViewModel.UiState.Success)
-                                    .data.unbondingCows.toString(),
+                            is TokenViewModel.UiStateToken.Success -> Text(
+                                text = (uiStateT as TokenViewModel.UiStateToken.Success)
+                                    .data.price.toString()
+                                    .substring(0, 5),
                                 fontSize = 35.sp
                             )
 
-                            is CollectionViewModel.UiState.Error ->
+                            is TokenViewModel.UiStateToken.Error ->
                                 Toast.makeText(
                                     context,
-                                    (uiState as CollectionViewModel.UiState.Error).error,
-                                    Toast.LENGTH_LONG
-                                )
-                                    .show()
-                        }
-                    }
-                }
-
-                Spacer(modifier = Modifier.size(20.dp))
-
-                Divider(
-                    color = MaterialTheme.colorScheme.primary,
-                    thickness = 1.dp
-                )
-            }
-
-            Column(
-                Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "Cows Staked",
-                    fontSize = 20.sp,
-                    color = MaterialTheme.colorScheme.primary
-                )
-                Spacer(modifier = Modifier.size(10.dp))
-
-                ElevatedCard(
-                    colors = cardColors,
-                    elevation = CardDefaults.cardElevation(20.dp)
-                ) {
-                    Row(
-                        Modifier.padding(8.dp)
-                    ) {
-                        when (uiState) {
-                            is CollectionViewModel.UiState.Loading -> Box(
-                                modifier = Modifier.width(60.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                CircularProgressIndicator(color = Color.Black)
-                            }
-
-                            is CollectionViewModel.UiState.Success -> Text(
-                                text = (uiState as CollectionViewModel.UiState.Success)
-                                    .data.stakedCows.toString(),
-                                fontSize = 35.sp
-                            )
-
-                            is CollectionViewModel.UiState.Error ->
-                                Toast.makeText(
-                                    context,
-                                    (uiState as CollectionViewModel.UiState.Error).error,
-                                    Toast.LENGTH_LONG
-                                )
-                                    .show()
-                        }
-                    }
-                }
-
-                Spacer(modifier = Modifier.size(20.dp))
-
-                Divider(
-                    color = MaterialTheme.colorScheme.primary,
-                    thickness = 1.dp
-                )
-            }
-            Column(
-                Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "Cows Upgraded",
-                    fontSize = 20.sp,
-                    color = MaterialTheme.colorScheme.primary
-                )
-                Spacer(modifier = Modifier.size(10.dp))
-
-                ElevatedCard(
-                    colors = cardColors,
-                    elevation = CardDefaults.cardElevation(20.dp)
-                ) {
-                    Row(
-                        Modifier.padding(8.dp)
-                    ) {
-                        when (uiState) {
-                            is CollectionViewModel.UiState.Loading -> Box(
-                                modifier = Modifier.width(60.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                CircularProgressIndicator(color = Color.Black)
-                            }
-
-                            is CollectionViewModel.UiState.Success -> Text(
-                                text = (uiState as CollectionViewModel.UiState.Success)
-                                    .data.totalUpgradedCows.toString(),
-                                fontSize = 35.sp
-                            )
-
-                            is CollectionViewModel.UiState.Error ->
-                                Toast.makeText(
-                                    context,
-                                    (uiState as CollectionViewModel.UiState.Error).error,
-                                    Toast.LENGTH_LONG
-                                ).show()
-                        }
-                    }
-                }
-
-                Spacer(modifier = Modifier.size(20.dp))
-
-                Divider(
-                    color = MaterialTheme.colorScheme.primary,
-                    thickness = 1.dp
-                )
-            }
-
-            Column(
-                Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "Cows Holders",
-                    fontSize = 20.sp,
-                    color = MaterialTheme.colorScheme.primary
-                )
-                Spacer(modifier = Modifier.size(10.dp))
-
-                ElevatedCard(
-                    colors = cardColors,
-                    elevation = CardDefaults.cardElevation(20.dp)
-                ) {
-                    Row(
-                        Modifier.padding(8.dp)
-                    ) {
-                        when (uiState) {
-                            is CollectionViewModel.UiState.Loading -> Box(
-                                modifier = Modifier.width(60.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                CircularProgressIndicator(color = Color.Black)
-                            }
-
-                            is CollectionViewModel.UiState.Success -> Text(
-                                text = (uiState as CollectionViewModel.UiState.Success)
-                                    .data.holdersCows.toString(),
-                                fontSize = 35.sp
-                            )
-
-                            is CollectionViewModel.UiState.Error ->
-                                Toast.makeText(
-                                    context,
-                                    (uiState as CollectionViewModel.UiState.Error).error,
-                                    Toast.LENGTH_LONG
-                                )
-                                    .show()
-                        }
-                    }
-                }
-
-                Spacer(modifier = Modifier.size(20.dp))
-
-                Divider(
-                    color = MaterialTheme.colorScheme.primary,
-                    thickness = 1.dp
-                )
-            }
-
-            Column(
-                Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "Cows Listed",
-                    fontSize = 20.sp,
-                    color = MaterialTheme.colorScheme.primary
-                )
-                Spacer(modifier = Modifier.size(10.dp))
-
-                ElevatedCard(
-                    colors = cardColors,
-                    elevation = CardDefaults.cardElevation(20.dp)
-                ) {
-                    Row(
-                        Modifier.padding(8.dp)
-                    ) {
-                        when (uiState) {
-                            is CollectionViewModel.UiState.Loading -> Box(
-                                modifier = Modifier.width(60.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                CircularProgressIndicator(color = Color.Black)
-                            }
-
-                            is CollectionViewModel.UiState.Success -> Text(
-                                text = (uiState as CollectionViewModel.UiState.Success)
-                                    .data.listedCows.toString(),
-                                fontSize = 35.sp
-                            )
-
-                            is CollectionViewModel.UiState.Error ->
-                                Toast.makeText(
-                                    context,
-                                    (uiState as CollectionViewModel.UiState.Error).error,
-                                    Toast.LENGTH_LONG
-                                )
-                                    .show()
-                        }
-                    }
-                }
-
-                Spacer(modifier = Modifier.size(20.dp))
-
-                Divider(
-                    color = MaterialTheme.colorScheme.primary,
-                    thickness = 1.dp
-                )
-            }
-
-            Column(
-                Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "Cows FP",
-                    fontSize = 20.sp,
-                    color = MaterialTheme.colorScheme.primary
-                )
-                Spacer(modifier = Modifier.size(10.dp))
-
-                ElevatedCard(
-                    colors = cardColors,
-                    elevation = CardDefaults.cardElevation(20.dp)
-                ) {
-                    Row(
-                        Modifier.padding(8.dp)
-                    ) {
-                        when (uiState) {
-                            is CollectionViewModel.UiState.Loading -> Box(
-                                modifier = Modifier.width(60.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                CircularProgressIndicator(color = Color.Black)
-                            }
-
-                            is CollectionViewModel.UiState.Success -> Text(
-                                text = (uiState as CollectionViewModel.UiState.Success)
-                                    .data.floorPriceCows.toString(),
-                                fontSize = 35.sp
-                            )
-
-                            is CollectionViewModel.UiState.Error ->
-                                Toast.makeText(
-                                    context,
-                                    (uiState as CollectionViewModel.UiState.Error).error,
+                                    (uiStateT as TokenViewModel.UiStateToken.Error).error,
                                     Toast.LENGTH_LONG
                                 )
                                     .show()
@@ -392,68 +131,7 @@ fun CollectionScreen(
                                 .align(Alignment.CenterVertically)
                                 .padding(start = 4.dp)
                                 .size(35.dp),
-                            imageVector = ImageVector.vectorResource(id = R.drawable.egld),
-                            contentDescription = ""
-                        )
-                    }
-                }
-                Spacer(modifier = Modifier.size(20.dp))
-
-                Divider(
-                    color = MaterialTheme.colorScheme.primary,
-                    thickness = 1.dp
-                )
-            }
-
-            Column(
-                Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "Ticket FP",
-                    fontSize = 20.sp,
-                    color = MaterialTheme.colorScheme.primary
-                )
-                Spacer(modifier = Modifier.size(10.dp))
-
-                ElevatedCard(
-                    colors = cardColors,
-                    elevation = CardDefaults.cardElevation(20.dp)
-                ) {
-                    Row(
-                        Modifier.padding(8.dp)
-                    ) {
-                        when (uiState) {
-                            is CollectionViewModel.UiState.Loading -> Box(
-                                modifier = Modifier.width(60.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                CircularProgressIndicator(color = Color.Black)
-                            }
-
-                            is CollectionViewModel.UiState.Success -> Text(
-                                text = (uiState as CollectionViewModel.UiState.Success)
-                                    .data.floorPriceTickets.toString(),
-                                fontSize = 35.sp
-                            )
-
-                            is CollectionViewModel.UiState.Error ->
-                                Toast.makeText(
-                                    context,
-                                    (uiState as CollectionViewModel.UiState.Error).error,
-                                    Toast.LENGTH_LONG
-                                )
-                                    .show()
-                        }
-
-                        Image(
-                            modifier = Modifier
-                                .align(Alignment.CenterVertically)
-                                .padding(start = 4.dp)
-                                .size(35.dp),
-                            imageVector = ImageVector.vectorResource(id = R.drawable.egld),
+                            imageVector = ImageVector.vectorResource(id = R.drawable.usdc),
                             contentDescription = ""
                         )
                     }
@@ -474,10 +152,17 @@ fun CollectionScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Tickets Used",
+                    text = "Total Circulation Supply",
                     fontSize = 20.sp,
                     color = MaterialTheme.colorScheme.primary
                 )
+
+                Text(
+                    text = "* without unclaimed Moove",
+                    fontSize = 11.sp,
+                    color = MaterialTheme.colorScheme.primary
+                )
+
                 Spacer(modifier = Modifier.size(10.dp))
 
                 ElevatedCard(
@@ -487,26 +172,26 @@ fun CollectionScreen(
                     Row(
                         Modifier.padding(8.dp)
                     ) {
-                        when (uiState) {
-                            is CollectionViewModel.UiState.Loading -> Box(
+                        when (uiStateT) {
+                            is TokenViewModel.UiStateToken.Loading -> Box(
                                 modifier = Modifier.width(60.dp),
                                 contentAlignment = Alignment.Center
                             ) {
                                 CircularProgressIndicator(color = Color.Black)
                             }
 
-                            is CollectionViewModel.UiState.Success -> Text(
-                                text = (uiState as CollectionViewModel.UiState.Success)
-                                    .data.ticketUsed?.Chapter4.toString(),
+                            is TokenViewModel.UiStateToken.Success -> Text(
+                                text = (uiStateT as TokenViewModel.UiStateToken.Success)
+                                    .data.circulatingSupply.toString(),
                                 fontSize = 35.sp
                             )
 
-                            is CollectionViewModel.UiState.Error ->
-                                Toast.makeText(
-                                    context,
-                                    (uiState as CollectionViewModel.UiState.Error).error,
-                                    Toast.LENGTH_LONG
-                                ).show()
+                            is TokenViewModel.UiStateToken.Error -> Toast.makeText(
+                                context,
+                                (uiStateT as TokenViewModel.UiStateToken.Error).error,
+                                Toast.LENGTH_LONG
+                            )
+                                .show()
                         }
 
                         Image(
@@ -514,11 +199,231 @@ fun CollectionScreen(
                                 .align(Alignment.CenterVertically)
                                 .padding(start = 4.dp)
                                 .size(35.dp),
-                            imageVector = ImageVector.vectorResource(id = R.drawable.ticket),
+                            imageVector = ImageVector.vectorResource(id = R.drawable.moovelogo),
                             contentDescription = ""
                         )
                     }
                 }
+
+                Spacer(modifier = Modifier.size(20.dp))
+
+                Divider(
+                    color = MaterialTheme.colorScheme.primary,
+                    thickness = 1.dp
+                )
+            }
+
+
+            Column(
+                Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Unclaimed Moove",
+                    fontSize = 20.sp,
+                    color = MaterialTheme.colorScheme.primary
+                )
+
+                Spacer(modifier = Modifier.size(10.dp))
+
+                ElevatedCard(
+                    colors = cardColors,
+                    elevation = CardDefaults.cardElevation(20.dp)
+                ) {
+                    Row(
+                        Modifier.padding(8.dp)
+                    ) {
+                        when (uiStateR) {
+                            is TokenViewModel.UiStateReward.Loading -> Box(
+                                modifier = Modifier.width(60.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                CircularProgressIndicator(color = Color.Black)
+                            }
+
+                            is TokenViewModel.UiStateReward.Success -> Text(
+                                text = (uiStateR as TokenViewModel.UiStateReward.Success).data.unclaimedMoove,
+                                fontSize = 35.sp
+                            )
+
+                            is TokenViewModel.UiStateReward.Error -> Toast.makeText(
+                                context,
+                                (uiStateR as TokenViewModel.UiStateReward.Error).error,
+                                Toast.LENGTH_LONG
+                            )
+                                .show()
+                        }
+
+                        Image(
+                            modifier = Modifier
+                                .align(Alignment.CenterVertically)
+                                .padding(start = 4.dp)
+                                .size(35.dp),
+                            imageVector = ImageVector.vectorResource(id = R.drawable.moovelogo),
+                            contentDescription = ""
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.size(20.dp))
+
+                Divider(
+                    color = MaterialTheme.colorScheme.primary,
+                    thickness = 1.dp
+                )
+            }
+
+            Column(
+                Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "MarketCap",
+                    fontSize = 20.sp,
+                    color = MaterialTheme.colorScheme.primary
+                )
+
+                Spacer(modifier = Modifier.size(10.dp))
+
+                ElevatedCard(
+                    colors = cardColors,
+                    elevation = CardDefaults.cardElevation(20.dp)
+                ) {
+                    Row(
+                        Modifier.padding(8.dp)
+                    ) {
+                        when (uiStateT) {
+                            is TokenViewModel.UiStateToken.Loading -> Box(
+                                modifier = Modifier.width(60.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                CircularProgressIndicator(color = Color.Black)
+                            }
+
+                            is TokenViewModel.UiStateToken.Success -> Text(
+                                text = (uiStateT as TokenViewModel.UiStateToken.Success).data.marketCap?.roundToInt()
+                                    .toString() + " $",
+                                fontSize = 35.sp
+                            )
+
+                            is TokenViewModel.UiStateToken.Error -> Toast.makeText(
+                                context,
+                                (uiStateT as TokenViewModel.UiStateToken.Error).error,
+                                Toast.LENGTH_LONG
+                            )
+                                .show()
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.size(20.dp))
+
+                Divider(
+                    color = MaterialTheme.colorScheme.primary,
+                    thickness = 1.dp
+                )
+            }
+
+            Column(
+                Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Holders",
+                    fontSize = 20.sp,
+                    color = MaterialTheme.colorScheme.primary
+                )
+
+                Spacer(modifier = Modifier.size(10.dp))
+
+                ElevatedCard(
+                    colors = cardColors,
+                    elevation = CardDefaults.cardElevation(20.dp)
+                ) {
+                    Row(
+                        Modifier.padding(8.dp)
+                    ) {
+                        when (uiStateT) {
+                            is TokenViewModel.UiStateToken.Loading -> Box(
+                                modifier = Modifier.width(60.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                CircularProgressIndicator(color = Color.Black)
+                            }
+
+                            is TokenViewModel.UiStateToken.Success -> Text(
+                                text = (uiStateT as TokenViewModel.UiStateToken.Success).data.accounts.toString(),
+                                fontSize = 35.sp
+                            )
+
+                            is TokenViewModel.UiStateToken.Error -> Toast.makeText(
+                                context,
+                                (uiStateT as TokenViewModel.UiStateToken.Error).error,
+                                Toast.LENGTH_LONG
+                            )
+                                .show()
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.size(20.dp))
+
+                Divider(
+                    color = MaterialTheme.colorScheme.primary,
+                    thickness = 1.dp
+                )
+            }
+
+            Column(
+                Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Transactions",
+                    fontSize = 20.sp,
+                    color = MaterialTheme.colorScheme.primary
+                )
+
+                Spacer(modifier = Modifier.size(10.dp))
+
+                ElevatedCard(
+                    colors = cardColors,
+                    elevation = CardDefaults.cardElevation(20.dp)
+                ) {
+                    Row(
+                        Modifier.padding(8.dp)
+                    ) {
+                        when (uiStateT) {
+                            is TokenViewModel.UiStateToken.Loading -> Box(
+                                modifier = Modifier.width(60.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                CircularProgressIndicator(color = Color.Black)
+                            }
+
+                            is TokenViewModel.UiStateToken.Success -> Text(
+                                text = (uiStateT as TokenViewModel.UiStateToken.Success).data.transactions.toString(),
+                                fontSize = 35.sp
+                            )
+
+                            is TokenViewModel.UiStateToken.Error -> Toast.makeText(
+                                context,
+                                (uiStateT as TokenViewModel.UiStateToken.Error).error,
+                                Toast.LENGTH_LONG
+                            )
+                                .show()
+                        }
+                    }
+                }
+
                 Spacer(modifier = Modifier.size(20.dp))
 
                 Divider(
@@ -529,4 +434,7 @@ fun CollectionScreen(
         }
     }
 }
+
+
+
 

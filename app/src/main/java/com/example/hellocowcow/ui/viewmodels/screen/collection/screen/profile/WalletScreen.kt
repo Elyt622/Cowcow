@@ -1,4 +1,4 @@
-package com.example.hellocowcow.ui.screen
+package com.example.hellocowcow.ui.viewmodels.screen.collection.screen.profile
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.hellocowcow.ui.theme.Typography2
-import com.example.hellocowcow.ui.viewmodels.screen.WalletViewModel
+import com.example.hellocowcow.ui.viewmodels.screen.profile.WalletViewModel
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
