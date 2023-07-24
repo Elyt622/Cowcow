@@ -16,7 +16,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.hellocowcow.ui.viewmodels.screen.MarketViewModel
 import com.example.hellocowcow.ui.viewmodels.screen.ProfileViewModel
@@ -38,12 +37,12 @@ fun ProfileScreen(
 
         Text(
             text = "Hello $name !",
-            fontSize = 22.sp,
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier
                 .padding(16.dp)
                 .fillMaxWidth(),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.labelMedium
         )
         TabScreen(address)
     }
