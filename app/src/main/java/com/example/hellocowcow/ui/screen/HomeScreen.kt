@@ -37,7 +37,15 @@ fun HomeScreen(
     ) {
         Image(
             painter = painterResource(id = R.drawable.thecity),
-            contentDescription = "The City"
+            contentDescription = "The City",
+            Modifier.clickable {
+                    val intent = Intent(
+                        context,
+                        InfoActivity::class.java
+                    )
+                    intent.putExtra("IMAGE", "THE_CITY")
+                    context.startActivity(intent)
+                }
         )
 
         Spacer(modifier = Modifier.size(5.dp))
@@ -49,17 +57,26 @@ fun HomeScreen(
                 Modifier
                     .fillMaxWidth(0.66F)
                     .clickable {
-                        context.startActivity(
-                            Intent(
-                                context,
-                                InfoActivity::class.java)
+                        val intent = Intent(
+                            context,
+                            InfoActivity::class.java
                         )
+                        intent.putExtra("IMAGE", "COWCOW")
+                        context.startActivity(intent)
                     }
             )
             Spacer(modifier = Modifier.size(5.dp))
             Image(
                 painter = painterResource(id = R.drawable.raffle),
-                contentDescription = "Raffle"
+                contentDescription = "Raffle",
+                Modifier.clickable {
+                    val intent = Intent(
+                        context,
+                        InfoActivity::class.java
+                    )
+                    intent.putExtra("IMAGE", "RAFFLE")
+                    context.startActivity(intent)
+                }
             )
         }
 
@@ -67,7 +84,15 @@ fun HomeScreen(
 
         Image(
             painter = painterResource(id = R.drawable.urban_plan),
-            contentDescription = "Urban Plan"
+            contentDescription = "Urban Plan",
+            Modifier.clickable {
+                val intent = Intent(
+                    context,
+                    InfoActivity::class.java
+                )
+                intent.putExtra("IMAGE", "URBAN_PLAN")
+                context.startActivity(intent)
+            }
         )
 
         Spacer(modifier = Modifier.size(5.dp))
@@ -75,7 +100,15 @@ fun HomeScreen(
         Row (Modifier.height(115.dp)){
             Image(
                 painter = painterResource(id = R.drawable.staking),
-                contentDescription = "Staking"
+                contentDescription = "Staking",
+                Modifier.clickable {
+                    val intent = Intent(
+                        context,
+                        InfoActivity::class.java
+                    )
+                    intent.putExtra("IMAGE", "STAKING")
+                    context.startActivity(intent)
+                }
             )
 
             Spacer(modifier = Modifier.size(5.dp))
@@ -83,7 +116,16 @@ fun HomeScreen(
             Image(
                 painter = painterResource(id = R.drawable.manifesto),
                 contentDescription = "Manifesto",
-                Modifier.fillMaxWidth(1.1F)
+                Modifier
+                    .fillMaxWidth(1.1F)
+                    .clickable {
+                    val intent = Intent(
+                        context,
+                        InfoActivity::class.java
+                    )
+                    intent.putExtra("IMAGE", "MANIFESTO")
+                    context.startActivity(intent)
+                }
             )
         }
 
@@ -91,7 +133,15 @@ fun HomeScreen(
 
         Image(
             painter = painterResource(id = R.drawable.team),
-            contentDescription = "Team"
+            contentDescription = "Team",
+            Modifier.clickable {
+                val intent = Intent(
+                    context,
+                    InfoActivity::class.java
+                )
+                intent.putExtra("IMAGE", "TEAM")
+                context.startActivity(intent)
+            }
         )
 
         Spacer(modifier = Modifier.size(5.dp))
@@ -100,13 +150,30 @@ fun HomeScreen(
             Image(
                 painter = painterResource(id = R.drawable.origins),
                 contentDescription = "Origins",
-                Modifier.fillMaxWidth(0.66F))
+                Modifier.fillMaxWidth(0.66F)
+                        .clickable {
+                    val intent = Intent(
+                        context,
+                        InfoActivity::class.java
+                    )
+                    intent.putExtra("IMAGE", "ORIGINS")
+                    context.startActivity(intent)
+                })
 
             Spacer(modifier = Modifier.size(5.dp))
 
             Image(
                 painter = painterResource(id = R.drawable.twenty_three),
-                contentDescription = "23")
+                contentDescription = "23",
+                Modifier.clickable {
+                    val intent = Intent(
+                        context,
+                        InfoActivity::class.java
+                    )
+                    intent.putExtra("IMAGE", "TWENTY_THREE")
+                    context.startActivity(intent)
+                }
+            )
         }
     }
 }
