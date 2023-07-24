@@ -1,5 +1,6 @@
 package com.example.hellocowcow.ui.screen
 
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.hellocowcow.R
+import com.example.hellocowcow.app.module.InfoActivity
 import com.example.hellocowcow.ui.viewmodels.screen.HomeViewModel
 
 @Composable
@@ -47,7 +49,11 @@ fun HomeScreen(
                 Modifier
                     .fillMaxWidth(0.66F)
                     .clickable {
-                        //context.startActivity(Intent(context, LoginActivity::class.java))
+                        context.startActivity(
+                            Intent(
+                                context,
+                                InfoActivity::class.java)
+                        )
                     }
             )
             Spacer(modifier = Modifier.size(5.dp))
