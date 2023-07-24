@@ -25,8 +25,7 @@ class LoginViewModel : ViewModel() {
                 apprSession = approvedSession
                 // Triggered when dapp receives the session approval from wallet
                 Timber.tag("Session_Approved").d("Session was approved by the wallet")
-                Timber.tag("Session_Topic")
-                    .d("Approved session's topic is: %s", approvedSession.topic)
+                Timber.tag("Session_Topic").d("Approved session's topic is: %s", approvedSession.topic)
                 Timber.tag("ACCOUNT").d(apprSession!!.accounts[0])
                 topic = apprSession!!.topic
                 address = apprSession!!.accounts[0].removePrefix("mvx:D:")
@@ -58,16 +57,10 @@ class LoginViewModel : ViewModel() {
             }
 
             override fun onSessionRequestResponse(response: Sign.Model.SessionRequestResponse) {
-                address = apprSession!!.accounts[0].removePrefix("mvx:D:")
-                topic = apprSession!!.topic
-                startActivitySubject.onNext(Unit)
                 Timber.tag("Received_Session_Request_Response").d(response.toString())
-                Timber.tag("RESPONSE").d(response.result.toString())
             }
 
             override fun onConnectionStateChange(state: Sign.Model.ConnectionState) {
-                if (apprSession != null)
-                    Timber.tag("ACCOUNT0").d(apprSession!!.accounts[0])
                 //Triggered whenever the connection state is changed
                 Timber.tag("Connection_State_Changed").d(state.toString())
             }
