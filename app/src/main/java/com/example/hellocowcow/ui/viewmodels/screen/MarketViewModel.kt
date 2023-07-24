@@ -9,7 +9,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,23 +34,22 @@ class MarketViewModel @Inject constructor(
     val uiState: StateFlow<UiState> = _uiState
 
     fun getCowsListing() =
-        nftRepository.getCowsListing(address.value)
-        .map {
-            if (it.groupedByCollection.isEmpty())
-                _uiState.value = UiState.NoData
-            it.groupedByCollection
-        }
-        .flatMapIterable { it }
-        .filter { collection -> collection.ticker == "COW-cd463d" }
-        .subscribeBy (
-                onNext = {
-                    Timber.tag("DEBUGGG").d(it.ticker)
-                    if (it.nfts.isNotEmpty())
-                        _uiState.value = UiState.Success(it.nfts.toList())
-                },
-                onError = {
-                    _uiState.value = UiState.Error(it.message.toString())
+            nftRepository.getCowsListing(address.value)
+                .map {
+                    it.groupedByCollection
                 }
-            ).isDisposed
-
+                .flatMapIterable { it }
+                .filter { collection -> collection.ticker == "COW-cd463d" }
+                .toList()
+        .subscribeBy (
+            onSuccess = {
+                if (it.isNotEmpty())
+                    _uiState.value = UiState.Success(it[0].nfts.toList())
+                else
+                    _uiState.value = UiState.NoData
+            },
+            onError = {
+                _uiState.value = UiState.Error(it.message.toString())
+            }
+        )
 }
