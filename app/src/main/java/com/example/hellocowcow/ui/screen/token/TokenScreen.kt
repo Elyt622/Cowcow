@@ -1,4 +1,4 @@
-package com.example.hellocowcow.ui.viewmodels.screen.collection.screen.token
+package com.example.hellocowcow.ui.screen.token
 
 import android.widget.Toast
 import androidx.compose.foundation.Image

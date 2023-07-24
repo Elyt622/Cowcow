@@ -1,4 +1,4 @@
-package com.example.hellocowcow.ui.viewmodels.screen.collection.screen.profile
+package com.example.hellocowcow.ui.screen.profile
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

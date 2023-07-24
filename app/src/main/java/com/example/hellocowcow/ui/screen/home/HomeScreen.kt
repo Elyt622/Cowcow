@@ -1,4 +1,4 @@
-package com.example.hellocowcow.ui.viewmodels.screen.collection.screen.home
+package com.example.hellocowcow.ui.screen.home
 
 import android.content.Intent
 import androidx.compose.foundation.Image

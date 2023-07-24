@@ -1,5 +1,6 @@
-package com.example.hellocowcow.ui.viewmodels.screen.collection.screen.profile
+package com.example.hellocowcow.ui.screen.profile
 
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,6 +13,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,45 +26,64 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.example.hellocowcow.app.module.nft.NftActivity
 import com.example.hellocowcow.ui.theme.Typography2
-import com.example.hellocowcow.ui.viewmodels.screen.profile.WalletViewModel
+import com.example.hellocowcow.ui.viewmodels.screen.profile.MarketViewModel
 
-@OptIn(ExperimentalGlideComposeApi::class)
+@OptIn(ExperimentalGlideComposeApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun WalletScreen(
-    viewModel: WalletViewModel
+fun MarketScreen(
+    viewModel: MarketViewModel
 ) {
-
     val uiState by viewModel.uiState.collectAsState()
-    viewModel.getAllCowsInWallet()
+    val context = LocalContext.current
+    viewModel.getCowsListing()
     val cardColors = CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.primary,
         contentColor = Color.Black
     )
 
     when (uiState) {
-        is WalletViewModel.UiState.Success -> {
-            (uiState as WalletViewModel.UiState.Success).data.let { nfts ->
+        is MarketViewModel.UiState.Success -> {
+            (uiState as MarketViewModel.UiState.Success).data.let { nfts ->
                 Text(
                     modifier = Modifier.padding(start = 8.dp, top = 8.dp),
                     text = "Cows: " + nfts.size.toString(),
                     style = MaterialTheme.typography.labelMedium
                 )
                 LazyVerticalGrid(
-                    modifier = Modifier.padding(start = 8.dp, end = 8.dp, bottom = 50.dp),
+                    modifier = Modifier.padding(
+                        start = 8.dp,
+                        end = 8.dp,
+                        bottom = 40.dp
+                    ),
                     columns = GridCells.Adaptive(150.dp),
                     content = {
                         items(nfts) { nft ->
                             ElevatedCard(
                                 colors = cardColors,
-                                modifier = Modifier.padding(8.dp)
+                                modifier = Modifier.padding(8.dp),
+                                elevation = CardDefaults.cardElevation(8.dp),
+                                onClick = {
+                                    val intent = Intent(
+                                        context,
+                                        NftActivity::class.java
+                                    )
+                                    intent.putExtra("IDENTIFIER", nft.identifier)
+                                    context.startActivity(intent)
+                                }
                             ) {
                                 GlideImage(
                                     model = nft.url,
                                     contentDescription = nft.collection,
                                     modifier = Modifier
-                                        .padding(start = 8.dp, end = 8.dp, top = 8.dp)
+                                        .padding(
+                                            start = 8.dp,
+                                            end = 8.dp,
+                                            top = 8.dp
+                                        )
                                 )
+
                                 Column(
                                     Modifier
                                         .align(Alignment.CenterHorizontally)
@@ -74,11 +95,6 @@ fun WalletScreen(
                                         text = nft.name.toString(),
                                         style = Typography2.bodyLarge
                                     )
-                                    Text(
-                                        color = MaterialTheme.colorScheme.background,
-                                        text = "Rank : " + nft.rank.toString(),
-                                        style = Typography2.labelMedium
-                                    )
                                 }
                             }
                         }
@@ -86,7 +102,8 @@ fun WalletScreen(
                 )
             }
         }
-        is WalletViewModel.UiState.Loading -> Box(
+
+        is MarketViewModel.UiState.Loading -> Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
@@ -95,26 +112,26 @@ fun WalletScreen(
                 color = MaterialTheme.colorScheme.primary
             )
         }
-        is WalletViewModel.UiState.Error -> {
+
+        is MarketViewModel.UiState.Error -> {
             Toast.makeText(
                 LocalContext.current,
-                (uiState as WalletViewModel.UiState.Error).error,
+                (uiState as MarketViewModel.UiState.Error).error,
                 Toast.LENGTH_LONG
             ).show()
         }
-        is WalletViewModel.UiState.NoData -> {
+
+        is MarketViewModel.UiState.NoData -> {
             Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "No NFT in the wallet !",
+                    text = "No NFT on the market place !",
                     style = Typography2.bodyLarge
                 )
             }
         }
     }
-
-
 }
 

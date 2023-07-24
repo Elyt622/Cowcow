@@ -1,4 +1,4 @@
-package com.example.hellocowcow.ui.viewmodels.screen.collection.screen.profile
+package com.example.hellocowcow.ui.screen.profile
 
 import android.content.Intent
 import android.widget.Toast
