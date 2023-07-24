@@ -14,9 +14,10 @@
         android:theme="@style/AppSplash"
         tools:replace="android:dataExtractionRules"
         tools:targetApi="31">
-
-        <activity android:name=".app.module.nft.NftActivity"/>
-
+        <activity
+            android:name=".app.module.InfoActivity"
+            android:exported="false"/>
+        <activity android:name=".app.module.nft.NftActivity" />
         <activity
             android:name=".app.module.login.activity.LoginActivity"
             android:exported="true" />
@@ -32,7 +33,6 @@
         <activity
             android:name=".app.module.main.activity.MainActivity"
             android:exported="true" />
-
     </application>
 
 </manifest>
