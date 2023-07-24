@@ -83,7 +83,7 @@ class LoginActivity : ComponentActivity() {
                                 .putExtra("ADDRESS", viewModel.address)
                                 .putExtra("TOPIC", viewModel.topic)
                             startActivity(intent)
-
+                            finish()
                         }.isDisposed
                     startActivity(
                         Intent(
