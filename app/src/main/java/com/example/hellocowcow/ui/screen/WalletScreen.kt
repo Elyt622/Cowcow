@@ -42,42 +42,49 @@ fun WalletScreen(
 
     when (uiState) {
         is WalletViewModel.UiState.Success -> {
-            LazyVerticalGrid(
-                modifier = Modifier.padding(start = 8.dp, end = 8.dp, bottom = 50.dp),
-                columns = GridCells.Adaptive(150.dp),
-                content = {
-                    items((uiState as WalletViewModel.UiState.Success).data) { nft ->
-                        ElevatedCard(
-                            colors = cardColors,
-                            modifier = Modifier.padding(8.dp)
-                        ) {
-                            GlideImage(
-                                model = nft.url,
-                                contentDescription = nft.collection,
-                                modifier = Modifier
-                                    .padding(start = 8.dp, end = 8.dp, top = 8.dp)
-                            )
-                            Column(
-                                Modifier
-                                    .align(Alignment.CenterHorizontally)
-                                    .padding(8.dp),
-                                horizontalAlignment = Alignment.CenterHorizontally
+            (uiState as WalletViewModel.UiState.Success).data.let { nfts ->
+                Text(
+                    modifier = Modifier.padding(start = 8.dp, top = 8.dp),
+                    text = "Cows: " + nfts.size.toString(),
+                    style = MaterialTheme.typography.labelMedium
+                )
+                LazyVerticalGrid(
+                    modifier = Modifier.padding(start = 8.dp, end = 8.dp, bottom = 50.dp),
+                    columns = GridCells.Adaptive(150.dp),
+                    content = {
+                        items(nfts) { nft ->
+                            ElevatedCard(
+                                colors = cardColors,
+                                modifier = Modifier.padding(8.dp)
                             ) {
-                                Text(
-                                    color = MaterialTheme.colorScheme.background,
-                                    text = nft.name.toString(),
-                                    style = Typography2.bodyLarge
+                                GlideImage(
+                                    model = nft.url,
+                                    contentDescription = nft.collection,
+                                    modifier = Modifier
+                                        .padding(start = 8.dp, end = 8.dp, top = 8.dp)
                                 )
-                                Text(
-                                    color = MaterialTheme.colorScheme.background,
-                                    text = "Rank : " + nft.rank.toString(),
-                                    style = Typography2.labelMedium
-                                )
+                                Column(
+                                    Modifier
+                                        .align(Alignment.CenterHorizontally)
+                                        .padding(8.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Text(
+                                        color = MaterialTheme.colorScheme.background,
+                                        text = nft.name.toString(),
+                                        style = Typography2.bodyLarge
+                                    )
+                                    Text(
+                                        color = MaterialTheme.colorScheme.background,
+                                        text = "Rank : " + nft.rank.toString(),
+                                        style = Typography2.labelMedium
+                                    )
+                                }
                             }
                         }
                     }
-                }
-            )
+                )
+            }
         }
         is WalletViewModel.UiState.Loading -> Box(
             modifier = Modifier.fillMaxSize(),

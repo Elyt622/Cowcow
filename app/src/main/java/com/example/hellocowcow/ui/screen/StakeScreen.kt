@@ -48,11 +48,17 @@ fun StakeScreen(
 
     when (uiState) {
         is StakeViewModel.UiState.Success -> {
+            (uiState as StakeViewModel.UiState.Success).data.let { nfts ->
+            Text(
+                modifier = Modifier.padding(start = 8.dp, top = 8.dp),
+                text = "Cows: " + nfts.size.toString(),
+                style = MaterialTheme.typography.labelMedium
+            )
             LazyVerticalGrid(
                 modifier = Modifier.padding(start = 8.dp, end = 8.dp, bottom = 40.dp),
                 columns = GridCells.Adaptive(150.dp),
                 content = {
-                    items((uiState as StakeViewModel.UiState.Success).data) { nft ->
+                    items(nfts) { nft ->
                         ElevatedCard(
                             colors = cardColors,
                             modifier = Modifier.padding(8.dp),
@@ -87,8 +93,8 @@ fun StakeScreen(
                             }
                         }
                     }
-                }
-            )
+                })
+            }
         }
         is StakeViewModel.UiState.Loading -> Box(
             modifier = Modifier.fillMaxSize(),
