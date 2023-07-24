@@ -10,7 +10,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.example.hellocowcow.ui.composables.MainScaffold
-import com.example.hellocowcow.ui.theme.XportalConnectTheme
+import com.example.hellocowcow.ui.theme.HelloCowCowTheme
 import com.example.hellocowcow.ui.viewmodels.activity.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
         topic = intent.getStringExtra("TOPIC").toString()
 
         setContent {
-            XportalConnectTheme {
+            HelloCowCowTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier

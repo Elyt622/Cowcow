@@ -58,7 +58,7 @@ import com.bumptech.glide.integration.compose.GlideImage
 import com.example.hellocowcow.data.response.xoxnoApi.AttributesResponse
 import com.example.hellocowcow.data.response.xoxnoApi.NftResponse
 import com.example.hellocowcow.data.response.xoxnoApi.OffersInfoResponse
-import com.example.hellocowcow.ui.theme.XportalConnectTheme
+import com.example.hellocowcow.ui.theme.HelloCowCowTheme
 import com.example.hellocowcow.ui.viewmodels.activity.NftViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -78,7 +78,7 @@ class NftActivity : ComponentActivity() {
         identifier = intent.getStringExtra("IDENTIFIER").toString()
         viewModel.getNft(identifier)
         setContent {
-            XportalConnectTheme {
+            HelloCowCowTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier

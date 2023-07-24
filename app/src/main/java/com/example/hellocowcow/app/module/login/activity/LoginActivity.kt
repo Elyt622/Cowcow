@@ -30,8 +30,8 @@ import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 import com.example.hellocowcow.R
 import com.example.hellocowcow.app.module.main.activity.MainActivity
+import com.example.hellocowcow.ui.theme.HelloCowCowTheme
 import com.example.hellocowcow.ui.viewmodels.activity.LoginViewModel
-import com.example.hellocowcow.ui.theme.XportalConnectTheme
 
 class LoginActivity : ComponentActivity() {
 
@@ -40,7 +40,7 @@ class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            XportalConnectTheme {
+            HelloCowCowTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
