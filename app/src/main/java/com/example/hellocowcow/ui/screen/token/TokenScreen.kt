@@ -10,12 +10,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -50,9 +48,10 @@ fun TokenScreen(
         contentColor = Color.Black
     )
 
-    Surface(modifier = Modifier
-        .padding(bottom = 10.dp)
-        .verticalScroll(rememberScrollState()),
+    Surface(
+        modifier = Modifier
+            .padding(bottom = 10.dp)
+            .verticalScroll(rememberScrollState()),
         color = MaterialTheme.colorScheme.background
     ) {
         Column(
@@ -89,8 +88,8 @@ fun TokenScreen(
             ) {
                 Text(
                     text = "Moove Price",
-                    fontSize = 20.sp,
-                    color = MaterialTheme.colorScheme.primary
+                    color = MaterialTheme.colorScheme.primary,
+                    style = MaterialTheme.typography.bodyLarge
                 )
 
                 Spacer(modifier = Modifier.size(10.dp))
@@ -103,34 +102,40 @@ fun TokenScreen(
                         Modifier.padding(8.dp)
                     ) {
                         when (uiStateT) {
-                            is TokenViewModel.UiStateToken.Loading -> Box(
-                                modifier = Modifier.width(60.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                CircularProgressIndicator(color = Color.Black)
-                            }
+                            is TokenViewModel.UiStateToken.Loading ->
+                                Box(
+                                    modifier = Modifier.size(16.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    CircularProgressIndicator(color = Color.Black)
+                                }
 
-                            is TokenViewModel.UiStateToken.Success -> Text(
-                                text = (uiStateT as TokenViewModel.UiStateToken.Success)
-                                    .data.price.toString()
-                                    .substring(0, 5),
-                                fontSize = 35.sp
-                            )
+                            is TokenViewModel.UiStateToken.Success ->
+                                (uiStateT as TokenViewModel.UiStateToken.Success)
+                                    .data.let { token ->
+                                        Text(
+                                            text = token.price.toString()
+                                                .substring(0, 5),
+                                            style = MaterialTheme.typography.bodyLarge
+                                        )
+                                    }
 
                             is TokenViewModel.UiStateToken.Error ->
-                                Toast.makeText(
-                                    context,
-                                    (uiStateT as TokenViewModel.UiStateToken.Error).error,
-                                    Toast.LENGTH_LONG
-                                )
-                                    .show()
+                                (uiStateT as TokenViewModel.UiStateToken.Error)
+                                    .error.let { err ->
+                                        Toast.makeText(
+                                            context,
+                                            err,
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    }
                         }
 
                         Image(
                             modifier = Modifier
                                 .align(Alignment.CenterVertically)
                                 .padding(start = 4.dp)
-                                .size(35.dp),
+                                .size(16.dp),
                             imageVector = ImageVector.vectorResource(id = R.drawable.usdc),
                             contentDescription = ""
                         )
@@ -139,28 +144,16 @@ fun TokenScreen(
 
                 Spacer(modifier = Modifier.size(20.dp))
 
-                Divider(
-                    color = MaterialTheme.colorScheme.primary,
-                    thickness = 1.dp
-                )
-            }
-
-            Column(
-                Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
                 Text(
                     text = "Total Circulation Supply",
-                    fontSize = 20.sp,
-                    color = MaterialTheme.colorScheme.primary
+                    color = MaterialTheme.colorScheme.primary,
+                    style = MaterialTheme.typography.bodyLarge
                 )
 
                 Text(
                     text = "* without unclaimed Moove",
-                    fontSize = 11.sp,
-                    color = MaterialTheme.colorScheme.primary
+                    color = MaterialTheme.colorScheme.primary,
+                    style = MaterialTheme.typography.labelMedium
                 )
 
                 Spacer(modifier = Modifier.size(10.dp))
@@ -173,33 +166,41 @@ fun TokenScreen(
                         Modifier.padding(8.dp)
                     ) {
                         when (uiStateT) {
-                            is TokenViewModel.UiStateToken.Loading -> Box(
-                                modifier = Modifier.width(60.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                CircularProgressIndicator(color = Color.Black)
-                            }
+                            is TokenViewModel.UiStateToken.Loading ->
+                                Box(
+                                    modifier = Modifier.size(16.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    CircularProgressIndicator(color = Color.Black)
+                                }
 
-                            is TokenViewModel.UiStateToken.Success -> Text(
-                                text = (uiStateT as TokenViewModel.UiStateToken.Success)
-                                    .data.circulatingSupply.toString(),
-                                fontSize = 35.sp
-                            )
+                            is TokenViewModel.UiStateToken.Success ->
+                                (uiStateT as TokenViewModel.UiStateToken.Success)
+                                    .data.let { token ->
+                                        Text(
+                                            text = token.circulatingSupply.toString(),
+                                            style = MaterialTheme.typography.bodyLarge
+                                        )
+                                    }
 
-                            is TokenViewModel.UiStateToken.Error -> Toast.makeText(
-                                context,
-                                (uiStateT as TokenViewModel.UiStateToken.Error).error,
-                                Toast.LENGTH_LONG
-                            )
-                                .show()
+                            is TokenViewModel.UiStateToken.Error ->
+                                (uiStateT as TokenViewModel.UiStateToken.Error)
+                                    .error.let { err ->
+                                        Toast.makeText(
+                                            context,
+                                            err,
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    }
                         }
 
                         Image(
                             modifier = Modifier
                                 .align(Alignment.CenterVertically)
                                 .padding(start = 4.dp)
-                                .size(35.dp),
-                            imageVector = ImageVector.vectorResource(id = R.drawable.moovelogo),
+                                .size(16.dp),
+                            imageVector = ImageVector
+                                .vectorResource(id = R.drawable.moovelogo),
                             contentDescription = ""
                         )
                     }
@@ -207,23 +208,10 @@ fun TokenScreen(
 
                 Spacer(modifier = Modifier.size(20.dp))
 
-                Divider(
-                    color = MaterialTheme.colorScheme.primary,
-                    thickness = 1.dp
-                )
-            }
-
-
-            Column(
-                Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
                 Text(
                     text = "Unclaimed Moove",
-                    fontSize = 20.sp,
-                    color = MaterialTheme.colorScheme.primary
+                    color = MaterialTheme.colorScheme.primary,
+                    style = MaterialTheme.typography.bodyLarge
                 )
 
                 Spacer(modifier = Modifier.size(10.dp))
@@ -236,32 +224,41 @@ fun TokenScreen(
                         Modifier.padding(8.dp)
                     ) {
                         when (uiStateR) {
-                            is TokenViewModel.UiStateReward.Loading -> Box(
-                                modifier = Modifier.width(60.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                CircularProgressIndicator(color = Color.Black)
-                            }
+                            is TokenViewModel.UiStateReward.Loading ->
+                                Box(
+                                    modifier = Modifier.size(16.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    CircularProgressIndicator(color = Color.Black)
+                                }
 
-                            is TokenViewModel.UiStateReward.Success -> Text(
-                                text = (uiStateR as TokenViewModel.UiStateReward.Success).data.unclaimedMoove,
-                                fontSize = 35.sp
-                            )
+                            is TokenViewModel.UiStateReward.Success ->
+                                (uiStateR as TokenViewModel.UiStateReward.Success)
+                                    .data.let { token ->
+                                        Text(
+                                            text = token.unclaimedMoove,
+                                            style = MaterialTheme.typography.bodyLarge
+                                        )
+                                    }
 
-                            is TokenViewModel.UiStateReward.Error -> Toast.makeText(
-                                context,
-                                (uiStateR as TokenViewModel.UiStateReward.Error).error,
-                                Toast.LENGTH_LONG
-                            )
-                                .show()
+                            is TokenViewModel.UiStateReward.Error ->
+                                (uiStateR as TokenViewModel.UiStateReward.Error)
+                                    .error.let { err ->
+                                        Toast.makeText(
+                                            context,
+                                            err,
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    }
                         }
 
                         Image(
                             modifier = Modifier
                                 .align(Alignment.CenterVertically)
                                 .padding(start = 4.dp)
-                                .size(35.dp),
-                            imageVector = ImageVector.vectorResource(id = R.drawable.moovelogo),
+                                .size(16.dp),
+                            imageVector = ImageVector
+                                .vectorResource(id = R.drawable.moovelogo),
                             contentDescription = ""
                         )
                     }
@@ -269,22 +266,10 @@ fun TokenScreen(
 
                 Spacer(modifier = Modifier.size(20.dp))
 
-                Divider(
-                    color = MaterialTheme.colorScheme.primary,
-                    thickness = 1.dp
-                )
-            }
-
-            Column(
-                Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
                 Text(
                     text = "MarketCap",
-                    fontSize = 20.sp,
-                    color = MaterialTheme.colorScheme.primary
+                    color = MaterialTheme.colorScheme.primary,
+                    style = MaterialTheme.typography.bodyLarge
                 )
 
                 Spacer(modifier = Modifier.size(10.dp))
@@ -297,47 +282,44 @@ fun TokenScreen(
                         Modifier.padding(8.dp)
                     ) {
                         when (uiStateT) {
-                            is TokenViewModel.UiStateToken.Loading -> Box(
-                                modifier = Modifier.width(60.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                CircularProgressIndicator(color = Color.Black)
-                            }
+                            is TokenViewModel.UiStateToken.Loading ->
+                                Box(
+                                    modifier = Modifier.size(16.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    CircularProgressIndicator(color = Color.Black)
+                                }
 
-                            is TokenViewModel.UiStateToken.Success -> Text(
-                                text = (uiStateT as TokenViewModel.UiStateToken.Success).data.marketCap?.roundToInt()
-                                    .toString() + " $",
-                                fontSize = 35.sp
-                            )
+                            is TokenViewModel.UiStateToken.Success ->
+                                (uiStateT as TokenViewModel.UiStateToken.Success)
+                                    .data.let { token ->
+                                        Text(
+                                            text = token.marketCap
+                                                ?.roundToInt()
+                                                .toString() + " $",
+                                            style = MaterialTheme.typography.bodyLarge
+                                        )
+                                    }
 
-                            is TokenViewModel.UiStateToken.Error -> Toast.makeText(
-                                context,
-                                (uiStateT as TokenViewModel.UiStateToken.Error).error,
-                                Toast.LENGTH_LONG
-                            )
-                                .show()
+                            is TokenViewModel.UiStateToken.Error ->
+                                (uiStateT as TokenViewModel.UiStateToken.Error)
+                                    .error.let { err ->
+                                        Toast.makeText(
+                                            context,
+                                            err,
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    }
                         }
                     }
                 }
 
                 Spacer(modifier = Modifier.size(20.dp))
 
-                Divider(
-                    color = MaterialTheme.colorScheme.primary,
-                    thickness = 1.dp
-                )
-            }
-
-            Column(
-                Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
                 Text(
                     text = "Holders",
-                    fontSize = 20.sp,
-                    color = MaterialTheme.colorScheme.primary
+                    color = MaterialTheme.colorScheme.primary,
+                    style = MaterialTheme.typography.bodyLarge
                 )
 
                 Spacer(modifier = Modifier.size(10.dp))
@@ -350,46 +332,42 @@ fun TokenScreen(
                         Modifier.padding(8.dp)
                     ) {
                         when (uiStateT) {
-                            is TokenViewModel.UiStateToken.Loading -> Box(
-                                modifier = Modifier.width(60.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                CircularProgressIndicator(color = Color.Black)
-                            }
+                            is TokenViewModel.UiStateToken.Loading ->
+                                Box(
+                                    modifier = Modifier.size(16.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    CircularProgressIndicator(color = Color.Black)
+                                }
 
-                            is TokenViewModel.UiStateToken.Success -> Text(
-                                text = (uiStateT as TokenViewModel.UiStateToken.Success).data.accounts.toString(),
-                                fontSize = 35.sp
-                            )
+                            is TokenViewModel.UiStateToken.Success ->
+                                (uiStateT as TokenViewModel.UiStateToken.Success)
+                                    .data.let { token ->
+                                        Text(
+                                            text = token.accounts.toString(),
+                                            style = MaterialTheme.typography.bodyLarge
+                                        )
+                                    }
 
-                            is TokenViewModel.UiStateToken.Error -> Toast.makeText(
-                                context,
-                                (uiStateT as TokenViewModel.UiStateToken.Error).error,
-                                Toast.LENGTH_LONG
-                            )
-                                .show()
+                            is TokenViewModel.UiStateToken.Error ->
+                                (uiStateT as TokenViewModel.UiStateToken.Error)
+                                    .error.let { err ->
+                                        Toast.makeText(
+                                            context,
+                                            err,
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    }
                         }
                     }
                 }
 
                 Spacer(modifier = Modifier.size(20.dp))
 
-                Divider(
-                    color = MaterialTheme.colorScheme.primary,
-                    thickness = 1.dp
-                )
-            }
-
-            Column(
-                Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
                 Text(
                     text = "Transactions",
-                    fontSize = 20.sp,
-                    color = MaterialTheme.colorScheme.primary
+                    color = MaterialTheme.colorScheme.primary,
+                    style = MaterialTheme.typography.bodyLarge
                 )
 
                 Spacer(modifier = Modifier.size(10.dp))
@@ -402,34 +380,36 @@ fun TokenScreen(
                         Modifier.padding(8.dp)
                     ) {
                         when (uiStateT) {
-                            is TokenViewModel.UiStateToken.Loading -> Box(
-                                modifier = Modifier.width(60.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                CircularProgressIndicator(color = Color.Black)
-                            }
+                            is TokenViewModel.UiStateToken.Loading ->
+                                Box(
+                                    modifier = Modifier.size(16.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    CircularProgressIndicator(color = Color.Black)
+                                }
 
-                            is TokenViewModel.UiStateToken.Success -> Text(
-                                text = (uiStateT as TokenViewModel.UiStateToken.Success).data.transactions.toString(),
-                                fontSize = 35.sp
-                            )
+                            is TokenViewModel.UiStateToken.Success ->
+                                (uiStateT as TokenViewModel.UiStateToken.Success)
+                                    .data.let { token ->
+                                        Text(
+                                            text = token.transactions.toString(),
+                                            style = MaterialTheme.typography.bodyLarge
+                                        )
+                                    }
 
-                            is TokenViewModel.UiStateToken.Error -> Toast.makeText(
-                                context,
-                                (uiStateT as TokenViewModel.UiStateToken.Error).error,
-                                Toast.LENGTH_LONG
-                            )
-                                .show()
+                            is TokenViewModel.UiStateToken.Error ->
+                                (uiStateT as TokenViewModel.UiStateToken.Error)
+                                    .error.let { err ->
+                                        Toast.makeText(
+                                            context,
+                                            err,
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    }
                         }
                     }
                 }
-
                 Spacer(modifier = Modifier.size(20.dp))
-
-                Divider(
-                    color = MaterialTheme.colorScheme.primary,
-                    thickness = 1.dp
-                )
             }
         }
     }
