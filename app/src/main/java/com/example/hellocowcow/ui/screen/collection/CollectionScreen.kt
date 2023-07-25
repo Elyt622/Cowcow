@@ -2,7 +2,6 @@ package com.example.hellocowcow.ui.screen.collection
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,6 +22,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
@@ -31,9 +31,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.example.hellocowcow.R
 import com.example.hellocowcow.ui.viewmodels.screen.collection.CollectionViewModel
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun CollectionScreen(
     viewModel: CollectionViewModel
@@ -54,14 +57,13 @@ fun CollectionScreen(
     ) {
         Column(
             Modifier.padding(bottom = 50.dp),
-            verticalArrangement = Arrangement.Center
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
                 text = "Moove Forward.",
                 fontSize = 22.sp,
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
-                    .fillMaxWidth()
                     .padding(top = 20.dp),
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold
@@ -71,434 +73,514 @@ fun CollectionScreen(
                 text = "Moove Together.",
                 fontSize = 22.sp,
                 color = MaterialTheme.colorScheme.onPrimary,
-                modifier = Modifier
-                    .fillMaxWidth(),
-                textAlign = TextAlign.Center,
                 fontWeight = FontWeight.ExtraBold
             )
 
-            Spacer(modifier = Modifier.size(10.dp))
+            Spacer(modifier = Modifier.size(25.dp))
 
-            Column(
-                Modifier
-                    .padding(8.dp)
+            GlideImage(
+                modifier = Modifier
+                    .scale(1.2F, 1.2F)
                     .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                model = "",
+                contentDescription = "Cowcow Banner Image"
+            ) {
+                it.load(R.drawable.banner_thumbnail_h300)
+            }
+
+            Spacer(modifier = Modifier.size(30.dp))
+
+            ElevatedCard(
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.background
+                )
             ) {
                 Text(
-                    text = "Cows Unbonding",
-                    color = MaterialTheme.colorScheme.primary,
-                    style = MaterialTheme.typography.bodyLarge
+                    modifier = Modifier.padding(10.dp),
+                    text = "Cows",
+                    style = MaterialTheme.typography.titleMedium
                 )
-                Spacer(modifier = Modifier.size(10.dp))
+            }
 
-                ElevatedCard(
-                    colors = cardColors,
-                    elevation = CardDefaults.cardElevation(20.dp)
+            Spacer(modifier = Modifier.size(8.dp))
+
+            Row(
+                Modifier
+                    .align(Alignment.CenterHorizontally)
+            ) {
+                Column(
+                    Modifier.padding(8.dp).weight(1f),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Row(
-                        Modifier.padding(8.dp)
+                    Text(
+                        text = "Unbonding",
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+
+                    Spacer(modifier = Modifier.size(10.dp))
+
+                    ElevatedCard(
+                        Modifier.align(Alignment.CenterHorizontally),
+                        colors = cardColors,
+                        elevation = CardDefaults.cardElevation(20.dp)
                     ) {
-                        when (uiState) {
-                            is CollectionViewModel.UiState.Loading ->
-                                Box(
-                                    modifier = Modifier.size(16.dp),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    CircularProgressIndicator(color = Color.Black)
-                                }
-
-                            is CollectionViewModel.UiState.Success ->
-                                (uiState as CollectionViewModel.UiState.Success)
-                                    .data.let { collection ->
-                                        Text(
-                                            text = collection.unbondingCows.toString(),
-                                            style = MaterialTheme.typography.bodyLarge
-                                        )
+                        Box(
+                            Modifier.padding(8.dp)
+                        ) {
+                            when (uiState) {
+                                is CollectionViewModel.UiState.Loading ->
+                                    Box(
+                                        modifier = Modifier.size(16.dp),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        CircularProgressIndicator(color = Color.Black)
                                     }
 
-                            is CollectionViewModel.UiState.Error ->
-                                (uiState as CollectionViewModel.UiState.Error)
-                                    .error.let { err ->
-                                        Toast.makeText(
-                                            context,
-                                            err,
-                                            Toast.LENGTH_LONG
-                                        ).show()
-                                    }
+                                is CollectionViewModel.UiState.Success ->
+                                    (uiState as CollectionViewModel.UiState.Success)
+                                        .data.let { collection ->
+                                            Text(
+                                                text = collection.unbondingCows.toString(),
+                                                style = MaterialTheme.typography.bodyLarge
+                                            )
+                                        }
+
+                                is CollectionViewModel.UiState.Error ->
+                                    (uiState as CollectionViewModel.UiState.Error)
+                                        .error.let { err ->
+                                            Toast.makeText(
+                                                context,
+                                                err,
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
+                            }
                         }
                     }
                 }
 
-                Spacer(modifier = Modifier.size(20.dp))
+                Column(
+                    Modifier.padding(8.dp).weight(1f),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "Staked",
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
 
+                    Spacer(modifier = Modifier.size(10.dp))
+
+                    ElevatedCard(
+                        colors = cardColors,
+                        elevation = CardDefaults.cardElevation(20.dp)
+                    ) {
+                        Box(
+                            Modifier.padding(8.dp)
+                        ) {
+                            when (uiState) {
+                                is CollectionViewModel.UiState.Loading ->
+                                    Box(
+                                        modifier = Modifier.size(16.dp),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        CircularProgressIndicator(color = Color.Black)
+                                    }
+
+                                is CollectionViewModel.UiState.Success ->
+                                    (uiState as CollectionViewModel.UiState.Success)
+                                        .data.let { collection ->
+                                            Text(
+                                                text = collection.stakedCows.toString(),
+                                                style = MaterialTheme.typography.bodyLarge
+                                            )
+                                        }
+
+                                is CollectionViewModel.UiState.Error ->
+                                    (uiState as CollectionViewModel.UiState.Error)
+                                        .error.let { err ->
+                                            Toast.makeText(
+                                                context,
+                                                err,
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
+                            }
+                        }
+                    }
+                }
+
+                Column(
+                    Modifier.padding(8.dp).weight(1f),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "Upgraded",
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+
+                    Spacer(modifier = Modifier.size(10.dp))
+
+                    ElevatedCard(
+                        colors = cardColors,
+                        elevation = CardDefaults.cardElevation(20.dp)
+                    ) {
+                        Box(
+                            Modifier.padding(8.dp),
+                        ) {
+                            when (uiState) {
+                                is CollectionViewModel.UiState.Loading ->
+                                    Box(
+                                        modifier = Modifier.size(16.dp),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        CircularProgressIndicator(color = Color.Black)
+                                    }
+
+                                is CollectionViewModel.UiState.Success ->
+                                    (uiState as CollectionViewModel.UiState.Success)
+                                        .data.let { collection ->
+                                            Text(
+                                                text = collection.totalUpgradedCows.toString(),
+                                                style = MaterialTheme.typography.bodyLarge,
+                                            )
+                                        }
+
+                                is CollectionViewModel.UiState.Error ->
+                                    (uiState as CollectionViewModel.UiState.Error)
+                                        .error.let { err ->
+                                            Toast.makeText(
+                                                context,
+                                                err,
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
+                            }
+                        }
+                    }
+                }
+            }
+
+            Row(
+                Modifier
+                    .align(Alignment.CenterHorizontally)
+            ) {
+                Column(
+                    Modifier.padding(8.dp).weight(1f),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "Holders",
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+
+                    Spacer(modifier = Modifier.size(10.dp))
+
+                    ElevatedCard(
+                        Modifier.align(Alignment.CenterHorizontally),
+                        colors = cardColors,
+                        elevation = CardDefaults.cardElevation(20.dp)
+                    ) {
+                        Row(
+                            Modifier.padding(8.dp)
+                        ) {
+                            when (uiState) {
+                                is CollectionViewModel.UiState.Loading ->
+                                    Box(
+                                        modifier = Modifier.size(16.dp),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        CircularProgressIndicator(color = Color.Black)
+                                    }
+
+                                is CollectionViewModel.UiState.Success ->
+                                    (uiState as CollectionViewModel.UiState.Success)
+                                        .data.let { collection ->
+                                            Text(
+                                                text = collection.holdersCows.toString(),
+                                                style = MaterialTheme.typography.bodyLarge
+                                            )
+                                        }
+
+                                is CollectionViewModel.UiState.Error ->
+                                    (uiState as CollectionViewModel.UiState.Error)
+                                        .error.let { err ->
+                                            Toast.makeText(
+                                                context,
+                                                err,
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
+                            }
+                        }
+                    }
+                }
+
+                Column(
+                    Modifier.padding(8.dp).weight(1f),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "Listed",
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+
+                    Spacer(modifier = Modifier.size(10.dp))
+
+                    ElevatedCard(
+                        Modifier.align(Alignment.CenterHorizontally),
+                        colors = cardColors,
+                        elevation = CardDefaults.cardElevation(20.dp)
+                    ) {
+                        Row(
+                            Modifier.padding(8.dp)
+                        ) {
+                            when (uiState) {
+                                is CollectionViewModel.UiState.Loading ->
+                                    Box(
+                                        modifier = Modifier.size(16.dp),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        CircularProgressIndicator(color = Color.Black)
+                                    }
+
+                                is CollectionViewModel.UiState.Success ->
+                                    (uiState as CollectionViewModel.UiState.Success)
+                                        .data.let { collection ->
+                                            Text(
+                                                text = collection.listedCows.toString(),
+                                                style = MaterialTheme.typography.bodyLarge
+                                            )
+                                        }
+
+                                is CollectionViewModel.UiState.Error ->
+                                    (uiState as CollectionViewModel.UiState.Error)
+                                        .error.let { err ->
+                                            Toast.makeText(
+                                                context,
+                                                err,
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
+                            }
+                        }
+                    }
+                }
+
+                Column(
+                    Modifier.padding(8.dp).weight(1f),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "Floor Price",
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+
+                    Spacer(modifier = Modifier.size(10.dp))
+
+                    ElevatedCard(
+                        Modifier.align(Alignment.CenterHorizontally),
+                        colors = cardColors,
+                        elevation = CardDefaults.cardElevation(20.dp)
+                    ) {
+                        Row(
+                            Modifier.padding(8.dp)
+                        ) {
+                            when (uiState) {
+                                is CollectionViewModel.UiState.Loading ->
+                                    Box(
+                                        modifier = Modifier.size(16.dp),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        CircularProgressIndicator(color = Color.Black)
+                                    }
+
+                                is CollectionViewModel.UiState.Success ->
+                                    (uiState as CollectionViewModel.UiState.Success)
+                                        .data.let { collection ->
+                                            Text(
+                                                text = collection.floorPriceCows.toString(),
+                                                style = MaterialTheme.typography.bodyLarge
+                                            )
+                                        }
+
+                                is CollectionViewModel.UiState.Error ->
+                                    (uiState as CollectionViewModel.UiState.Error)
+                                        .error.let { err ->
+                                            Toast.makeText(
+                                                context,
+                                                err,
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
+                            }
+
+                            Image(
+                                modifier = Modifier
+                                    .align(Alignment.CenterVertically)
+                                    .padding(start = 4.dp)
+                                    .size(16.dp),
+                                imageVector = ImageVector
+                                    .vectorResource(id = R.drawable.egld),
+                                contentDescription = ""
+                            )
+                        }
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.size(30.dp))
+
+            ElevatedCard(
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.background
+                )
+            ) {
                 Text(
-                    text = "Cows Staked",
-                    color = MaterialTheme.colorScheme.primary,
-                    style = MaterialTheme.typography.bodyLarge
+                    modifier = Modifier.padding(10.dp),
+                    text = "Tickets",
+                    style = MaterialTheme.typography.titleMedium
                 )
+            }
 
-                Spacer(modifier = Modifier.size(10.dp))
+            Spacer(modifier = Modifier.size(8.dp))
 
-                ElevatedCard(
-                    colors = cardColors,
-                    elevation = CardDefaults.cardElevation(20.dp)
+            Row(
+                Modifier
+                    .align(Alignment.CenterHorizontally)
+            ) {
+                Column(
+                    Modifier.padding(8.dp).weight(1f),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Row(
-                        Modifier.padding(8.dp)
+                    Text(
+                        text = "Ticket FP",
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+
+                    Spacer(modifier = Modifier.size(10.dp))
+
+                    ElevatedCard(
+                        colors = cardColors,
+                        elevation = CardDefaults.cardElevation(20.dp)
                     ) {
-                        when (uiState) {
-                            is CollectionViewModel.UiState.Loading ->
-                                Box(
-                                    modifier = Modifier.size(16.dp),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    CircularProgressIndicator(color = Color.Black)
-                                }
-
-                            is CollectionViewModel.UiState.Success ->
-                                (uiState as CollectionViewModel.UiState.Success)
-                                    .data.let { collection ->
-                                        Text(
-                                            text = collection.stakedCows.toString(),
-                                            style = MaterialTheme.typography.bodyLarge
-                                        )
+                        Row(
+                            Modifier.padding(8.dp)
+                        ) {
+                            when (uiState) {
+                                is CollectionViewModel.UiState.Loading ->
+                                    Box(
+                                        modifier = Modifier.size(16.dp),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        CircularProgressIndicator(color = Color.Black)
                                     }
 
-                            is CollectionViewModel.UiState.Error ->
-                                (uiState as CollectionViewModel.UiState.Error)
-                                    .error.let { err ->
-                                        Toast.makeText(
-                                            context,
-                                            err,
-                                            Toast.LENGTH_LONG
-                                        ).show()
-                                    }
+                                is CollectionViewModel.UiState.Success ->
+                                    (uiState as CollectionViewModel.UiState.Success)
+                                        .data.let { collection ->
+                                            Text(
+                                                text = collection.floorPriceTickets.toString(),
+                                                style = MaterialTheme.typography.bodyLarge
+                                            )
+                                        }
+
+                                is CollectionViewModel.UiState.Error ->
+                                    (uiState as CollectionViewModel.UiState.Error)
+                                        .error.let { err ->
+                                            Toast.makeText(
+                                                context,
+                                                err,
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
+                            }
+
+                            Image(
+                                modifier = Modifier
+                                    .align(Alignment.CenterVertically)
+                                    .padding(start = 4.dp)
+                                    .size(16.dp),
+                                imageVector = ImageVector
+                                    .vectorResource(id = R.drawable.egld),
+                                contentDescription = ""
+                            )
                         }
                     }
                 }
 
-                Spacer(modifier = Modifier.size(20.dp))
 
-                Text(
-                    text = "Cows Upgraded",
-                    color = MaterialTheme.colorScheme.primary,
-                    style = MaterialTheme.typography.bodyLarge
-                )
-
-                Spacer(modifier = Modifier.size(10.dp))
-
-                ElevatedCard(
-                    colors = cardColors,
-                    elevation = CardDefaults.cardElevation(20.dp)
+                Column(
+                    Modifier.padding(8.dp).weight(1f),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Row(
-                        Modifier.padding(8.dp)
+                    Text(
+                        text = "Tickets Used",
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+
+                    Spacer(modifier = Modifier.size(10.dp))
+
+                    ElevatedCard(
+                        colors = cardColors,
+                        elevation = CardDefaults.cardElevation(20.dp)
                     ) {
-                        when (uiState) {
-                            is CollectionViewModel.UiState.Loading ->
-                                Box(
-                                    modifier = Modifier.size(16.dp),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    CircularProgressIndicator(color = Color.Black)
-                                }
-
-                            is CollectionViewModel.UiState.Success ->
-                                (uiState as CollectionViewModel.UiState.Success)
-                                    .data.let { collection ->
-                                        Text(
-                                            text = collection.totalUpgradedCows.toString(),
-                                            style = MaterialTheme.typography.bodyLarge
-                                        )
+                        Row(
+                            Modifier.padding(8.dp)
+                        ) {
+                            when (uiState) {
+                                is CollectionViewModel.UiState.Loading ->
+                                    Box(
+                                        modifier = Modifier.size(16.dp),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        CircularProgressIndicator(color = Color.Black)
                                     }
 
-                            is CollectionViewModel.UiState.Error ->
-                                (uiState as CollectionViewModel.UiState.Error)
-                                    .error.let { err ->
-                                        Toast.makeText(
-                                            context,
-                                            err,
-                                            Toast.LENGTH_LONG
-                                        ).show()
-                                    }
+                                is CollectionViewModel.UiState.Success ->
+                                    (uiState as CollectionViewModel.UiState.Success)
+                                        .data.let { collection ->
+                                            Text(
+                                                text = collection.ticketUsed?.Chapter4.toString(),
+                                                style = MaterialTheme.typography.bodyLarge
+                                            )
+                                        }
+
+                                is CollectionViewModel.UiState.Error ->
+                                    (uiState as CollectionViewModel.UiState.Error)
+                                        .error.let { err ->
+                                            Toast.makeText(
+                                                context,
+                                                err,
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
+                            }
+
+                            Image(
+                                modifier = Modifier
+                                    .align(Alignment.CenterVertically)
+                                    .padding(start = 4.dp)
+                                    .size(16.dp),
+                                imageVector = ImageVector
+                                    .vectorResource(id = R.drawable.ticket),
+                                contentDescription = ""
+                            )
                         }
                     }
                 }
-
-                Spacer(modifier = Modifier.size(20.dp))
-
-                Text(
-                    text = "Cows Holders",
-                    color = MaterialTheme.colorScheme.primary,
-                    style = MaterialTheme.typography.bodyLarge
-                )
-
-                Spacer(modifier = Modifier.size(10.dp))
-
-                ElevatedCard(
-                    colors = cardColors,
-                    elevation = CardDefaults.cardElevation(20.dp)
-                ) {
-                    Row(
-                        Modifier.padding(8.dp)
-                    ) {
-                        when (uiState) {
-                            is CollectionViewModel.UiState.Loading ->
-                                Box(
-                                    modifier = Modifier.size(16.dp),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    CircularProgressIndicator(color = Color.Black)
-                                }
-
-                            is CollectionViewModel.UiState.Success ->
-                                (uiState as CollectionViewModel.UiState.Success)
-                                    .data.let { collection ->
-                                        Text(
-                                            text = collection.holdersCows.toString(),
-                                            style = MaterialTheme.typography.bodyLarge
-                                        )
-                                    }
-
-                            is CollectionViewModel.UiState.Error ->
-                                (uiState as CollectionViewModel.UiState.Error)
-                                    .error.let { err ->
-                                        Toast.makeText(
-                                            context,
-                                            err,
-                                            Toast.LENGTH_LONG
-                                        ).show()
-                                    }
-                        }
-                    }
-                }
-
-                Spacer(modifier = Modifier.size(20.dp))
-
-                Text(
-                    text = "Cows Listed",
-                    color = MaterialTheme.colorScheme.primary,
-                    style = MaterialTheme.typography.bodyLarge
-                )
-
-                Spacer(modifier = Modifier.size(10.dp))
-
-                ElevatedCard(
-                    colors = cardColors,
-                    elevation = CardDefaults.cardElevation(20.dp)
-                ) {
-                    Row(
-                        Modifier.padding(8.dp)
-                    ) {
-                        when (uiState) {
-                            is CollectionViewModel.UiState.Loading ->
-                                Box(
-                                    modifier = Modifier.size(16.dp),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    CircularProgressIndicator(color = Color.Black)
-                                }
-
-                            is CollectionViewModel.UiState.Success ->
-                                (uiState as CollectionViewModel.UiState.Success)
-                                    .data.let { collection ->
-                                        Text(
-                                            text = collection.listedCows.toString(),
-                                            style = MaterialTheme.typography.bodyLarge
-                                        )
-                                    }
-
-                            is CollectionViewModel.UiState.Error ->
-                                (uiState as CollectionViewModel.UiState.Error)
-                                    .error.let { err ->
-                                        Toast.makeText(
-                                            context,
-                                            err,
-                                            Toast.LENGTH_LONG
-                                        ).show()
-                                    }
-                        }
-                    }
-                }
-
-                Spacer(modifier = Modifier.size(20.dp))
-
-                Text(
-                    text = "Cows FP",
-                    color = MaterialTheme.colorScheme.primary,
-                    style = MaterialTheme.typography.bodyLarge
-                )
-
-                Spacer(modifier = Modifier.size(10.dp))
-
-                ElevatedCard(
-                    colors = cardColors,
-                    elevation = CardDefaults.cardElevation(20.dp)
-                ) {
-                    Row(
-                        Modifier.padding(8.dp)
-                    ) {
-                        when (uiState) {
-                            is CollectionViewModel.UiState.Loading ->
-                                Box(
-                                    modifier = Modifier.size(16.dp),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    CircularProgressIndicator(color = Color.Black)
-                                }
-
-                            is CollectionViewModel.UiState.Success ->
-                                (uiState as CollectionViewModel.UiState.Success)
-                                    .data.let { collection ->
-                                        Text(
-                                            text = collection.floorPriceCows.toString(),
-                                            style = MaterialTheme.typography.bodyLarge
-                                        )
-                                    }
-
-                            is CollectionViewModel.UiState.Error ->
-                                (uiState as CollectionViewModel.UiState.Error)
-                                    .error.let { err ->
-                                        Toast.makeText(
-                                            context,
-                                            err,
-                                            Toast.LENGTH_LONG
-                                        ).show()
-                                    }
-                        }
-
-                        Image(
-                            modifier = Modifier
-                                .align(Alignment.CenterVertically)
-                                .padding(start = 4.dp)
-                                .size(16.dp),
-                            imageVector = ImageVector
-                                .vectorResource(id = R.drawable.egld),
-                            contentDescription = ""
-                        )
-                    }
-                }
-                Spacer(modifier = Modifier.size(20.dp))
-
-                Text(
-                    text = "Ticket FP",
-                    color = MaterialTheme.colorScheme.primary,
-                    style = MaterialTheme.typography.bodyLarge
-                )
-
-                Spacer(modifier = Modifier.size(10.dp))
-
-                ElevatedCard(
-                    colors = cardColors,
-                    elevation = CardDefaults.cardElevation(20.dp)
-                ) {
-                    Row(
-                        Modifier.padding(8.dp)
-                    ) {
-                        when (uiState) {
-                            is CollectionViewModel.UiState.Loading ->
-                                Box(
-                                    modifier = Modifier.size(16.dp),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    CircularProgressIndicator(color = Color.Black)
-                                }
-
-                            is CollectionViewModel.UiState.Success ->
-                                (uiState as CollectionViewModel.UiState.Success)
-                                    .data.let { collection ->
-                                        Text(
-                                            text = collection.floorPriceTickets.toString(),
-                                            style = MaterialTheme.typography.bodyLarge
-                                        )
-                                    }
-
-                            is CollectionViewModel.UiState.Error ->
-                                (uiState as CollectionViewModel.UiState.Error)
-                                    .error.let { err ->
-                                        Toast.makeText(
-                                            context,
-                                            err,
-                                            Toast.LENGTH_LONG
-                                        ).show()
-                                    }
-                        }
-
-                        Image(
-                            modifier = Modifier
-                                .align(Alignment.CenterVertically)
-                                .padding(start = 4.dp)
-                                .size(16.dp),
-                            imageVector = ImageVector
-                                .vectorResource(id = R.drawable.egld),
-                            contentDescription = ""
-                        )
-                    }
-                }
-
-                Spacer(modifier = Modifier.size(20.dp))
-
-                Text(
-                    text = "Tickets Used",
-                    color = MaterialTheme.colorScheme.primary,
-                    style = MaterialTheme.typography.bodyLarge
-                )
-
-                Spacer(modifier = Modifier.size(10.dp))
-
-                ElevatedCard(
-                    colors = cardColors,
-                    elevation = CardDefaults.cardElevation(20.dp)
-                ) {
-                    Row(
-                        Modifier.padding(8.dp)
-                    ) {
-                        when (uiState) {
-                            is CollectionViewModel.UiState.Loading ->
-                                Box(
-                                    modifier = Modifier.size(16.dp),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    CircularProgressIndicator(color = Color.Black)
-                                }
-
-                            is CollectionViewModel.UiState.Success ->
-                                (uiState as CollectionViewModel.UiState.Success)
-                                    .data.let { collection ->
-                                        Text(
-                                            text = collection.ticketUsed?.Chapter4.toString(),
-                                            style = MaterialTheme.typography.bodyLarge
-                                        )
-                                    }
-
-                            is CollectionViewModel.UiState.Error ->
-                                (uiState as CollectionViewModel.UiState.Error)
-                                    .error.let { err ->
-                                        Toast.makeText(
-                                            context,
-                                            err,
-                                            Toast.LENGTH_LONG
-                                        ).show()
-                                    }
-                        }
-
-                        Image(
-                            modifier = Modifier
-                                .align(Alignment.CenterVertically)
-                                .padding(start = 4.dp)
-                                .size(16.dp),
-                            imageVector = ImageVector
-                                .vectorResource(id = R.drawable.ticket),
-                            contentDescription = ""
-                        )
-                    }
-                }
-
-                Spacer(modifier = Modifier.size(20.dp))
-
             }
         }
     }
 }
+
 
