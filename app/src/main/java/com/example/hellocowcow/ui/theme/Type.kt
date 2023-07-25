@@ -11,6 +11,7 @@ import com.example.hellocowcow.R
 // Set of Material typography styles to start with
 
 val Typography2 = Typography(
+
     bodyLarge = TextStyle(
         fontFamily = FontFamily(Font(R.font.fredoka_one)),
         fontWeight = FontWeight.Normal,
@@ -33,6 +34,14 @@ val Typography2 = Typography(
         fontSize = 12.5.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
-    )
+    ),
+
+    titleMedium = TextStyle(
+        fontFamily = FontFamily(Font(R.font.fredoka_one)),
+        fontWeight = FontWeight.Bold,
+        fontSize = 20.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp
+    ),
 )
 
