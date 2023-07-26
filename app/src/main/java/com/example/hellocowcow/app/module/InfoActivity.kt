@@ -100,6 +100,13 @@ class InfoActivity : ComponentActivity() {
                 when(imageName) {
                     "COWCOW" -> CowCow()
                     "THE_CITY" -> TheCity()
+                    "RAFFLE" -> Raffle()
+                    "STAKING" -> Staking()
+                    "ORIGINS" -> Origins()
+                    "TWENTY_THREE" -> TwentyThree()
+                    "TEAM" -> Team()
+                    "MANIFESTO" -> Manifesto()
+                    "URBAN_PLAN" -> UrbanPlan()
                 }
             }
         )
@@ -134,6 +141,69 @@ class InfoActivity : ComponentActivity() {
     fun CowCow() {
         Text(
             text = "COWCOW",
+            color = Color.Black,
+            modifier = Modifier.padding(top = 60.dp)
+        )
+    }
+
+    @Composable
+    fun Team() {
+        Text(
+            text = "Team",
+            color = Color.Black,
+            modifier = Modifier.padding(top = 60.dp)
+        )
+    }
+
+    @Composable
+    fun TwentyThree() {
+        Text(
+            text = "23",
+            color = Color.Black,
+            modifier = Modifier.padding(top = 60.dp)
+        )
+    }
+
+    @Composable
+    fun Origins() {
+        Text(
+            text = "Origins",
+            color = Color.Black,
+            modifier = Modifier.padding(top = 60.dp)
+        )
+    }
+
+    @Composable
+    fun Staking() {
+        Text(
+            text = "Staking",
+            color = Color.Black,
+            modifier = Modifier.padding(top = 60.dp)
+        )
+    }
+
+    @Composable
+    fun Manifesto() {
+        Text(
+            text = "Manifesto",
+            color = Color.Black,
+            modifier = Modifier.padding(top = 60.dp)
+        )
+    }
+
+    @Composable
+    fun UrbanPlan() {
+        Text(
+            text = "Urban plan",
+            color = Color.Black,
+            modifier = Modifier.padding(top = 60.dp)
+        )
+    }
+
+    @Composable
+    fun Raffle() {
+        Text(
+            text = "Raffle",
             color = Color.Black,
             modifier = Modifier.padding(top = 60.dp)
         )
