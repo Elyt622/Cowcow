@@ -10,10 +10,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Upgrade
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -73,16 +76,27 @@ fun MarketScreen(
                                     context.startActivity(intent)
                                 }
                             ) {
-                                GlideImage(
-                                    model = nft.url,
-                                    contentDescription = nft.collection,
-                                    modifier = Modifier
-                                        .padding(
-                                            start = 8.dp,
-                                            end = 8.dp,
-                                            top = 8.dp
+                                Box {
+                                    GlideImage(
+                                        model = nft.url,
+                                        contentDescription = nft.collection,
+                                        modifier = Modifier
+                                            .padding(
+                                                start = 8.dp,
+                                                end = 8.dp,
+                                                top = 8.dp
+                                            )
+                                    )
+                                    if (nft.hasSecondNFT == true)
+                                        Icon(
+                                            modifier = Modifier
+                                                .padding(8.dp)
+                                                .align(Alignment.TopEnd),
+                                            imageVector = Icons.Filled.Upgrade,
+                                            contentDescription = Icons.Filled.Upgrade.name,
+                                            tint = MaterialTheme.colorScheme.background
                                         )
-                                )
+                                }
 
                                 Column(
                                     Modifier
