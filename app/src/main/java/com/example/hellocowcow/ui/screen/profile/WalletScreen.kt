@@ -74,11 +74,6 @@ fun WalletScreen(
                                         text = nft.name.toString(),
                                         style = Typography2.bodyLarge
                                     )
-                                    Text(
-                                        color = MaterialTheme.colorScheme.background,
-                                        text = "Rank : " + nft.rank.toString(),
-                                        style = Typography2.labelMedium
-                                    )
                                 }
                             }
                         }
