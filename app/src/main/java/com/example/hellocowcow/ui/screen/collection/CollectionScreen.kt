@@ -98,9 +98,11 @@ fun CollectionScreen(
             Card(
                 Modifier.padding(8.dp).align(Alignment.CenterHorizontally),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.secondary
+                    containerColor = MaterialTheme.colorScheme.secondary,
+                    contentColor = MaterialTheme.colorScheme.onSecondary
                 )
             ) {
+                Spacer(modifier = Modifier.size(12.dp))
                 Row(
                     Modifier.align(Alignment.CenterHorizontally)
                 ) {
@@ -112,7 +114,6 @@ fun CollectionScreen(
                     ) {
                         Text(
                             text = "Unbonding",
-                            color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.labelMedium
                         )
 
@@ -166,7 +167,6 @@ fun CollectionScreen(
                     ) {
                         Text(
                             text = "Staked",
-                            color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.labelMedium
                         )
 
@@ -219,7 +219,6 @@ fun CollectionScreen(
                     ) {
                         Text(
                             text = "Upgraded",
-                            color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.labelMedium
                         )
 
@@ -276,7 +275,6 @@ fun CollectionScreen(
                     ) {
                         Text(
                             text = "Holders",
-                            color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.labelMedium
                         )
 
@@ -330,7 +328,6 @@ fun CollectionScreen(
                     ) {
                         Text(
                             text = "Listed",
-                            color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.labelMedium
                         )
 
@@ -384,7 +381,6 @@ fun CollectionScreen(
                     ) {
                         Text(
                             text = "Floor Price",
-                            color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.labelMedium
                         )
 
@@ -440,9 +436,10 @@ fun CollectionScreen(
                         }
                     }
                 }
+                Spacer(modifier = Modifier.size(12.dp))
             }
 
-            Spacer(modifier = Modifier.size(20.dp))
+            Spacer(modifier = Modifier.size(10.dp))
 
             ElevatedCard(
                 colors = CardDefaults.cardColors(
@@ -465,7 +462,7 @@ fun CollectionScreen(
                     containerColor = MaterialTheme.colorScheme.secondary
                 )
             ) {
-
+                Spacer(modifier = Modifier.size(12.dp))
                 Row(
                     Modifier.align(Alignment.CenterHorizontally)
                 ) {
@@ -477,7 +474,6 @@ fun CollectionScreen(
                     ) {
                         Text(
                             text = "Price",
-                            color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.labelMedium
                         )
 
@@ -540,7 +536,6 @@ fun CollectionScreen(
                     ) {
                         Text(
                             text = "Unclaimed",
-                            color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.labelMedium
                         )
 
@@ -607,13 +602,11 @@ fun CollectionScreen(
                     ) {
                         Text(
                             text = "Circulating Supply",
-                            color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.labelMedium
                         )
 
                         Text(
                             text = "* without unclaimed",
-                            color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.labelSmall
                         )
 
@@ -681,7 +674,6 @@ fun CollectionScreen(
                     ) {
                         Text(
                             text = "MarketCap",
-                            color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.labelMedium
                         )
 
@@ -737,7 +729,6 @@ fun CollectionScreen(
 
                         Text(
                             text = "Holders",
-                            color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.labelMedium
                         )
 
@@ -790,7 +781,6 @@ fun CollectionScreen(
                     ) {
                         Text(
                             text = "Transactions",
-                            color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.labelMedium
                         )
 
@@ -835,9 +825,10 @@ fun CollectionScreen(
                         }
                     }
                 }
+                Spacer(modifier = Modifier.size(12.dp))
             }
 
-            Spacer(modifier = Modifier.size(20.dp))
+            Spacer(modifier = Modifier.size(10.dp))
 
             ElevatedCard(
                 colors = CardDefaults.cardColors(
@@ -857,9 +848,11 @@ fun CollectionScreen(
             Card(
                 Modifier.padding(8.dp).align(Alignment.CenterHorizontally),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.secondary
+                    containerColor = MaterialTheme.colorScheme.secondary,
+                    contentColor = MaterialTheme.colorScheme.onSecondary
                 )
             ) {
+                Spacer(modifier = Modifier.size(12.dp))
                 Row(
                     Modifier
                         .align(Alignment.CenterHorizontally)
@@ -872,7 +865,6 @@ fun CollectionScreen(
                     ) {
                         Text(
                             text = "Ticket FP",
-                            color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.labelMedium
                         )
 
@@ -936,7 +928,6 @@ fun CollectionScreen(
                     ) {
                         Text(
                             text = "Tickets Used",
-                            color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.labelMedium
                         )
 
@@ -991,6 +982,7 @@ fun CollectionScreen(
                         }
                     }
                 }
+                Spacer(modifier = Modifier.size(12.dp))
             }
         }
     }
