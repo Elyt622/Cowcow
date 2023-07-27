@@ -1,7 +1,7 @@
 package com.example.hellocowcow.ui.viewmodels.activity
 
 import androidx.lifecycle.ViewModel
-import com.example.hellocowcow.data.response.xoxnoApi.NftResponse
+import com.example.hellocowcow.domain.models.DomainNft
 import com.example.hellocowcow.domain.repositories.NftRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.kotlin.subscribeBy
@@ -19,7 +19,7 @@ class NftViewModel @Inject constructor(
 
     sealed class UiState {
         object Loading : UiState()
-        class Success(val nft: NftResponse) : UiState()
+        class Success(val nft: DomainNft) : UiState()
         class Error(val error: String) : UiState()
     }
 

@@ -1,6 +1,8 @@
 package com.example.hellocowcow.data.response.mvxApi
 
 
+import com.example.hellocowcow.domain.DomainModelConvertible
+import com.example.hellocowcow.domain.models.DomainNft
 import com.google.gson.annotations.SerializedName
 
 
@@ -25,4 +27,19 @@ data class NftResponse (
     @SerializedName("isNsfw"               ) var isNsfw               : Boolean?          = null,
     @SerializedName("assets"               ) var assets               : AssetsResponse?   = AssetsResponse()
 
-)
+) : DomainModelConvertible<DomainNft> {
+    override fun toDomain()
+    : DomainNft =
+        DomainNft(
+            identifier = identifier,
+            collection = collection,
+            attributes = attributes,
+            name = name,
+            creator = creator,
+            royalties = royalties,
+            uris = uris,
+            url = url,
+            ticker = ticker
+        )
+
+}

@@ -3,8 +3,8 @@ package com.example.hellocowcow.ui.viewmodels.screen.profile
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.hellocowcow.data.response.mvxApi.NftResponse
 import com.example.hellocowcow.data.response.mvxApi.RewardRequest
+import com.example.hellocowcow.domain.models.DomainNft
 import com.example.hellocowcow.domain.repositories.NftRepository
 import com.walletconnect.util.bytesToHex
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,7 +31,7 @@ class StakeViewModel @Inject constructor(
     sealed class UiState {
         object NoData : UiState()
         object Loading : UiState()
-        data class Success(val data: List<NftResponse>) : UiState()
+        data class Success(val data: List<DomainNft>) : UiState()
         data class Error(val error: String) : UiState()
     }
 

@@ -56,8 +56,8 @@ import androidx.compose.ui.unit.sp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.hellocowcow.data.response.xoxnoApi.AttributesResponse
-import com.example.hellocowcow.data.response.xoxnoApi.NftResponse
 import com.example.hellocowcow.data.response.xoxnoApi.OffersInfoResponse
+import com.example.hellocowcow.domain.models.DomainNft
 import com.example.hellocowcow.ui.theme.HelloCowCowTheme
 import com.example.hellocowcow.ui.viewmodels.activity.NftViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -176,7 +176,7 @@ class NftActivity : ComponentActivity() {
         ExperimentalFoundationApi::class
     )
     @Composable
-    fun OnSuccess(nft: NftResponse) {
+    fun OnSuccess(nft: DomainNft) {
         val cardColors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.background
         )
@@ -291,7 +291,7 @@ class NftActivity : ComponentActivity() {
     }
 
     @Composable
-    fun TabScreen(nft: NftResponse) {
+    fun TabScreen(nft: DomainNft) {
 
         var tabIndex by remember { mutableStateOf(0) }
 

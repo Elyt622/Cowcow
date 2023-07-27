@@ -2,10 +2,10 @@ package com.example.hellocowcow.data.repositories
 
 import com.example.hellocowcow.data.network.api.MvxApi
 import com.example.hellocowcow.data.network.api.XoxnoApi
-import com.example.hellocowcow.data.response.mvxApi.NftResponse
 import com.example.hellocowcow.data.response.mvxApi.RewardRequest
 import com.example.hellocowcow.data.response.mvxApi.RewardResponse
 import com.example.hellocowcow.data.response.xoxnoApi.CollectionResponse
+import com.example.hellocowcow.domain.models.DomainNft
 import com.example.hellocowcow.domain.repositories.NftRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -20,15 +20,20 @@ class NftRepositoryImpl @Inject constructor(
 
     override fun getAllCowsInWallet(
         address: String
-    ): Single<List<NftResponse>> =
+    ): Single<List<DomainNft>> =
         mvxApi.getAllCowsInWallet(address)
+            .toObservable()
+            .flatMapIterable { it }
+            .map { it.toDomain() }
+            .toSortedList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
     override fun getNftMvx(
         identifier: String
-    ): Single<NftResponse> =
+    ): Single<DomainNft> =
         mvxApi.getNft(identifier)
+            .map { it.toDomain() }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
@@ -45,16 +50,21 @@ class NftRepositoryImpl @Inject constructor(
         identifiers: String,
         size: Int,
         from: Int
-    ): Single<List<NftResponse>> =
+    ): Single<List<DomainNft>> =
         mvxApi.getCowsWithCollection(identifiers, size, from)
+            .toObservable()
+            .flatMapIterable { it }
+            .map { it.toDomain() }
+            .toSortedList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
     override
     fun getNftXoxno(
         identifier: String
-    ): Single<com.example.hellocowcow.data.response.xoxnoApi.NftResponse> =
+    ): Single<DomainNft> =
         xoxnoApi.getNft(identifier)
+            .map { it.toDomain() }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 

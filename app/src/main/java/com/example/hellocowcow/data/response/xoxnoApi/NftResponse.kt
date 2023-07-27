@@ -1,5 +1,7 @@
 package com.example.hellocowcow.data.response.xoxnoApi
 
+import com.example.hellocowcow.domain.DomainModelConvertible
+import com.example.hellocowcow.domain.models.DomainNft
 import com.google.gson.annotations.SerializedName
 
 
@@ -42,4 +44,43 @@ data class NftResponse (
     @SerializedName("isVisible"            ) var isVisible            : Boolean?          = null,
     @SerializedName("nftValue"             ) var nftValue             : NftValueResponse? = NftValueResponse()
 
-)
+) : DomainModelConvertible<DomainNft> {
+    override fun toDomain()
+    : DomainNft =
+        DomainNft(
+            identifier,
+            collection,
+            timestamp,
+            attributes,
+            name,
+            creator,
+            royalties,
+            uris,
+            url,
+            thumbnailUrl,
+            tags,
+            avifUrl,
+            webpUrl,
+            wasProcessed,
+            id,
+            rid,
+            onSale,
+            lastPrice,
+            lastToken,
+            hasOffers,
+            retries,
+            hasSecondNFT,
+            metadata,
+            originalMedia,
+            saleInfoNft,
+            offersInfo,
+            owner,
+            ownerUsername,
+            isVerified,
+            collectionName,
+            isVisible,
+            nftValue
+        )
+
+
+}
