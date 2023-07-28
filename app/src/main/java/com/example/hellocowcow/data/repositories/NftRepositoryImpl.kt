@@ -25,7 +25,7 @@ class NftRepositoryImpl @Inject constructor(
             .toObservable()
             .flatMapIterable { it }
             .map { it.toDomain() }
-            .toSortedList()
+            .toList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
@@ -55,7 +55,7 @@ class NftRepositoryImpl @Inject constructor(
             .toObservable()
             .flatMapIterable { it }
             .map { it.toDomain() }
-            .toSortedList()
+            .toList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
