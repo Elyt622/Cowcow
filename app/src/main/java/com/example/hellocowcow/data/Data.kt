@@ -6,7 +6,7 @@ object Data {
     val items = listOf(
         ItemNav.Home,
         ItemNav.Token,
-        ItemNav.Collection,
+        ItemNav.Stats,
         ItemNav.Profile
     )
 }
