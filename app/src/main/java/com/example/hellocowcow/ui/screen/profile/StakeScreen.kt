@@ -49,51 +49,60 @@ fun StakeScreen(
     when (uiState) {
         is StakeViewModel.UiState.Success -> {
             (uiState as StakeViewModel.UiState.Success).data.let { nfts ->
-            Text(
-                modifier = Modifier.padding(start = 8.dp, top = 8.dp),
-                text = "Cows: " + nfts.size.toString(),
-                style = MaterialTheme.typography.labelMedium
-            )
-            LazyVerticalGrid(
-                modifier = Modifier.padding(start = 8.dp, end = 8.dp, bottom = 40.dp),
-                columns = GridCells.Adaptive(150.dp),
-                content = {
-                    items(nfts) { nft ->
-                        ElevatedCard(
-                            colors = cardColors,
-                            modifier = Modifier.padding(8.dp),
-                            elevation = CardDefaults.cardElevation(8.dp),
-                            onClick = {
-                                val intent = Intent(
-                                    context,
-                                    NftActivity::class.java
-                                )
-                                intent.putExtra("IDENTIFIER", nft.identifier)
-                                context.startActivity(intent)
-                            }
-                        ) {
-                            GlideImage(
-                                model = nft.url,
-                                contentDescription = nft.collection,
-                                modifier = Modifier
-                                    .padding(start = 8.dp, end = 8.dp, top = 8.dp)
-                            )
-
-                            Column(
-                                Modifier
-                                    .align(Alignment.CenterHorizontally)
-                                    .padding(8.dp),
-                                horizontalAlignment = Alignment.CenterHorizontally
+                Text(
+                    modifier = Modifier.padding(start = 8.dp, top = 8.dp),
+                    text = "Cows: " + nfts.size.toString(),
+                    style = MaterialTheme.typography.labelMedium
+                )
+                LazyVerticalGrid(
+                    modifier = Modifier.padding(
+                        start = 8.dp,
+                        end = 8.dp,
+                        bottom = 40.dp
+                    ),
+                    columns = GridCells.Adaptive(150.dp),
+                    content = {
+                        items(nfts) { nft ->
+                            ElevatedCard(
+                                colors = cardColors,
+                                modifier = Modifier.padding(8.dp),
+                                elevation = CardDefaults.cardElevation(8.dp),
+                                onClick = {
+                                    val intent = Intent(
+                                        context,
+                                        NftActivity::class.java
+                                    )
+                                    intent.putExtra("IDENTIFIER", nft.identifier)
+                                    context.startActivity(intent)
+                                }
                             ) {
-                                Text(
-                                    color = MaterialTheme.colorScheme.background,
-                                    text = nft.name.toString(),
-                                    style = Typography2.bodyLarge
+                                GlideImage(
+                                    model = nft.url,
+                                    contentDescription = nft.collection,
+                                    modifier = Modifier
+                                        .padding(
+                                            start = 8.dp,
+                                            end = 8.dp,
+                                            top = 8.dp
+                                        )
                                 )
+
+                                Column(
+                                    Modifier
+                                        .align(Alignment.CenterHorizontally)
+                                        .padding(8.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Text(
+                                        color = MaterialTheme.colorScheme.background,
+                                        text = nft.name.toString(),
+                                        style = Typography2.bodyLarge
+                                    )
+                                }
                             }
                         }
                     }
-                })
+                )
             }
         }
         is StakeViewModel.UiState.Loading -> Box(
