@@ -99,7 +99,7 @@ fun CollectionScreen(
                 Modifier.padding(8.dp).align(Alignment.CenterHorizontally),
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.secondary,
-                    contentColor = MaterialTheme.colorScheme.onSecondary
+                    contentColor = Color.Black
                 )
             ) {
                 Spacer(modifier = Modifier.size(12.dp))
@@ -459,7 +459,8 @@ fun CollectionScreen(
             Card(
                 Modifier.padding(8.dp).align(Alignment.CenterHorizontally),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.secondary
+                    containerColor = MaterialTheme.colorScheme.secondary,
+                    contentColor = Color.Black
                 )
             ) {
                 Spacer(modifier = Modifier.size(12.dp))
@@ -849,7 +850,7 @@ fun CollectionScreen(
                 Modifier.padding(8.dp).align(Alignment.CenterHorizontally),
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.secondary,
-                    contentColor = MaterialTheme.colorScheme.onSecondary
+                    contentColor = Color.Black
                 )
             ) {
                 Spacer(modifier = Modifier.size(12.dp))
