@@ -12,7 +12,7 @@ data class DomainNft (
     var attributes           : String?           = null,
     var name                 : String?           = null,
     var creator              : String?           = null,
-    var royalties            : Int?              = null,
+    var royalties            : Double?              = null,
     var uris                 : ArrayList<String> = arrayListOf(),
     var url                  : String?           = null,
     var thumbnailUrl         : String?           = null,
