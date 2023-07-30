@@ -34,11 +34,21 @@ fun WalletScreen(
 ) {
 
     val uiState by viewModel.uiState.collectAsState()
-    viewModel.getAllCowsInWallet()
+    val context = LocalContext.current
     val cardColors = CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.primary,
         contentColor = Color.Black
     )
+
+    val functionExecuted = remember { mutableStateOf(false) }
+
+    // LaunchedEffect runs when the Composable starts up
+    LaunchedEffect(Unit) {
+        if (!functionExecuted.value) {
+            viewModel.getCowsInWallet()
+            functionExecuted.value = true
+        }
+    }
 
     when (uiState) {
         is WalletViewModel.UiState.Success -> {

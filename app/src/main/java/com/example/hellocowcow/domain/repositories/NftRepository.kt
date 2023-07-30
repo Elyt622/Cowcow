@@ -34,4 +34,8 @@ interface NftRepository {
     fun getCowsListing(
         address: String
     ): Observable<CollectionResponse>
+
+    fun getCowsInWallet(
+        address: String
+    ): Observable<CollectionResponse>
 }

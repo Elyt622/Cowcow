@@ -33,18 +33,34 @@ class WalletViewModel @Inject constructor(
     private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val uiState: StateFlow<UiState> = _uiState
 
-    fun getAllCowsInWallet() =
-        nftRepository.getAllCowsInWallet(address.value)
-        .subscribeBy (
-            onSuccess = { nfts ->
-                if (nfts.isNotEmpty())
-                    _uiState.value = UiState.Success(nfts)
-                else
-                    _uiState.value = UiState.NoData
-            },
-            onError = { error ->
-                _uiState.value = UiState.Error(error.message.toString())
+    fun getCowsInWallet() =
+        nftRepository.getCowsInWallet(address.value)
+            .map {
+                it.groupedByCollection
             }
-        )
+            .flatMapIterable { it }
+            .filter { collection -> collection.ticker == "COW-cd463d" }
+            .toList()
+            .map {
+                if (it.isNotEmpty())
+                    it[0].nfts
+                else
+                    listOf()
+            }
+            .toObservable()
+            .flatMapIterable { it }
+            .map { it.toDomain() }
+            .toList()
+            .subscribeBy (
+                onSuccess = {
+                    if (it.isNotEmpty())
+                        _uiState.value = UiState.Success(it)
+                    else
+                        _uiState.value = UiState.NoData
+                },
+                onError = {
+                    _uiState.value = UiState.Error(it.message.toString())
+                }
+            )
 
 }

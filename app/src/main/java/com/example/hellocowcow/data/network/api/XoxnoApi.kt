@@ -20,4 +20,9 @@ interface XoxnoApi {
         @Path("address") address: String
     ) : Observable<CollectionResponse>
 
+    @GET("/accounts/{address}/inventory")
+    fun getCowsInWallet(
+        @Path("address") address : String
+    ) : Observable<CollectionResponse>
+
 }

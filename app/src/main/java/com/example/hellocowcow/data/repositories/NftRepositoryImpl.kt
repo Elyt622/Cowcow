@@ -76,4 +76,12 @@ class NftRepositoryImpl @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
+    override
+    fun getCowsInWallet(
+        address: String
+    ): Observable<CollectionResponse> =
+        xoxnoApi.getCowsInWallet(address)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
 }
