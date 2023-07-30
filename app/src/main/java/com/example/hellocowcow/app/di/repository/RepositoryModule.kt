@@ -1,9 +1,11 @@
 package com.example.hellocowcow.app.di.repository
 
+import com.example.hellocowcow.data.repositories.AccountRepositoryImpl
 import com.example.hellocowcow.data.repositories.CCToolsRepositoryImpl
 import com.example.hellocowcow.data.repositories.NftRepositoryImpl
 import com.example.hellocowcow.data.repositories.TokenRepositoryImpl
 import com.example.hellocowcow.data.repositories.TransactionRepositoryImpl
+import com.example.hellocowcow.domain.repositories.AccountRepository
 import com.example.hellocowcow.domain.repositories.CCToolsRepository
 import com.example.hellocowcow.domain.repositories.NftRepository
 import com.example.hellocowcow.domain.repositories.TokenRepository
@@ -37,5 +39,10 @@ abstract class RepositoryModule {
     abstract fun bindNftRepository(
         nftRepositoryImpl: NftRepositoryImpl
     ) : NftRepository
+
+    @Binds
+    abstract fun bindAccountRepository(
+        accountRepositoryImpl: AccountRepositoryImpl
+    ) : AccountRepository
 
 }

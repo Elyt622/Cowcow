@@ -1,5 +1,6 @@
 package com.example.hellocowcow.data.network.api
 
+import com.example.hellocowcow.data.response.mvxApi.AccountResponse
 import com.example.hellocowcow.data.response.mvxApi.NftResponse
 import com.example.hellocowcow.data.response.mvxApi.RewardRequest
 import com.example.hellocowcow.data.response.mvxApi.RewardResponse
@@ -35,6 +36,11 @@ interface MvxApi {
         @Query("size") size: Int,
         @Query("from") from: Int
     ) : Single<List<NftResponse>>
+
+    @GET("/accounts/{address}?withGuardianInfo=true")
+    fun getAccount(
+        @Path("address") address: String
+    ) : Single<AccountResponse>
 
     @POST("/query")
     fun getTotalRewardsToCollect(

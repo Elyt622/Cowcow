@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.hellocowcow.domain.models.DomainAccount
 import com.example.hellocowcow.ui.viewmodels.screen.profile.MarketViewModel
 import com.example.hellocowcow.ui.viewmodels.screen.profile.ProfileViewModel
 import com.example.hellocowcow.ui.viewmodels.screen.profile.StakeViewModel
@@ -25,7 +26,7 @@ import com.example.hellocowcow.ui.viewmodels.screen.profile.WalletViewModel
 @Composable
 fun ProfileScreen(
     viewModel: ProfileViewModel,
-    address: String
+    account: DomainAccount
 ) {
 
     Column(
@@ -34,7 +35,7 @@ fun ProfileScreen(
     ) {
 
         Text(
-            text = "Hello $address !",
+            text = "Hello ${account.username} !",
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier
                 .padding(16.dp)
@@ -42,12 +43,12 @@ fun ProfileScreen(
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.labelMedium
         )
-        TabScreen(address)
+        TabScreen(account)
     }
 }
 
 @Composable
-fun TabScreen(address: String) {
+fun TabScreen(account: DomainAccount) {
 
     var tabIndex by remember { mutableStateOf(0) }
 
@@ -72,17 +73,17 @@ fun TabScreen(address: String) {
         when (tabIndex) {
             0 -> {
                 val viewModel: WalletViewModel = hiltViewModel()
-                viewModel.setAddress(address)
+                viewModel.setAddress(account.address.toString())
                 WalletScreen(viewModel)
             }
             1 -> {
                 val viewModel: StakeViewModel = hiltViewModel()
-                viewModel.setAddress(address)
+                viewModel.setAddress(account.address.toString())
                 StakeScreen(viewModel)
             }
             2 -> {
                 val viewModel: MarketViewModel = hiltViewModel()
-                viewModel.setAddress(address)
+                viewModel.setAddress(account.address.toString())
                 MarketScreen(viewModel)
             }
         }

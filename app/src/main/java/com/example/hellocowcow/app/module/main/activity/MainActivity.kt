@@ -8,7 +8,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import com.example.hellocowcow.domain.models.DomainAccount
 import com.example.hellocowcow.ui.composables.MainScaffold
 import com.example.hellocowcow.ui.theme.HelloCowCowTheme
 import com.example.hellocowcow.ui.viewmodels.activity.MainViewModel
@@ -31,23 +34,35 @@ class MainActivity : ComponentActivity() {
         address = intent.getStringExtra("ADDRESS").toString()
         topic = intent.getStringExtra("TOPIC").toString()
 
+        viewModel.getAccount("erd12p7w0mry76538wmpk8cfevpj4062aazavguvxxxlmktsckd9druse3pyay")
+
         setContent {
+            val uiState by viewModel.currentAccount.collectAsState()
             HelloCowCowTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier
                         .fillMaxSize(),
                     color = MaterialTheme
                         .colorScheme
                         .background
-                ) { Body("erd1nstzyd7j224nv2e2ju37sdk6xlhq5cqvh67je0dz3e9h3k6tz9jsrslxlu") }
+                ) {
+                    when (uiState) {
+                        is MainViewModel.UiState.NoData -> { }
+                        is MainViewModel.UiState.Success -> {
+                            (uiState as MainViewModel.UiState.Success)
+                                .data.let { account ->
+                                    Body(account)
+                                }
+                        }
+                    }
+                }
             }
         }
     }
 
     @Composable
-    fun Body(address: String) {
-        MainScaffold(address)
+    fun Body(account: DomainAccount) {
+        MainScaffold(account)
     }
 
 }
