@@ -15,7 +15,7 @@ data class NftResponse (
     @SerializedName("type"                 ) var type                 : String?           = null,
     @SerializedName("name"                 ) var name                 : String?           = null,
     @SerializedName("creator"              ) var creator              : String?           = null,
-    @SerializedName("royalties"            ) var royalties            : Int?              = null,
+    @SerializedName("royalties"            ) var royalties            : Double?              = null,
     @SerializedName("uris"                 ) var uris                 : ArrayList<String> = arrayListOf(),
     @SerializedName("url"                  ) var url                  : String?           = null,
     @SerializedName("isWhitelistedStorage" ) var isWhitelistedStorage : String?           = null,
