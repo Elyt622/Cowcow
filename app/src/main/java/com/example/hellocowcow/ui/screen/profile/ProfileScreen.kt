@@ -47,7 +47,7 @@ fun ProfileScreen(
 }
 
 @Composable
-fun TabScreen(_address: String) {
+fun TabScreen(address: String) {
 
     var tabIndex by remember { mutableStateOf(0) }
 
@@ -72,17 +72,17 @@ fun TabScreen(_address: String) {
         when (tabIndex) {
             0 -> {
                 val viewModel: WalletViewModel = hiltViewModel()
-                viewModel.setAddress(_address)
+                viewModel.setAddress(address)
                 WalletScreen(viewModel)
             }
             1 -> {
                 val viewModel: StakeViewModel = hiltViewModel()
-                viewModel.setAddress(_address)
+                viewModel.setAddress(address)
                 StakeScreen(viewModel)
             }
             2 -> {
                 val viewModel: MarketViewModel = hiltViewModel()
-                viewModel.setAddress(_address)
+                viewModel.setAddress(address)
                 MarketScreen(viewModel)
             }
         }
