@@ -4,7 +4,7 @@ import com.example.hellocowcow.data.response.mvxApi.NftResponse
 import com.example.hellocowcow.data.response.mvxApi.RewardRequest
 import com.example.hellocowcow.data.response.mvxApi.RewardResponse
 import com.example.hellocowcow.data.response.mvxApi.TokenResponse
-import com.example.hellocowcow.data.response.mvxApi.TransactionsResponse
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -23,13 +23,6 @@ interface MvxApi {
     fun getNft(
         @Path("identifier") identifier: String
     ) : Single<NftResponse>
-
-    @GET("/accounts/{address}/transactions?&status=success")
-    fun getAllCowsWithFunction(
-        @Path("address") address: String,
-        @Query("receiver") receiver: String,
-        @Query("function") function: String
-    ) : Single<List<TransactionsResponse>>
 
     @GET ("/accounts/{address}/nfts?collections=COW-cd463d")
     fun getAllCowsInWallet(
@@ -51,7 +44,7 @@ interface MvxApi {
     @POST("/query")
     fun getAllDataUsers(
         @Body request: RewardRequest
-    ) : Single<RewardResponse>
+    ) : Observable<RewardResponse>
 
 
 }

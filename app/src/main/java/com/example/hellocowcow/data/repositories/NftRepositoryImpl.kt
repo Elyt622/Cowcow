@@ -40,7 +40,7 @@ class NftRepositoryImpl @Inject constructor(
     override
     fun getAllDataUsers(
         request: RewardRequest
-    ): Single<RewardResponse> =
+    ): Observable<RewardResponse> =
         mvxApi.getAllDataUsers(request)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

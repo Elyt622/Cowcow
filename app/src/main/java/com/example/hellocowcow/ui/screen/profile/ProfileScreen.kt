@@ -71,9 +71,8 @@ fun TabScreen(_address: String) {
         }
         when (tabIndex) {
             0 -> {
-                val address = remember { mutableStateOf(_address) }
                 val viewModel: WalletViewModel = hiltViewModel()
-                viewModel.setAddress(address.value)
+                viewModel.setAddress(_address)
                 WalletScreen(viewModel)
             }
             1 -> {

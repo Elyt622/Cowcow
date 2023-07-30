@@ -19,7 +19,7 @@ interface NftRepository {
 
     fun getAllDataUsers(
         request: RewardRequest
-    ) : Single<RewardResponse>
+    ) : Observable<RewardResponse>
 
     fun getCowsWithCollection(
         identifiers: String,
