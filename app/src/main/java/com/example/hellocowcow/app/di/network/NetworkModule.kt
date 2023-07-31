@@ -8,9 +8,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 
@@ -18,11 +20,19 @@ import javax.inject.Singleton
 @Module
 object NetworkModule {
 
+    private const val customTimeout = 6L
+
+    private val httpClient = OkHttpClient.Builder()
+        .connectTimeout(customTimeout, TimeUnit.SECONDS)
+        .retryOnConnectionFailure(true)
+        .build()
+
     @Provides
     @Singleton
     fun provideMvxApi() : MvxApi =
         Retrofit.Builder()
             .baseUrl("https://api.multiversx.com/")
+            .client(httpClient)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build().create(MvxApi::class.java)
@@ -32,6 +42,7 @@ object NetworkModule {
     fun provideXoxnoApi() : XoxnoApi =
         Retrofit.Builder()
             .baseUrl("https://proxy-api.xoxno.com/")
+            .client(httpClient)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build().create(XoxnoApi::class.java)
