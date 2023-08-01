@@ -42,6 +42,9 @@ interface MvxApi {
         @Path("address") address: String
     ) : Single<AccountResponse>
 
+    @GET("/accounts/erd1qqqqqqqqqqqqqpgqqgzzsl0re9e3u0t3mhv3jwg6zu63zssd7yqs3uu9jk/nfts/count?collection=COW-cd463d")
+    fun getStakingCowsCount() : Single<Int>
+
     @POST("/query")
     fun getTotalRewardsToCollect(
         @Body rewardRequest: RewardRequest
