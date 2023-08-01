@@ -5,5 +5,11 @@ data class DomainCollection (
     var holdersCows : Int? = null,
     var listedCows : Int? = null,
     var floorPriceCows : Double? = null,
-    var totalUpgradedCows : Int? = null
+    var totalUpgradedCows : Int? = null,
+    var athEgldPrice: Double? = null,
+    var totalTrades: Int? = null,
+    var followAccounts: Int? = null,
+    var dayEgldVolume: Double? = null,
+    var weekEgldVolume: Double? = null,
+    var totalEgldVolume: Double? = null
 )
