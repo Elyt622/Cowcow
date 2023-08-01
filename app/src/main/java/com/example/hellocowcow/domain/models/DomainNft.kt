@@ -1,8 +1,8 @@
 package com.example.hellocowcow.domain.models
 
-import com.example.hellocowcow.data.response.xoxnoApi.MetadataResponse
-import com.example.hellocowcow.data.response.xoxnoApi.OffersInfoResponse
-import com.example.hellocowcow.data.response.xoxnoApi.SaleInfoNftResponse
+import com.example.hellocowcow.data.response.proxyXoxnoApi.MetadataResponse
+import com.example.hellocowcow.data.response.proxyXoxnoApi.OffersInfoResponse
+import com.example.hellocowcow.data.response.proxyXoxnoApi.SaleInfoNftResponse
 
 data class DomainNft (
 

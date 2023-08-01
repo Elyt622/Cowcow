@@ -3,7 +3,7 @@ package com.example.hellocowcow.ui.viewmodels.screen.profile
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.hellocowcow.data.response.xoxnoApi.NftResponse
+import com.example.hellocowcow.data.response.proxyXoxnoApi.NftResponse
 import com.example.hellocowcow.domain.repositories.NftRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.kotlin.subscribeBy
