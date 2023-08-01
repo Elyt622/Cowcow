@@ -39,13 +39,13 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideXoxnoApi() : XoxnoApi =
+    fun provideProxyXoxnoApi() : ProxyXoxnoApi =
         Retrofit.Builder()
             .baseUrl("https://proxy-api.xoxno.com/")
             .client(httpClient)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .build().create(XoxnoApi::class.java)
+            .build().create(ProxyXoxnoApi::class.java)
 
     @Provides
     @Singleton

@@ -1,4 +1,4 @@
-package com.example.hellocowcow.data.response.xoxnoApi
+package com.example.hellocowcow.data.response.proxyXoxnoApi
 
 import com.google.gson.annotations.SerializedName
 
