@@ -1,10 +1,13 @@
 package com.example.hellocowcow.data.repositories
 
 import com.example.hellocowcow.data.network.api.MvxApi
+import com.example.hellocowcow.data.network.api.ProxyXoxnoApi
 import com.example.hellocowcow.data.network.api.XoxnoApi
 import com.example.hellocowcow.data.response.mvxApi.RewardRequest
 import com.example.hellocowcow.data.response.mvxApi.RewardResponse
-import com.example.hellocowcow.data.response.xoxnoApi.CollectionResponse
+import com.example.hellocowcow.data.response.proxyXoxnoApi.CollectionResponse
+import com.example.hellocowcow.data.response.proxyXoxnoApi.UpgradedResponse
+import com.example.hellocowcow.data.response.xoxnoApi.StatsCollectionResponse
 import com.example.hellocowcow.domain.models.DomainNft
 import com.example.hellocowcow.domain.repositories.NftRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -15,6 +18,7 @@ import javax.inject.Inject
 
 class NftRepositoryImpl @Inject constructor(
     val mvxApi: MvxApi,
+    val proxyXoxnoApi: ProxyXoxnoApi,
     val xoxnoApi: XoxnoApi
 ) : NftRepository {
 
@@ -63,7 +67,7 @@ class NftRepositoryImpl @Inject constructor(
     fun getNftXoxno(
         identifier: String
     ): Single<DomainNft> =
-        xoxnoApi.getNft(identifier)
+        proxyXoxnoApi.getNft(identifier)
             .map { it.toDomain() }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -72,7 +76,7 @@ class NftRepositoryImpl @Inject constructor(
     fun getCowsListing(
         address: String
     ): Observable<CollectionResponse> =
-        xoxnoApi.getCowsListing(address)
+        proxyXoxnoApi.getCowsListing(address)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
@@ -80,7 +84,28 @@ class NftRepositoryImpl @Inject constructor(
     fun getCowsInWallet(
         address: String
     ): Observable<CollectionResponse> =
-        xoxnoApi.getCowsInWallet(address)
+        proxyXoxnoApi.getCowsInWallet(address)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    override
+    fun getUpgradedCowsCount()
+    : Observable<UpgradedResponse> =
+        proxyXoxnoApi.getUpgradedCowsCount()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    override
+    fun getStakingCowsCount()
+    : Single<Int> =
+        mvxApi.getStakingCowsCount()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    override
+    fun getStatsCollection()
+    : Observable<StatsCollectionResponse> =
+        xoxnoApi.getStatsCollection()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 

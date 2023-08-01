@@ -1,28 +1,12 @@
 package com.example.hellocowcow.data.network.api
 
-import com.example.hellocowcow.data.response.xoxnoApi.CollectionResponse
-import com.example.hellocowcow.data.response.xoxnoApi.NftResponse
+import com.example.hellocowcow.data.response.xoxnoApi.StatsCollectionResponse
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
-import retrofit2.http.Path
 
 interface XoxnoApi {
 
-    @GET("/nfts/{identifier}")
-    fun getNft(
-        @Path("identifier") identifier: String
-    ) : Single<NftResponse>
-
-
-    @GET("/accounts/{address}/listings")
-    fun getCowsListing(
-        @Path("address") address: String
-    ) : Observable<CollectionResponse>
-
-    @GET("/accounts/{address}/inventory")
-    fun getCowsInWallet(
-        @Path("address") address : String
-    ) : Observable<CollectionResponse>
-
+    @GET("_next/data/PHcMx2PzyPQCiHo3z_avH/collection/COW-cd463d.json?id=COW-cd463d")
+    fun getStatsCollection()
+    : Observable<StatsCollectionResponse>
 }

@@ -1,7 +1,7 @@
 package com.example.hellocowcow.app.di.network
 
-import com.example.hellocowcow.data.network.api.CCToolsApi
 import com.example.hellocowcow.data.network.api.XoxnoApi
+import com.example.hellocowcow.data.network.api.ProxyXoxnoApi
 import com.example.hellocowcow.data.network.api.MvxApi
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -49,11 +49,12 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideCCToolsApi() : CCToolsApi =
+    fun provideXoxnoApi() : XoxnoApi =
         Retrofit.Builder()
-            .baseUrl("https://api.cowcowtools.com/")
+            .baseUrl("https://xoxno.com/")
+            .client(httpClient)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .build().create(CCToolsApi::class.java)
+            .build().create(XoxnoApi::class.java)
 
 }

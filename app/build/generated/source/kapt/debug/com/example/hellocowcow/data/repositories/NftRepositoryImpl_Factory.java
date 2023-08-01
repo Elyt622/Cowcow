@@ -1,6 +1,7 @@
 package com.example.hellocowcow.data.repositories;
 
 import com.example.hellocowcow.data.network.api.MvxApi;
+import com.example.hellocowcow.data.network.api.ProxyXoxnoApi;
 import com.example.hellocowcow.data.network.api.XoxnoApi;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.Factory;
@@ -25,25 +26,29 @@ import javax.inject.Provider;
 public final class NftRepositoryImpl_Factory implements Factory<NftRepositoryImpl> {
   private final Provider<MvxApi> mvxApiProvider;
 
+  private final Provider<ProxyXoxnoApi> proxyXoxnoApiProvider;
+
   private final Provider<XoxnoApi> xoxnoApiProvider;
 
   public NftRepositoryImpl_Factory(Provider<MvxApi> mvxApiProvider,
-      Provider<XoxnoApi> xoxnoApiProvider) {
+      Provider<ProxyXoxnoApi> proxyXoxnoApiProvider, Provider<XoxnoApi> xoxnoApiProvider) {
     this.mvxApiProvider = mvxApiProvider;
+    this.proxyXoxnoApiProvider = proxyXoxnoApiProvider;
     this.xoxnoApiProvider = xoxnoApiProvider;
   }
 
   @Override
   public NftRepositoryImpl get() {
-    return newInstance(mvxApiProvider.get(), xoxnoApiProvider.get());
+    return newInstance(mvxApiProvider.get(), proxyXoxnoApiProvider.get(), xoxnoApiProvider.get());
   }
 
   public static NftRepositoryImpl_Factory create(Provider<MvxApi> mvxApiProvider,
-      Provider<XoxnoApi> xoxnoApiProvider) {
-    return new NftRepositoryImpl_Factory(mvxApiProvider, xoxnoApiProvider);
+      Provider<ProxyXoxnoApi> proxyXoxnoApiProvider, Provider<XoxnoApi> xoxnoApiProvider) {
+    return new NftRepositoryImpl_Factory(mvxApiProvider, proxyXoxnoApiProvider, xoxnoApiProvider);
   }
 
-  public static NftRepositoryImpl newInstance(MvxApi mvxApi, XoxnoApi xoxnoApi) {
-    return new NftRepositoryImpl(mvxApi, xoxnoApi);
+  public static NftRepositoryImpl newInstance(MvxApi mvxApi, ProxyXoxnoApi proxyXoxnoApi,
+      XoxnoApi xoxnoApi) {
+    return new NftRepositoryImpl(mvxApi, proxyXoxnoApi, xoxnoApi);
   }
 }
