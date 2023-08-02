@@ -18,6 +18,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.hellocowcow.domain.models.DomainAccount
+import com.example.hellocowcow.ui.screen.profile.tabs.MarketScreen
+import com.example.hellocowcow.ui.screen.profile.tabs.StakeScreen
+import com.example.hellocowcow.ui.screen.profile.tabs.WalletScreen
 import com.example.hellocowcow.ui.viewmodels.screen.profile.MarketViewModel
 import com.example.hellocowcow.ui.viewmodels.screen.profile.ProfileViewModel
 import com.example.hellocowcow.ui.viewmodels.screen.profile.StakeViewModel

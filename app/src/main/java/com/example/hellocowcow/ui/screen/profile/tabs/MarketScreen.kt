@@ -1,4 +1,4 @@
-package com.example.hellocowcow.ui.screen.profile
+package com.example.hellocowcow.ui.screen.profile.tabs
 
 import android.content.Intent
 import android.widget.Toast

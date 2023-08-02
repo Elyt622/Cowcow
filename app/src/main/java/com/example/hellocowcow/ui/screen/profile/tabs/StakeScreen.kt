@@ -1,4 +1,4 @@
-package com.example.hellocowcow.ui.screen.profile
+package com.example.hellocowcow.ui.screen.profile.tabs
 
 import android.content.Intent
 import android.widget.Toast
@@ -34,12 +34,14 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.hellocowcow.app.module.nft.NftActivity
 import com.example.hellocowcow.ui.theme.Typography2
-import com.example.hellocowcow.ui.viewmodels.screen.profile.WalletViewModel
+import com.example.hellocowcow.ui.viewmodels.screen.profile.StakeViewModel
 
-@OptIn(ExperimentalGlideComposeApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalGlideComposeApi::class,
+    ExperimentalMaterial3Api::class
+)
 @Composable
-fun WalletScreen(
-    viewModel: WalletViewModel
+fun StakeScreen(
+    viewModel: StakeViewModel
 ) {
 
     val uiState by viewModel.uiState.collectAsState()
@@ -54,27 +56,32 @@ fun WalletScreen(
     // LaunchedEffect runs when the Composable starts up
     LaunchedEffect(Unit) {
         if (!functionExecuted.value) {
-            viewModel.getCowsInWallet()
+            viewModel.getAllDataForUser()
             functionExecuted.value = true
         }
     }
 
     when (uiState) {
-        is WalletViewModel.UiState.Success -> {
-            (uiState as WalletViewModel.UiState.Success).data.let { nfts ->
+        is StakeViewModel.UiState.Success -> {
+            (uiState as StakeViewModel.UiState.Success).data.let { nfts ->
                 Text(
                     modifier = Modifier.padding(start = 8.dp, top = 8.dp),
                     text = "Cows: " + nfts.size.toString(),
                     style = MaterialTheme.typography.labelMedium
                 )
                 LazyVerticalGrid(
-                    modifier = Modifier.padding(start = 8.dp, end = 8.dp, bottom = 50.dp),
+                    modifier = Modifier.padding(
+                        start = 8.dp,
+                        end = 8.dp,
+                        bottom = 40.dp
+                    ),
                     columns = GridCells.Adaptive(150.dp),
                     content = {
                         items(nfts) { nft ->
                             ElevatedCard(
                                 colors = cardColors,
                                 modifier = Modifier.padding(8.dp),
+                                elevation = CardDefaults.cardElevation(8.dp),
                                 onClick = {
                                     val intent = Intent(
                                         context,
@@ -89,8 +96,13 @@ fun WalletScreen(
                                         model = nft.url,
                                         contentDescription = nft.collection,
                                         modifier = Modifier
-                                            .padding(start = 8.dp, end = 8.dp, top = 8.dp)
+                                            .padding(
+                                                start = 8.dp,
+                                                end = 8.dp,
+                                                top = 8.dp
+                                            )
                                     )
+
                                     if (nft.hasSecondNFT == true)
                                         Icon(
                                             modifier = Modifier
@@ -101,6 +113,7 @@ fun WalletScreen(
                                             tint = MaterialTheme.colorScheme.background
                                         )
                                 }
+
                                 Column(
                                     Modifier
                                         .align(Alignment.CenterHorizontally)
@@ -119,7 +132,7 @@ fun WalletScreen(
                 )
             }
         }
-        is WalletViewModel.UiState.Loading -> Box(
+        is StakeViewModel.UiState.Loading -> Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
@@ -128,26 +141,28 @@ fun WalletScreen(
                 color = MaterialTheme.colorScheme.primary
             )
         }
-        is WalletViewModel.UiState.Error -> {
+        is StakeViewModel.UiState.Error -> {
             Toast.makeText(
                 LocalContext.current,
-                (uiState as WalletViewModel.UiState.Error).error,
+                (uiState as StakeViewModel.UiState.Error).error,
                 Toast.LENGTH_LONG
             ).show()
         }
-        is WalletViewModel.UiState.NoData -> {
+        is StakeViewModel.UiState.NoData -> {
             Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "No NFT in the wallet !",
+                    text = "No NFT in staking !",
                     style = Typography2.bodyLarge
                 )
             }
         }
     }
-
-
 }
+
+
+
+
 
