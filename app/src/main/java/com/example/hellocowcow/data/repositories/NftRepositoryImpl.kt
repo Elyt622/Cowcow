@@ -106,7 +106,7 @@ class NftRepositoryImpl @Inject constructor(
     fun getStatsCollection(
         collection: String
     ): Observable<StatsCollectionResponse> =
-        xoxnoApi.getStatsCollection(collection, collection)
+        xoxnoApi.getStatsCollection(collection)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
