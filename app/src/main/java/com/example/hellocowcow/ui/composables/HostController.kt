@@ -11,7 +11,7 @@ import com.example.hellocowcow.domain.models.ItemNav
 import com.example.hellocowcow.ui.screen.home.HomeScreen
 import com.example.hellocowcow.ui.screen.profile.ProfileScreen
 import com.example.hellocowcow.ui.screen.stats.StatsScreen
-import com.example.hellocowcow.ui.screen.stats.TokenScreen
+import com.example.hellocowcow.ui.screen.stats.tabs.TokenScreen
 
 @Composable
 fun HostController(

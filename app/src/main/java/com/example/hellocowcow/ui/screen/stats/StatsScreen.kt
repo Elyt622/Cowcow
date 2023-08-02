@@ -20,6 +20,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.hellocowcow.ui.screen.stats.tabs.CollectionScreen
+import com.example.hellocowcow.ui.screen.stats.tabs.TicketScreen
+import com.example.hellocowcow.ui.screen.stats.tabs.TokenScreen
 import com.example.hellocowcow.ui.viewmodels.screen.stats.CollectionViewModel
 import com.example.hellocowcow.ui.viewmodels.screen.stats.TicketViewModel
 import com.example.hellocowcow.ui.viewmodels.screen.stats.TokenViewModel

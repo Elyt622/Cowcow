@@ -1,4 +1,4 @@
-package com.example.hellocowcow.ui.screen.stats
+package com.example.hellocowcow.ui.screen.stats.tabs
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
