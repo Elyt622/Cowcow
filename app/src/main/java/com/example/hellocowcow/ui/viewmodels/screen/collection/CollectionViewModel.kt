@@ -1,10 +1,8 @@
 package com.example.hellocowcow.ui.viewmodels.screen.collection
 
 import androidx.lifecycle.ViewModel
-import com.example.hellocowcow.data.network.api.MvxApi
-import com.example.hellocowcow.data.network.api.ProxyXoxnoApi
-import com.example.hellocowcow.data.network.api.XoxnoApi
 import com.example.hellocowcow.domain.models.DomainCollection
+import com.example.hellocowcow.domain.repositories.NftRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.subscribeBy
@@ -14,9 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CollectionViewModel @Inject constructor(
-    private val proxyXoxnoApi: ProxyXoxnoApi,
-    private val mvxApi: MvxApi,
-    private val xoxnoApi: XoxnoApi
+    private val nftRepository: NftRepository
 ) : ViewModel() {
 
     sealed class UiState {
@@ -29,14 +25,14 @@ class CollectionViewModel @Inject constructor(
     val uiState: StateFlow<UiState> = _uiState
 
     init {
-        getCollectionStats()
+        getCowsCollectionStats()
     }
 
-    private fun getCollectionStats() {
+    private fun getCowsCollectionStats() {
         Observable.zip(
-            mvxApi.getStakingCowsCount().toObservable(),
-            proxyXoxnoApi.getUpgradedCowsCount(),
-            xoxnoApi.getStatsCollection()
+            nftRepository.getStakingCowsCount().toObservable(),
+            nftRepository.getUpgradedCowsCount(),
+            nftRepository.getStatsCollection("COW-cd463d")
         ) { stakingCount,
             upgradedCount,
             statsCollection ->
