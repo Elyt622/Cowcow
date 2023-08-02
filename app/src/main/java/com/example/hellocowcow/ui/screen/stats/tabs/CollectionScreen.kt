@@ -52,21 +52,6 @@ fun CollectionScreen(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            ElevatedCard(
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.background
-                )
-            ) {
-                Text(
-                    modifier = Modifier.padding(10.dp),
-                    text = "Cows",
-                    style = MaterialTheme.typography.titleMedium
-                )
-            }
-
-            Spacer(modifier = Modifier.size(8.dp))
-
             Card(
                 Modifier
                     .padding(8.dp)
@@ -76,7 +61,21 @@ fun CollectionScreen(
                     contentColor = Color.Black
                 )
             ) {
-                Spacer(modifier = Modifier.size(12.dp))
+                Spacer(modifier = Modifier.size(10.dp))
+                ElevatedCard(
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.background
+                    ),
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                ) {
+                    Text(
+                        modifier = Modifier.padding(10.dp),
+                        text = "Cows",
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                }
+
                 Row(
                     Modifier.align(Alignment.CenterHorizontally)
                 ) {
