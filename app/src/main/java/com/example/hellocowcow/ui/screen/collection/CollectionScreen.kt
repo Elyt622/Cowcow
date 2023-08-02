@@ -113,59 +113,6 @@ fun CollectionScreen(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            text = "Unbonding",
-                            style = MaterialTheme.typography.labelMedium
-                        )
-
-                        Spacer(modifier = Modifier.size(10.dp))
-
-                        ElevatedCard(
-                            Modifier.align(Alignment.CenterHorizontally),
-                            colors = cardColors,
-                            elevation = CardDefaults.cardElevation(20.dp)
-                        ) {
-                            Box(
-                                Modifier.padding(8.dp)
-                            ) {
-                                when (uiState) {
-                                    is CollectionViewModel.UiState.Loading ->
-                                        Box(
-                                            modifier = Modifier.size(16.dp),
-                                            contentAlignment = Alignment.Center
-                                        ) {
-                                            CircularProgressIndicator(color = Color.Black)
-                                        }
-
-                                    is CollectionViewModel.UiState.Success ->
-                                        (uiState as CollectionViewModel.UiState.Success)
-                                            .data.let { collection ->
-                                                Text(
-                                                    text = collection.unbondingCows.toString(),
-                                                    style = MaterialTheme.typography.bodyLarge
-                                                )
-                                            }
-
-                                    is CollectionViewModel.UiState.Error ->
-                                        (uiState as CollectionViewModel.UiState.Error)
-                                            .error.let { err ->
-                                                Toast.makeText(
-                                                    context,
-                                                    err,
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            }
-                                }
-                            }
-                        }
-                    }
-
-                    Column(
-                        Modifier
-                            .padding(8.dp)
-                            .weight(1f),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
                             text = "Staked",
                             style = MaterialTheme.typography.labelMedium
                         )
