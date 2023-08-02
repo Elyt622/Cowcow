@@ -1,7 +1,7 @@
 package com.example.hellocowcow.ui.viewmodels.screen.stats
 
 import androidx.lifecycle.ViewModel
-import com.example.hellocowcow.domain.models.DomainCollection
+import com.example.hellocowcow.domain.models.CowCollection
 import com.example.hellocowcow.domain.repositories.NftRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.core.Observable
@@ -17,7 +17,7 @@ class CollectionViewModel @Inject constructor(
 
     sealed class UiState {
         object Loading : UiState()
-        data class Success(val data: DomainCollection) : UiState()
+        data class Success(val data: CowCollection) : UiState()
         data class Error(val error: String) : UiState()
     }
 
@@ -36,7 +36,7 @@ class CollectionViewModel @Inject constructor(
                 "COW-cd463d"
             ).map { it.pageProps!! }
         ) { stakingCount, upgradedCount, statsCowCollection ->
-            DomainCollection(
+            CowCollection(
                 stakedCount = stakingCount,
                 holdersCount = statsCowCollection.holdersCount,
                 listedCount = statsCowCollection.listedNFTs,
