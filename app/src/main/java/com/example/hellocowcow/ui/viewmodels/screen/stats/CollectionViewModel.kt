@@ -1,4 +1,4 @@
-package com.example.hellocowcow.ui.viewmodels.screen.collection
+package com.example.hellocowcow.ui.viewmodels.screen.stats
 
 import androidx.lifecycle.ViewModel
 import com.example.hellocowcow.domain.models.DomainCollection
@@ -35,19 +35,19 @@ class CollectionViewModel @Inject constructor(
             nftRepository.getStatsCollection(
                 "COW-cd463d"
             ).map { it.pageProps!! }
-        ) { stakingCount, upgradedCount, statsCollection ->
+        ) { stakingCount, upgradedCount, statsCowCollection ->
             DomainCollection(
                 stakedCount = stakingCount,
-                holdersCount = statsCollection.holdersCount,
-                listedCount = statsCollection.listedNFTs,
-                floorPrice = statsCollection.fallBackFloor,
+                holdersCount = statsCowCollection.holdersCount,
+                listedCount = statsCowCollection.listedNFTs,
+                floorPrice = statsCowCollection.fallBackFloor,
                 totalUpgradedCount = upgradedCount.count,
-                athEgldPrice = statsCollection.profileFallback?.statistics?.tradeData?.athEgldPrice,
-                totalTrades = statsCollection.profileFallback?.statistics?.tradeData?.totalTrades,
-                followAccountsCount = statsCollection.profileFallback?.statistics?.other?.followCount,
-                dayEgldVolume = statsCollection.profileFallback?.statistics?.tradeData?.dayEgldVolume,
-                weekEgldVolume = statsCollection.profileFallback?.statistics?.tradeData?.weekEgldVolume,
-                totalEgldVolume = statsCollection.profileFallback?.statistics?.tradeData?.totalEgldVolume
+                athEgldPrice = statsCowCollection.profileFallback?.statistics?.tradeData?.athEgldPrice,
+                totalTrades = statsCowCollection.profileFallback?.statistics?.tradeData?.totalTrades,
+                followAccountsCount = statsCowCollection.profileFallback?.statistics?.other?.followCount,
+                dayEgldVolume = statsCowCollection.profileFallback?.statistics?.tradeData?.dayEgldVolume,
+                weekEgldVolume = statsCowCollection.profileFallback?.statistics?.tradeData?.weekEgldVolume,
+                totalEgldVolume = statsCowCollection.profileFallback?.statistics?.tradeData?.totalEgldVolume
             )
         }.subscribeBy (
             onNext = {

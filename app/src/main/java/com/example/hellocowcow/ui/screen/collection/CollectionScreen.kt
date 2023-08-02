@@ -31,8 +31,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.hellocowcow.R
-import com.example.hellocowcow.ui.viewmodels.screen.collection.CollectionViewModel
-import com.example.hellocowcow.ui.viewmodels.screen.collection.TokenViewModel
+import com.example.hellocowcow.ui.viewmodels.screen.stats.CollectionViewModel
+import com.example.hellocowcow.ui.viewmodels.screen.stats.TokenViewModel
 import kotlin.math.roundToInt
 
 @Composable
@@ -777,7 +777,7 @@ fun CollectionScreen(
             }
 
             Spacer(modifier = Modifier.size(10.dp))
-
+/*
             ElevatedCard(
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.primary,
@@ -931,7 +931,7 @@ fun CollectionScreen(
                     }
                 }
                 Spacer(modifier = Modifier.size(12.dp))
-            }
+            }*/
         }
     }
 }

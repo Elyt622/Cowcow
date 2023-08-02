@@ -1,4 +1,4 @@
-package com.example.hellocowcow.ui.viewmodels.screen.collection
+package com.example.hellocowcow.ui.viewmodels.screen.stats
 
 import androidx.lifecycle.ViewModel
 import com.example.hellocowcow.data.response.mvxApi.RewardRequest
