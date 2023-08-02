@@ -3,6 +3,7 @@ package com.example.hellocowcow.data.repositories;
 import com.example.hellocowcow.data.network.api.MvxApi;
 import com.example.hellocowcow.data.network.api.ProxyXoxnoApi;
 import com.example.hellocowcow.data.network.api.XoxnoApi;
+import com.example.hellocowcow.ui.viewmodels.util.MySchedulers;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.Factory;
 import dagger.internal.QualifierMetadata;
@@ -24,14 +25,18 @@ import javax.inject.Provider;
     "KotlinInternalInJava"
 })
 public final class NftRepositoryImpl_Factory implements Factory<NftRepositoryImpl> {
+  private final Provider<MySchedulers> mySchedulersProvider;
+
   private final Provider<MvxApi> mvxApiProvider;
 
   private final Provider<ProxyXoxnoApi> proxyXoxnoApiProvider;
 
   private final Provider<XoxnoApi> xoxnoApiProvider;
 
-  public NftRepositoryImpl_Factory(Provider<MvxApi> mvxApiProvider,
-      Provider<ProxyXoxnoApi> proxyXoxnoApiProvider, Provider<XoxnoApi> xoxnoApiProvider) {
+  public NftRepositoryImpl_Factory(Provider<MySchedulers> mySchedulersProvider,
+      Provider<MvxApi> mvxApiProvider, Provider<ProxyXoxnoApi> proxyXoxnoApiProvider,
+      Provider<XoxnoApi> xoxnoApiProvider) {
+    this.mySchedulersProvider = mySchedulersProvider;
     this.mvxApiProvider = mvxApiProvider;
     this.proxyXoxnoApiProvider = proxyXoxnoApiProvider;
     this.xoxnoApiProvider = xoxnoApiProvider;
@@ -39,16 +44,17 @@ public final class NftRepositoryImpl_Factory implements Factory<NftRepositoryImp
 
   @Override
   public NftRepositoryImpl get() {
-    return newInstance(mvxApiProvider.get(), proxyXoxnoApiProvider.get(), xoxnoApiProvider.get());
+    return newInstance(mySchedulersProvider.get(), mvxApiProvider.get(), proxyXoxnoApiProvider.get(), xoxnoApiProvider.get());
   }
 
-  public static NftRepositoryImpl_Factory create(Provider<MvxApi> mvxApiProvider,
-      Provider<ProxyXoxnoApi> proxyXoxnoApiProvider, Provider<XoxnoApi> xoxnoApiProvider) {
-    return new NftRepositoryImpl_Factory(mvxApiProvider, proxyXoxnoApiProvider, xoxnoApiProvider);
+  public static NftRepositoryImpl_Factory create(Provider<MySchedulers> mySchedulersProvider,
+      Provider<MvxApi> mvxApiProvider, Provider<ProxyXoxnoApi> proxyXoxnoApiProvider,
+      Provider<XoxnoApi> xoxnoApiProvider) {
+    return new NftRepositoryImpl_Factory(mySchedulersProvider, mvxApiProvider, proxyXoxnoApiProvider, xoxnoApiProvider);
   }
 
-  public static NftRepositoryImpl newInstance(MvxApi mvxApi, ProxyXoxnoApi proxyXoxnoApi,
-      XoxnoApi xoxnoApi) {
-    return new NftRepositoryImpl(mvxApi, proxyXoxnoApi, xoxnoApi);
+  public static NftRepositoryImpl newInstance(MySchedulers mySchedulers, MvxApi mvxApi,
+      ProxyXoxnoApi proxyXoxnoApi, XoxnoApi xoxnoApi) {
+    return new NftRepositoryImpl(mySchedulers, mvxApi, proxyXoxnoApi, xoxnoApi);
   }
 }
