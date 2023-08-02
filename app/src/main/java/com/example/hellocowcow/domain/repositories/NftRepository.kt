@@ -47,7 +47,8 @@ interface NftRepository {
     fun getStakingCowsCount()
     : Single<Int>
 
-    fun getStatsCollection()
-    : Observable<StatsCollectionResponse>
+    fun getStatsCollection(
+        collection: String
+    ): Observable<StatsCollectionResponse>
 
 }
