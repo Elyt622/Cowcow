@@ -15,7 +15,6 @@ data class ProfileFallbackResponse (
     @SerializedName("owner"                 ) var owner                 : String?           = null,
     @SerializedName("creator"               ) var creator               : String?           = null,
     @SerializedName("isMintable"            ) var isMintable            : Boolean?          = null,
-    @SerializedName("mintStages"            ) var mintStages            : ArrayList<String> = arrayListOf(),
     @SerializedName("hasStaking"            ) var hasStaking            : Boolean?          = null,
     @SerializedName("id"                    ) var id                    : String?           = null,
     @SerializedName("socials"               ) var socials               : SocialsResponse?          = SocialsResponse(),
