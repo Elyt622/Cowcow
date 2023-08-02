@@ -1,14 +1,14 @@
 package com.example.hellocowcow.domain.models
 
 data class DomainCollection (
-    var stakedCows : Int? = null,
-    var holdersCows : Int? = null,
-    var listedCows : Int? = null,
-    var floorPriceCows : Double? = null,
-    var totalUpgradedCows : Int? = null,
+    var stakedCount : Int? = null,
+    var holdersCount : Int? = null,
+    var listedCount : Int? = null,
+    var floorPrice : Double? = null,
+    var totalUpgradedCount : Int? = null,
     var athEgldPrice: Double? = null,
     var totalTrades: Int? = null,
-    var followAccounts: Int? = null,
+    var followAccountsCount: Int? = null,
     var dayEgldVolume: Double? = null,
     var weekEgldVolume: Double? = null,
     var totalEgldVolume: Double? = null

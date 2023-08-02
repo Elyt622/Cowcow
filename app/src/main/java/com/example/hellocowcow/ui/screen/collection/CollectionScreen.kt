@@ -192,7 +192,7 @@ fun CollectionScreen(
                                         (uiState as CollectionViewModel.UiState.Success)
                                             .data.let { collection ->
                                                 Text(
-                                                    text = collection.stakedCows.toString(),
+                                                    text = collection.stakedCount.toString(),
                                                     style = MaterialTheme.typography.bodyLarge
                                                 )
                                             }
@@ -244,7 +244,7 @@ fun CollectionScreen(
                                         (uiState as CollectionViewModel.UiState.Success)
                                             .data.let { collection ->
                                                 Text(
-                                                    text = collection.totalUpgradedCows.toString(),
+                                                    text = collection.totalUpgradedCount.toString(),
                                                     style = MaterialTheme.typography.bodyLarge,
                                                 )
                                             }
@@ -301,7 +301,7 @@ fun CollectionScreen(
                                         (uiState as CollectionViewModel.UiState.Success)
                                             .data.let { collection ->
                                                 Text(
-                                                    text = collection.holdersCows.toString(),
+                                                    text = collection.holdersCount.toString(),
                                                     style = MaterialTheme.typography.bodyLarge
                                                 )
                                             }
@@ -354,7 +354,7 @@ fun CollectionScreen(
                                         (uiState as CollectionViewModel.UiState.Success)
                                             .data.let { collection ->
                                                 Text(
-                                                    text = collection.listedCows.toString(),
+                                                    text = collection.listedCount.toString(),
                                                     style = MaterialTheme.typography.bodyLarge
                                                 )
                                             }
@@ -407,7 +407,7 @@ fun CollectionScreen(
                                         (uiState as CollectionViewModel.UiState.Success)
                                             .data.let { collection ->
                                                 Text(
-                                                    text = collection.floorPriceCows.toString(),
+                                                    text = collection.floorPrice.toString(),
                                                     style = MaterialTheme.typography.bodyLarge
                                                 )
                                             }

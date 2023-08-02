@@ -32,22 +32,22 @@ class CollectionViewModel @Inject constructor(
         Observable.zip(
             nftRepository.getStakingCowsCount().toObservable(),
             nftRepository.getUpgradedCowsCount(),
-            nftRepository.getStatsCollection("COW-cd463d")
-        ) { stakingCount,
-            upgradedCount,
-            statsCollection ->
+            nftRepository.getStatsCollection(
+                "COW-cd463d"
+            ).map { it.pageProps!! }
+        ) { stakingCount, upgradedCount, statsCollection ->
             DomainCollection(
-                stakedCows = stakingCount,
-                holdersCows = statsCollection.pageProps?.holdersCount,
-                listedCows = statsCollection.pageProps?.listedNFTs,
-                floorPriceCows = statsCollection.pageProps?.fallBackFloor,
-                totalUpgradedCows = upgradedCount.count,
-                athEgldPrice = statsCollection.pageProps?.profileFallback?.statistics?.tradeData?.athEgldPrice,
-                totalTrades = statsCollection.pageProps?.profileFallback?.statistics?.tradeData?.totalTrades,
-                followAccounts = statsCollection.pageProps?.profileFallback?.statistics?.other?.followCount,
-                dayEgldVolume = statsCollection.pageProps?.profileFallback?.statistics?.tradeData?.dayEgldVolume,
-                weekEgldVolume = statsCollection.pageProps?.profileFallback?.statistics?.tradeData?.weekEgldVolume,
-                totalEgldVolume = statsCollection.pageProps?.profileFallback?.statistics?.tradeData?.totalEgldVolume
+                stakedCount = stakingCount,
+                holdersCount = statsCollection.holdersCount,
+                listedCount = statsCollection.listedNFTs,
+                floorPrice = statsCollection.fallBackFloor,
+                totalUpgradedCount = upgradedCount.count,
+                athEgldPrice = statsCollection.profileFallback?.statistics?.tradeData?.athEgldPrice,
+                totalTrades = statsCollection.profileFallback?.statistics?.tradeData?.totalTrades,
+                followAccountsCount = statsCollection.profileFallback?.statistics?.other?.followCount,
+                dayEgldVolume = statsCollection.profileFallback?.statistics?.tradeData?.dayEgldVolume,
+                weekEgldVolume = statsCollection.profileFallback?.statistics?.tradeData?.weekEgldVolume,
+                totalEgldVolume = statsCollection.profileFallback?.statistics?.tradeData?.totalEgldVolume
             )
         }.subscribeBy (
             onNext = {
