@@ -28,7 +28,7 @@ fun HostController(
                 ItemNav.Home.route -> { HomeScreen(hiltViewModel()) }
                 ItemNav.Token.route -> { TokenScreen(hiltViewModel()) }
                 ItemNav.Stats.route -> { StatsScreen() }
-                ItemNav.Profile.route -> { ProfileScreen(hiltViewModel(), account) }
+                ItemNav.Profile.route -> { ProfileScreen(account) }
             }
         }
     }

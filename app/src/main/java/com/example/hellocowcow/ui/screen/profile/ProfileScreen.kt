@@ -22,13 +22,11 @@ import com.example.hellocowcow.ui.screen.profile.tabs.MarketScreen
 import com.example.hellocowcow.ui.screen.profile.tabs.StakeScreen
 import com.example.hellocowcow.ui.screen.profile.tabs.WalletScreen
 import com.example.hellocowcow.ui.viewmodels.screen.profile.MarketViewModel
-import com.example.hellocowcow.ui.viewmodels.screen.profile.ProfileViewModel
 import com.example.hellocowcow.ui.viewmodels.screen.profile.StakeViewModel
 import com.example.hellocowcow.ui.viewmodels.screen.profile.WalletViewModel
 
 @Composable
 fun ProfileScreen(
-    viewModel: ProfileViewModel,
     account: DomainAccount
 ) {
 
