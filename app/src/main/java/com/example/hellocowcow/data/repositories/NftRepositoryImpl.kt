@@ -110,4 +110,11 @@ class NftRepositoryImpl @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
+    override
+    fun getTicketsUsedCount()
+    : Single<Int> =
+        mvxApi.getTicketsUsedCount()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
 }

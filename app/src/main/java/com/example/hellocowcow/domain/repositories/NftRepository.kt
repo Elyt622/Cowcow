@@ -51,4 +51,7 @@ interface NftRepository {
         collection: String
     ): Observable<StatsCollectionResponse>
 
+    fun getTicketsUsedCount()
+    : Single<Int>
+
 }

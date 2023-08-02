@@ -45,6 +45,10 @@ interface MvxApi {
     @GET("/accounts/erd1qqqqqqqqqqqqqpgqqgzzsl0re9e3u0t3mhv3jwg6zu63zssd7yqs3uu9jk/nfts/count?collection=COW-cd463d")
     fun getStakingCowsCount() : Single<Int>
 
+    @GET("/collections/TICKET-231cd2/nfts/count?traits=Chapter%204:Used")
+    fun getTicketsUsedCount()
+    : Single<Int>
+
     @POST("/query")
     fun getTotalRewardsToCollect(
         @Body rewardRequest: RewardRequest
@@ -54,6 +58,5 @@ interface MvxApi {
     fun getAllDataUsers(
         @Body request: RewardRequest
     ) : Observable<RewardResponse>
-
 
 }
