@@ -8,10 +8,10 @@ import androidx.navigation.compose.composable
 import com.example.hellocowcow.data.Data
 import com.example.hellocowcow.domain.models.DomainAccount
 import com.example.hellocowcow.domain.models.ItemNav
-import com.example.hellocowcow.ui.screen.collection.CollectionScreen
+import com.example.hellocowcow.ui.screen.stats.CollectionScreen
 import com.example.hellocowcow.ui.screen.home.HomeScreen
 import com.example.hellocowcow.ui.screen.profile.ProfileScreen
-import com.example.hellocowcow.ui.screen.token.TokenScreen
+import com.example.hellocowcow.ui.screen.stats.TokenScreen
 
 @Composable
 fun HostController(
