@@ -10,13 +10,13 @@ import com.example.hellocowcow.data.response.proxyXoxnoApi.UpgradedResponse
 import com.example.hellocowcow.data.response.xoxnoApi.StatsCollectionResponse
 import com.example.hellocowcow.domain.models.DomainNft
 import com.example.hellocowcow.domain.repositories.NftRepository
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import com.example.hellocowcow.ui.viewmodels.util.MySchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 class NftRepositoryImpl @Inject constructor(
+    val mySchedulers: MySchedulers,
     val mvxApi: MvxApi,
     val proxyXoxnoApi: ProxyXoxnoApi,
     val xoxnoApi: XoxnoApi
@@ -30,24 +30,24 @@ class NftRepositoryImpl @Inject constructor(
             .flatMapIterable { it }
             .map { it.toDomain() }
             .toList()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(mySchedulers.io)
+            .observeOn(mySchedulers.main)
 
     override fun getNftMvx(
         identifier: String
     ): Single<DomainNft> =
         mvxApi.getNft(identifier)
             .map { it.toDomain() }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(mySchedulers.io)
+            .observeOn(mySchedulers.main)
 
     override
     fun getAllDataUsers(
         request: RewardRequest
     ): Observable<RewardResponse> =
         mvxApi.getAllDataUsers(request)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(mySchedulers.io)
+            .observeOn(mySchedulers.main)
 
     override
     fun getCowsWithCollection(
@@ -60,8 +60,8 @@ class NftRepositoryImpl @Inject constructor(
             .flatMapIterable { it }
             .map { it.toDomain() }
             .toList()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(mySchedulers.io)
+            .observeOn(mySchedulers.main)
 
     override
     fun getNftXoxno(
@@ -69,52 +69,52 @@ class NftRepositoryImpl @Inject constructor(
     ): Single<DomainNft> =
         proxyXoxnoApi.getNft(identifier)
             .map { it.toDomain() }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(mySchedulers.io)
+            .observeOn(mySchedulers.main)
 
     override
     fun getCowsListing(
         address: String
     ): Observable<CollectionResponse> =
         proxyXoxnoApi.getCowsListing(address)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(mySchedulers.io)
+            .observeOn(mySchedulers.main)
 
     override
     fun getCowsInWallet(
         address: String
     ): Observable<CollectionResponse> =
         proxyXoxnoApi.getCowsInWallet(address)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(mySchedulers.io)
+            .observeOn(mySchedulers.main)
 
     override
     fun getUpgradedCowsCount()
     : Observable<UpgradedResponse> =
         proxyXoxnoApi.getUpgradedCowsCount()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(mySchedulers.io)
+            .observeOn(mySchedulers.main)
 
     override
     fun getStakingCowsCount()
     : Single<Int> =
         mvxApi.getStakingCowsCount()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(mySchedulers.io)
+            .observeOn(mySchedulers.main)
 
     override
     fun getStatsCollection(
         collection: String
     ): Observable<StatsCollectionResponse> =
         xoxnoApi.getStatsCollection(collection)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(mySchedulers.io)
+            .observeOn(mySchedulers.main)
 
     override
     fun getTicketsUsedCount()
     : Single<Int> =
         mvxApi.getTicketsUsedCount()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(mySchedulers.io)
+            .observeOn(mySchedulers.main)
 
 }

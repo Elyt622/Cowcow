@@ -5,10 +5,12 @@ import com.example.hellocowcow.data.response.mvxApi.RewardRequest
 import com.example.hellocowcow.domain.models.DomainReward
 import com.example.hellocowcow.domain.models.DomainToken
 import com.example.hellocowcow.domain.repositories.TokenRepository
+import com.example.hellocowcow.ui.viewmodels.util.MySchedulers
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 class TokenRepositoryImpl @Inject constructor(
+    private val mySchedulers: MySchedulers,
     private val mvxApi: MvxApi
 ) : TokenRepository {
 
@@ -16,6 +18,8 @@ class TokenRepositoryImpl @Inject constructor(
         id: String
     ): Single<DomainToken> =
         mvxApi.getToken(id).map { it.toDomain() }
+            .subscribeOn(mySchedulers.io)
+            .observeOn(mySchedulers.main)
 
     override
     fun getTotalRewardsToCollect(
@@ -23,5 +27,7 @@ class TokenRepositoryImpl @Inject constructor(
     ) : Single<DomainReward> =
         mvxApi.getTotalRewardsToCollect(rewardRequest)
             .map { it.toDomain() }
+            .subscribeOn(mySchedulers.io)
+            .observeOn(mySchedulers.main)
 
 }
