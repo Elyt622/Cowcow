@@ -35,8 +35,8 @@ fun ProfileScreen(
     ) {
 
         Text(
-            text = "Hello ${account.username} !",
-            color = MaterialTheme.colorScheme.primary,
+            text = "Hello ${account.username.substringBefore(".elrond")} !",
+            color = MaterialTheme.colorScheme.onPrimary,
             modifier = Modifier
                 .padding(16.dp)
                 .fillMaxWidth(),
@@ -73,17 +73,17 @@ fun TabScreen(account: DomainAccount) {
         when (tabIndex) {
             0 -> {
                 val viewModel: WalletViewModel = hiltViewModel()
-                viewModel.setAddress(account.address.toString())
+                viewModel.setAddress(account.address)
                 WalletScreen(viewModel)
             }
             1 -> {
                 val viewModel: StakeViewModel = hiltViewModel()
-                viewModel.setAddress(account.address.toString())
+                viewModel.setAddress(account.address)
                 StakeScreen(viewModel)
             }
             2 -> {
                 val viewModel: MarketViewModel = hiltViewModel()
-                viewModel.setAddress(account.address.toString())
+                viewModel.setAddress(account.address)
                 MarketScreen(viewModel)
             }
         }

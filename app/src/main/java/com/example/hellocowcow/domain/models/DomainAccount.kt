@@ -1,7 +1,7 @@
 package com.example.hellocowcow.domain.models
 
 data class DomainAccount (
-    var address         : String? = null,
+    var address         : String = "",
     var balance         : String? = null,
     var nonce           : Int?    = null,
     var timestamp       : Int?    = null,
@@ -9,6 +9,6 @@ data class DomainAccount (
     var rootHash        : String? = null,
     var txCount         : Int?    = null,
     var scrCount        : Int?    = null,
-    var username        : String? = null,
+    var username        : String = "",
     var developerReward : String? = null
 )
