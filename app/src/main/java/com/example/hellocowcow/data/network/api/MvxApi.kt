@@ -5,6 +5,8 @@ import com.example.hellocowcow.data.response.mvxApi.NftResponse
 import com.example.hellocowcow.data.response.mvxApi.RewardRequest
 import com.example.hellocowcow.data.response.mvxApi.RewardResponse
 import com.example.hellocowcow.data.response.mvxApi.TokenResponse
+import com.example.hellocowcow.data.response.mvxApi.TransactionsResponse
+import com.example.hellocowcow.data.response.mvxApi.TransactionRequest
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.Body
@@ -58,5 +60,10 @@ interface MvxApi {
     fun getAllDataUsers(
         @Body request: RewardRequest
     ) : Observable<RewardResponse>
+
+    @POST("/transactions")
+    fun sendTransaction(
+        @Body tx: TransactionRequest
+    ) : Observable<TransactionsResponse>
 
 }

@@ -1,6 +1,7 @@
 package com.example.hellocowcow.data.repositories;
 
 import com.example.hellocowcow.data.network.api.MvxApi;
+import com.example.hellocowcow.ui.viewmodels.util.MySchedulers;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.Factory;
 import dagger.internal.QualifierMetadata;
@@ -22,22 +23,27 @@ import javax.inject.Provider;
     "KotlinInternalInJava"
 })
 public final class TransactionRepositoryImpl_Factory implements Factory<TransactionRepositoryImpl> {
+  private final Provider<MySchedulers> mySchedulersProvider;
+
   private final Provider<MvxApi> mvxApiProvider;
 
-  public TransactionRepositoryImpl_Factory(Provider<MvxApi> mvxApiProvider) {
+  public TransactionRepositoryImpl_Factory(Provider<MySchedulers> mySchedulersProvider,
+      Provider<MvxApi> mvxApiProvider) {
+    this.mySchedulersProvider = mySchedulersProvider;
     this.mvxApiProvider = mvxApiProvider;
   }
 
   @Override
   public TransactionRepositoryImpl get() {
-    return newInstance(mvxApiProvider.get());
+    return newInstance(mySchedulersProvider.get(), mvxApiProvider.get());
   }
 
-  public static TransactionRepositoryImpl_Factory create(Provider<MvxApi> mvxApiProvider) {
-    return new TransactionRepositoryImpl_Factory(mvxApiProvider);
+  public static TransactionRepositoryImpl_Factory create(
+      Provider<MySchedulers> mySchedulersProvider, Provider<MvxApi> mvxApiProvider) {
+    return new TransactionRepositoryImpl_Factory(mySchedulersProvider, mvxApiProvider);
   }
 
-  public static TransactionRepositoryImpl newInstance(MvxApi mvxApi) {
-    return new TransactionRepositoryImpl(mvxApi);
+  public static TransactionRepositoryImpl newInstance(MySchedulers mySchedulers, MvxApi mvxApi) {
+    return new TransactionRepositoryImpl(mySchedulers, mvxApi);
   }
 }
