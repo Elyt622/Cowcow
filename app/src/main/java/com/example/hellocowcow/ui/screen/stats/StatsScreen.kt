@@ -71,7 +71,7 @@ fun TabScreen() {
         ) {
             tabs.forEachIndexed { index, title ->
                 Tab(
-                    text = { Text(title, style = MaterialTheme.typography.labelMedium) },
+                    text = { Text(title, style = MaterialTheme.typography.bodyLarge) },
                     selected = tabIndex == index,
                     onClick = { tabIndex = index },
                     selectedContentColor = MaterialTheme.colorScheme.background,
