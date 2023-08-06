@@ -75,7 +75,6 @@ class LoginActivity : ComponentActivity() {
                 onClick = {
                     viewModel.onClick()
                         .subscribe {
-
                             val intent = Intent(
                                 this@LoginActivity,
                                 MainActivity::class.java
@@ -88,7 +87,13 @@ class LoginActivity : ComponentActivity() {
                     startActivity(
                         Intent(
                             Intent.ACTION_VIEW,
-                            "https://xportal.page.link/?apn=com.multiversx.maiar.wallet&isi=1519405832&ibi=com.multiversx.maiar.wallet&link=https://maiar.com/?wallet-connect=${viewModel.deeplinkPairingUri}".toUri()
+                            (
+                                    "https://xportal.page.link/" +
+                                    "?apn=com.multiversx.maiar.wallet" +
+                                    "&isi=1519405832&ibi=" +
+                                    "com.multiversx.maiar.wallet" +
+                                    "&link=https://maiar.com/?wallet-connect=" +
+                                    "${viewModel.deeplinkPairingUri}").toUri()
                         )
                     )
                 }
