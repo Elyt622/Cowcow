@@ -24,7 +24,13 @@ data class AccountResponse (
         DomainAccount(
             address = address,
             username = username,
-            balance = balance
+            balance = balance,
+            nonce = nonce!!,
+            txCount = txCount,
+            timestamp = timestamp,
+            shard = shard,
+            rootHash = rootHash,
+            developerReward = developerReward
         )
 
 }
