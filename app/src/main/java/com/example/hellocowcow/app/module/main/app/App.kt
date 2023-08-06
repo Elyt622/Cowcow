@@ -26,7 +26,7 @@ class App : Application() {
         val appMetaData = Core.Model.AppMetaData(
             name = "Hello CowCow",
             description = "",
-            url = "https://HelloCowCow.io",
+            url = "https://hellocowcow.io",
             icons = listOf("https://www.cowcow.io/static/media/logo_new.1bd828ac79a450fe1a9f789fd29a8793.svg"),
             redirect = getString(R.string.deep_link_url)
         )
