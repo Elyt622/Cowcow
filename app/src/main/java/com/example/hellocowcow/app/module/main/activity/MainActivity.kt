@@ -1,16 +1,22 @@
 package com.example.hellocowcow.app.module.main.activity
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.example.hellocowcow.domain.models.DomainAccount
 import com.example.hellocowcow.ui.composables.MainScaffold
 import com.example.hellocowcow.ui.theme.HelloCowCowTheme
@@ -22,10 +28,10 @@ import timber.log.Timber.Forest.plant
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    val viewModel by viewModels<MainViewModel>()
+    private val viewModel by viewModels<MainViewModel>()
 
-    lateinit var address: String
-    lateinit var topic: String
+    private lateinit var address: String
+    private lateinit var topic: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         plant(Timber.DebugTree())
@@ -34,7 +40,7 @@ class MainActivity : ComponentActivity() {
         address = intent.getStringExtra("ADDRESS").toString()
         topic = intent.getStringExtra("TOPIC").toString()
 
-        viewModel.getAccount("erd12p7w0mry76538wmpk8cfevpj4062aazavguvxxxlmktsckd9druse3pyay")
+        viewModel.getAccount(address)
 
         setContent {
             val uiState by viewModel.currentAccount.collectAsState()
@@ -47,11 +53,31 @@ class MainActivity : ComponentActivity() {
                         .background
                 ) {
                     when (uiState) {
-                        is MainViewModel.UiState.NoData -> { }
+                        is MainViewModel.UiState.Loading -> {
+                            Box(
+                                modifier = Modifier.fillMaxSize(),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.width(60.dp),
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                            }
+                        }
                         is MainViewModel.UiState.Success -> {
                             (uiState as MainViewModel.UiState.Success)
                                 .data.let { account ->
-                                    Body(account)
+                                    Body(account, topic)
+                                }
+                        }
+                        is MainViewModel.UiState.Error -> {
+                            (uiState as MainViewModel.UiState.Error)
+                                .error.let { err ->
+                                    Toast.makeText(
+                                        baseContext,
+                                        err,
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
                         }
                     }
@@ -61,8 +87,11 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun Body(account: DomainAccount) {
-        MainScaffold(account)
+    fun Body(
+        account: DomainAccount,
+        topic: String
+    ) {
+        MainScaffold(account, topic)
     }
 
 }

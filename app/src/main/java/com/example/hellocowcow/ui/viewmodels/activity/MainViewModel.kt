@@ -14,20 +14,25 @@ class MainViewModel @Inject constructor(
     private val accountRepository: AccountRepository
 ) : ViewModel() {
 
-    private var _currentAccount : MutableStateFlow<UiState> = MutableStateFlow(UiState.NoData)
+    private var _currentAccount : MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val currentAccount : StateFlow<UiState> get() = _currentAccount
 
 
-        sealed class UiState {
-        object NoData : UiState()
+    sealed class UiState {
+        object Loading : UiState()
         class Success (val data : DomainAccount) : UiState()
+        class Error (val error : String) : UiState()
     }
 
     fun getAccount(
         address: String
     ) = accountRepository.getAccount(address)
-            .subscribeBy { account ->
-                _currentAccount.value = UiState.Success(account)
-            }
+            .subscribeBy (
+                onSuccess = { account ->
+                    _currentAccount.value = UiState.Success(account)
+                },
+                onError = {
+                    _currentAccount.value = UiState.Error(it.toString())
+                })
 
 }
