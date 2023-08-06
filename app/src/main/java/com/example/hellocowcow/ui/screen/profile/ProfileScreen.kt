@@ -36,7 +36,7 @@ fun ProfileScreen(
     ) {
 
         Text(
-            text = "Hello ${account.username.substringBefore(".elrond")} !",
+            text = "Hello ${account.username.substringBefore(".elrond")}!",
             color = MaterialTheme.colorScheme.onPrimary,
             modifier = Modifier
                 .padding(16.dp)
