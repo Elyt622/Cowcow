@@ -5,8 +5,6 @@ import com.example.hellocowcow.R
 import com.walletconnect.android.Core
 import com.walletconnect.android.CoreClient
 import com.walletconnect.android.relay.ConnectionType
-import com.walletconnect.auth.client.Auth
-import com.walletconnect.auth.client.AuthClient
 import com.walletconnect.sign.client.Sign
 import com.walletconnect.sign.client.SignClient
 import dagger.hilt.android.HiltAndroidApp
@@ -26,9 +24,9 @@ class App : Application() {
         val serverUrl = "wss://$relayUrl?projectId=$projectId"
         val connectionType = ConnectionType.AUTOMATIC
         val appMetaData = Core.Model.AppMetaData(
-            name = "Cowcow Tools",
+            name = "Hello CowCow",
             description = "",
-            url = "https://cowcow.io",
+            url = "https://HelloCowCow.io",
             icons = listOf("https://www.cowcow.io/static/media/logo_new.1bd828ac79a450fe1a9f789fd29a8793.svg"),
             redirect = getString(R.string.deep_link_url)
         )
@@ -42,15 +40,6 @@ class App : Application() {
                 .e(error.throwable.stackTraceToString())
         }
         val init = Sign.Params.Init(core = CoreClient)
-
-        AuthClient.initialize(
-            Auth.Params.Init(
-                core = CoreClient
-            )
-        ) { error ->
-            tag("AuthClient_")
-                .e(error.throwable.stackTraceToString())
-        }
 
         SignClient.initialize(init) { error ->
             tag("SignClient_Initialization_Error")
