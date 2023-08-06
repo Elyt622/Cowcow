@@ -8,12 +8,15 @@ import com.example.hellocowcow.domain.models.DomainAccount
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MainScaffold(account: DomainAccount) {
+fun MainScaffold(
+    account: DomainAccount,
+    topic: String
+) {
 
     val navController = rememberNavController()
 
     Scaffold(
-        content = { HostController(navHostController = navController, account) },
+        content = { HostController(navHostController = navController, account, topic) },
         bottomBar = { BottomBar(navController = navController) }
     )
 }
