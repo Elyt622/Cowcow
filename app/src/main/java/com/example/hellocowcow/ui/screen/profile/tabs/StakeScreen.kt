@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -91,7 +92,14 @@ fun StakeScreen(
                                     context.startActivity(intent)
                                 }
                             ) {
-                                Box {
+                                Box(
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    CircularProgressIndicator(
+                                        modifier = Modifier.size(16.dp),
+                                        color = MaterialTheme.colorScheme.background
+                                    )
                                     GlideImage(
                                         model = nft.url,
                                         contentDescription = nft.collection,
@@ -102,7 +110,6 @@ fun StakeScreen(
                                                 top = 8.dp
                                             )
                                     )
-
                                     if (nft.hasSecondNFT == true)
                                         Icon(
                                             modifier = Modifier

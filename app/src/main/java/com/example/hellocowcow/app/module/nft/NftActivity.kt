@@ -201,6 +201,10 @@ class NftActivity : ComponentActivity() {
                             .size(350.dp),
                         pageCount = 2
                     ) { index ->
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(16.dp),
+                            color = MaterialTheme.colorScheme.background
+                        )
                         GlideImage(
                             model = arrayOf(
                                 nft.url,
