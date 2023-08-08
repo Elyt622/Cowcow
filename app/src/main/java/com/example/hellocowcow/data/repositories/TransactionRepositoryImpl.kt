@@ -2,7 +2,7 @@ package com.example.hellocowcow.data.repositories
 
 import com.example.hellocowcow.data.network.api.MvxApi
 import com.example.hellocowcow.data.response.mvxApi.TransactionRequest
-import com.example.hellocowcow.data.response.mvxApi.TransactionsResponse
+import com.example.hellocowcow.domain.models.DomainTransaction
 import com.example.hellocowcow.domain.repositories.TransactionRepository
 import com.example.hellocowcow.ui.viewmodels.util.MySchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -16,8 +16,9 @@ class TransactionRepositoryImpl @Inject constructor(
     override
     fun sendTransaction(
         tx: TransactionRequest
-    ) : Observable<TransactionsResponse> =
+    ) : Observable<DomainTransaction> =
         mvxApi.sendTransaction(tx)
+            .map { it.toDomain() }
             .subscribeOn(mySchedulers.io)
             .observeOn(mySchedulers.main)
 
