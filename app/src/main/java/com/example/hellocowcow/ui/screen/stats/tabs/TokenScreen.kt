@@ -116,8 +116,10 @@ fun TokenScreen(
                                         (uiStateT as TokenViewModel.UiStateToken.Success)
                                             .data.let { token ->
                                                 Text(
-                                                    text = token.price.toString()
-                                                        .substring(0, 5),
+                                                    text = String.format(
+                                                        "%.2f",
+                                                        token.price
+                                                    ),
                                                     style = MaterialTheme.typography.bodyLarge
                                                 )
                                             }
