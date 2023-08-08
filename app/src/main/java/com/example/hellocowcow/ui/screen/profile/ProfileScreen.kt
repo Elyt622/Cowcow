@@ -42,7 +42,7 @@ fun ProfileScreen(
                 .padding(16.dp)
                 .fillMaxWidth(),
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.labelMedium
+            style = MaterialTheme.typography.bodyMedium
         )
         TabScreen(account)
     }
@@ -53,7 +53,7 @@ fun TabScreen(account: DomainAccount) {
 
     var tabIndex by remember { mutableStateOf(0) }
 
-    val tabs = listOf("Wallet", "Staked", "MarketPlace")
+    val tabs = listOf("Wallet", "Staked", "Market")
 
     Column(modifier = Modifier.fillMaxWidth()) {
         TabRow(
@@ -63,7 +63,7 @@ fun TabScreen(account: DomainAccount) {
         ) {
             tabs.forEachIndexed { index, title ->
                 Tab(
-                    text = { Text(title, style = MaterialTheme.typography.labelMedium) },
+                    text = { Text(title, style = MaterialTheme.typography.bodyMedium) },
                     selected = tabIndex == index,
                     onClick = { tabIndex = index },
                     selectedContentColor = MaterialTheme.colorScheme.background,
