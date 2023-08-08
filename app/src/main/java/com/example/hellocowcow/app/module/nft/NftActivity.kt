@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -387,15 +388,22 @@ class NftActivity : ComponentActivity() {
                                             color = MaterialTheme.colorScheme.background,
                                             style = MaterialTheme.typography.labelMedium
                                         )
-                                        Text(
-                                            text = "Floor: " +
-                                                    String.format(
-                                                        "%.2f",
-                                                        attribute.FloorPrice
-                                                    ),
-                                            color = MaterialTheme.colorScheme.background,
-                                            style = MaterialTheme.typography.labelMedium
-                                        )
+                                        if (attribute.floorPrice.toString() != ("null"))
+                                            Text(
+                                                text = "Floor: " +
+                                                        String.format(
+                                                            "%.2f",
+                                                            attribute.floorPrice
+                                                        ),
+                                                color = MaterialTheme.colorScheme.background,
+                                                style = MaterialTheme.typography.labelMedium
+                                            )
+                                        else
+                                            Text(
+                                                text = "Floor: None",
+                                                color = MaterialTheme.colorScheme.background,
+                                                style = MaterialTheme.typography.labelMedium
+                                            )
                                     }
                                     Row(
                                         Modifier
@@ -438,14 +446,12 @@ class NftActivity : ComponentActivity() {
         )
 
         if (!nftHasOffers)
-            Column(
-                Modifier
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
+            Column {
+                Spacer(modifier = Modifier.size(20.dp))
                 Text(
-                    text = "No offers on this NFT!"
+                    text = "No offers on this NFT!",
+                    Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center
                 )
             }
         else {
