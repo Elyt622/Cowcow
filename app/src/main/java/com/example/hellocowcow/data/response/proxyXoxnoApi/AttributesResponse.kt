@@ -9,7 +9,7 @@ data class AttributesResponse (
     @SerializedName("value"      ) var value      : String? = null,
     @SerializedName("occurance"  ) var occurance  : Int?    = null,
     @SerializedName("frequency"  ) var frequency  : Double? = null,
-    @SerializedName("FloorPrice" ) var FloorPrice : Double? = null,
-    @SerializedName("OnSale"     ) var OnSale     : Int?    = null
+    @SerializedName("FloorPrice" ) var floorPrice : Double? = null,
+    @SerializedName("OnSale"     ) var onSale     : Int?    = null
 
 )
