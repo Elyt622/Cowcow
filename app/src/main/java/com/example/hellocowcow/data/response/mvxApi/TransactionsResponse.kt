@@ -54,7 +54,8 @@ data class TransactionsResponse (
             type = type,
             originalTxHash = originalTxHash,
             price = price,
-            operations = domainOperations
+            operations = domainOperations,
+            status = status.toString()
         )
     }
 }
