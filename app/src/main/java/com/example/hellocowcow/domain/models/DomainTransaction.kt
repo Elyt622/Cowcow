@@ -15,5 +15,6 @@ data class DomainTransaction(
     var type: String? = null,
     var originalTxHash: String? = null,
     var price: Double? = null,
-    var operations: ArrayList<DomainOperation>? = null
+    var operations: ArrayList<DomainOperation>? = null,
+    var status: String = ""
 )
