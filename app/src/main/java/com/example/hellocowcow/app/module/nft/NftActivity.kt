@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,6 +23,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PageSize
+import androidx.compose.foundation.pager.PagerDefaults
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -43,7 +47,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -200,45 +204,59 @@ class NftActivity : ComponentActivity() {
                     HorizontalPager(
                         modifier = Modifier
                             .size(350.dp),
-                        pageCount = 2
-                    ) { index ->
-                        CircularProgressIndicator(
-                            modifier = Modifier.size(16.dp),
-                            color = MaterialTheme.colorScheme.background
-                        )
-                        GlideImage(
-                            model = arrayOf(
-                                nft.url,
-                                "https://xoxno.com/api/getCow?identifier=" +
-                                        "${nft.identifier}")[index],
-                            contentDescription = nft.name,
-                            modifier = Modifier.scale(
-                                scaleY = 1.07F,
-                                scaleX = 1.04F
-                            )
-                        )
-                        Row(
-                            horizontalArrangement = Arrangement.End,
-                            verticalAlignment = Alignment.Top,
-                            modifier = Modifier
-                                .padding(end = 8.dp, top = 8.dp)
-                                .fillMaxSize()
-                        ) {
-                            ElevatedCard(
-                                elevation = CardDefaults
-                                    .elevatedCardElevation(16.dp),
-                                colors = cardColors
-                            ) {
-                                Text(
-                                    text = "Upgraded",
-                                    Modifier
-                                        .padding(8.dp),
-                                    style = MaterialTheme.typography.labelSmall,
-                                    color = MaterialTheme.colorScheme.primary
+                        state = rememberPagerState { 2 },
+                        pageSpacing = 0.dp,
+                        userScrollEnabled = true,
+                        reverseLayout = false,
+                        contentPadding = PaddingValues(0.dp),
+                        beyondBoundsPageCount = 0,
+                        pageSize = PageSize.Fill,
+                        key = null,
+                        pageNestedScrollConnection = PagerDefaults.pageNestedScrollConnection(
+                            Orientation.Horizontal
+                        ),
+                        pageContent = { index ->
+                            Box(contentAlignment = Alignment.Center) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.size(16.dp),
+                                    color = MaterialTheme.colorScheme.background
                                 )
+                                GlideImage(
+                                    model = arrayOf(
+                                        nft.url,
+                                        "https://xoxno.com/api/getCow?identifier=" +
+                                                "${nft.identifier}"
+                                    )[index],
+                                    contentDescription = nft.name,
+                                    modifier = Modifier.scale(
+                                        scaleY = 1.07F,
+                                        scaleX = 1.04F
+                                    )
+                                )
+                                Row(
+                                    horizontalArrangement = Arrangement.End,
+                                    verticalAlignment = Alignment.Top,
+                                    modifier = Modifier
+                                        .padding(end = 8.dp, top = 8.dp)
+                                        .fillMaxSize()
+                                ) {
+                                    ElevatedCard(
+                                        elevation = CardDefaults
+                                            .elevatedCardElevation(16.dp),
+                                        colors = cardColors
+                                    ) {
+                                        Text(
+                                            text = "Upgraded",
+                                            Modifier
+                                                .padding(8.dp),
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = MaterialTheme.colorScheme.primary
+                                        )
+                                    }
+                                }
                             }
                         }
-                    }
+                    )
                 else {
                     GlideImage(
                         model = nft.url,
@@ -298,7 +316,7 @@ class NftActivity : ComponentActivity() {
     @Composable
     fun TabScreen(nft: DomainNft) {
 
-        var tabIndex by remember { mutableStateOf(0) }
+        var tabIndex by remember { mutableIntStateOf(0) }
 
         val tabs = listOf("Attributes", "Offers", "Activity")
 
