@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace 'com.example.hellocowcow'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.hellocowcow"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -75,6 +75,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
     implementation "androidx.lifecycle:lifecycle-runtime-compose:2.6.1"
 
+    implementation 'com.github.GrenderG:Toasty:1.5.2'
+
     // Glide
     implementation 'com.github.bumptech.glide:compose:4.14.0'
     implementation 'com.github.bumptech.glide:annotations:4.15.1'
@@ -85,18 +87,18 @@ dependencies {
 
     // Compose
     implementation 'androidx.activity:activity-compose:1.7.2'
-    implementation 'androidx.compose.ui:ui:1.4.3'
-    implementation 'androidx.compose.ui:ui-graphics:1.4.3'
-    implementation 'androidx.compose.ui:ui-tooling-preview:1.4.3'
+    implementation 'androidx.compose.ui:ui:1.5.0'
+    implementation 'androidx.compose.ui:ui-graphics:1.5.0'
+    implementation 'androidx.compose.ui:ui-tooling-preview:1.5.0'
     implementation 'androidx.compose.material3:material3:1.1.1'
-    implementation 'androidx.navigation:navigation-compose:2.6.0'
-    implementation 'androidx.compose.material:material-icons-extended:1.4.3'
-    implementation "androidx.compose.runtime:runtime-rxjava3:1.4.3"
+    implementation 'androidx.navigation:navigation-compose:2.7.0'
+    implementation 'androidx.compose.material:material-icons-extended:1.5.0'
+    implementation "androidx.compose.runtime:runtime-rxjava3:1.5.0"
 
     // WalletConnect
-    implementation "com.walletconnect:android-core:1.18.0"
-    implementation "com.walletconnect:sign:2.16.0"
-    implementation "com.walletconnect:auth:1.16.0"
+    implementation 'com.walletconnect:android-core:1.20.0'
+    implementation 'com.walletconnect:sign:2.18.0'
+    implementation 'com.walletconnect:auth:1.18.0'
 
     // SplashScreen
     implementation "androidx.core:core-splashscreen:1.0.1"
@@ -126,8 +128,8 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.4.3'
-    debugImplementation 'androidx.compose.ui:ui-tooling:1.4.3'
-    debugImplementation 'androidx.compose.ui:ui-test-manifest:1.4.3'
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.5.0'
+    debugImplementation 'androidx.compose.ui:ui-tooling:1.5.0'
+    debugImplementation 'androidx.compose.ui:ui-test-manifest:1.5.0'
 
 }
