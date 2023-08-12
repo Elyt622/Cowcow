@@ -10,10 +10,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -517,13 +520,12 @@ fun CollectionScreen(
                                             }
                                 }
 
-                                Image(
+                                Icon(
                                     modifier = Modifier
                                         .align(Alignment.CenterVertically)
                                         .padding(start = 4.dp)
                                         .size(16.dp),
-                                    imageVector = ImageVector
-                                        .vectorResource(id = R.drawable.egld),
+                                    imageVector = Icons.Filled.Person,
                                     contentDescription = ""
                                 )
                             }
@@ -619,7 +621,7 @@ fun CollectionScreen(
                                         (uiState as CollectionViewModel.UiState.Success)
                                             .data.let { collection ->
                                                 Text(
-                                                    text = collection.totalUpgradedCount.toString(),
+                                                    text = collection.weekEgldVolume.toString(),
                                                     style = MaterialTheme.typography.bodyLarge,
                                                 )
                                             }
