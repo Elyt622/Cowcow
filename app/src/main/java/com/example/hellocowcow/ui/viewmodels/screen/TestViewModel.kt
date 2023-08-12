@@ -2,10 +2,10 @@ package com.example.hellocowcow.ui.viewmodels.screen
 
 import androidx.lifecycle.ViewModel
 import com.example.hellocowcow.data.response.mvxApi.TransactionRequest
-import com.example.hellocowcow.domain.models.DappDelegate
 import com.example.hellocowcow.domain.models.DomainAccount
 import com.example.hellocowcow.domain.models.DomainTransaction
 import com.example.hellocowcow.domain.repositories.TransactionRepository
+import com.example.hellocowcow.ui.viewmodels.util.MyDAppDelegate
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.walletconnect.sign.client.Sign
@@ -21,9 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class TestViewModel @Inject constructor(
     private val transactionRepository: TransactionRepository,
+    private val dAppDelegate: MyDAppDelegate
 ) : ViewModel() {
-
-    private val dAppDelegate = DappDelegate
 
     val gson: Gson = GsonBuilder().disableHtmlEscaping().create()
     private val openDialogSubject: PublishSubject<Unit> = PublishSubject.create()
@@ -44,7 +43,7 @@ class TestViewModel @Inject constructor(
     }
 
     fun onClick() {
-        dAppDelegate.wcEventModels.subscribeBy(
+        dAppDelegate.dAppDelegate.wcEventModels.subscribeBy(
             onNext = { session ->
                 when (session) {
                     is Sign.Model.SessionEvent -> {

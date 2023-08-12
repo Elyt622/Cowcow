@@ -1,17 +1,22 @@
 package com.example.hellocowcow.ui.viewmodels.activity
 
 import androidx.lifecycle.ViewModel
-import com.example.hellocowcow.domain.models.DappDelegate
+import com.example.hellocowcow.ui.viewmodels.util.MyDAppDelegate
 import com.walletconnect.sign.client.Sign
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.subjects.PublishSubject
 import timber.log.Timber
+import javax.inject.Inject
 
-class LoginViewModel : ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val dAppDelegate: MyDAppDelegate
+) : ViewModel() {
 
-    private val dappDelegate = DappDelegate
-    val deeplinkPairingUri = dappDelegate.pairing?.uri
+
+    val deeplinkPairingUri = dAppDelegate.dAppDelegate.pairing?.uri
 
     var address: String = ""
     var topic: String= ""
@@ -20,7 +25,7 @@ class LoginViewModel : ViewModel() {
 
 
     fun onClick() : Observable<Unit> {
-        dappDelegate.wcEventModels.subscribeBy(
+        dAppDelegate.dAppDelegate.wcEventModels.subscribeBy(
             onNext = { session ->
             when (session) {
                 is Sign.Model.ApprovedSession -> {
@@ -58,8 +63,8 @@ class LoginViewModel : ViewModel() {
                 }
             }
         },
-            onError = {
-                Timber.tag("Subscribe_Error").d(it)
+            onError = { err ->
+                Timber.tag("Subscribe_Error").d(err)
             }).isDisposed
 
         return startActivitySubject
