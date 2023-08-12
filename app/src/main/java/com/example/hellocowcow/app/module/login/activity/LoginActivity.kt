@@ -32,7 +32,9 @@ import com.example.hellocowcow.R
 import com.example.hellocowcow.app.module.main.activity.MainActivity
 import com.example.hellocowcow.ui.theme.HelloCowCowTheme
 import com.example.hellocowcow.ui.viewmodels.activity.LoginViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginActivity : ComponentActivity() {
 
     private val viewModel by viewModels<LoginViewModel>()
@@ -93,7 +95,8 @@ class LoginActivity : ComponentActivity() {
                                     "&isi=1519405832&ibi=" +
                                     "com.multiversx.maiar.wallet" +
                                     "&link=https://maiar.com/?wallet-connect=" +
-                                    "${viewModel.deeplinkPairingUri}").toUri()
+                                    "${viewModel.deeplinkPairingUri}"
+                                    ).toUri()
                         )
                     )
                 }
