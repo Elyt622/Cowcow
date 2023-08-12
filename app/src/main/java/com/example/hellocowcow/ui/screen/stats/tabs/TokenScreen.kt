@@ -117,7 +117,7 @@ fun TokenScreen(
                                             .data.let { token ->
                                                 Text(
                                                     text = String.format(
-                                                        "%.2f",
+                                                        "%.3f",
                                                         token.price
                                                     ),
                                                     style = MaterialTheme.typography.bodyLarge
