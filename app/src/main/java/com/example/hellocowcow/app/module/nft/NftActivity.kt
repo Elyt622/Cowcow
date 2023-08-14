@@ -466,7 +466,7 @@ class NftActivity : ComponentActivity() {
 
         if (!nftHasOffers)
             Column {
-                Spacer(modifier = Modifier.size(20.dp))
+                Spacer(modifier = Modifier.size(50.dp))
                 Text(
                     text = "No offers on this NFT!",
                     Modifier.fillMaxWidth(),
@@ -534,6 +534,13 @@ class NftActivity : ComponentActivity() {
 
     @Composable
     fun ActivityTab() {
-        Text(text = "Soon")
+        Column {
+            Spacer(modifier = Modifier.size(50.dp))
+            Text(
+                text = "Soon",
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center
+            )
+        }
     }
 }
