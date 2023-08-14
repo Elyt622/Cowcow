@@ -66,6 +66,7 @@ import com.example.hellocowcow.domain.models.DomainNft
 import com.example.hellocowcow.ui.theme.HelloCowCowTheme
 import com.example.hellocowcow.ui.viewmodels.activity.NftViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
 import timber.log.Timber
 import timber.log.Timber.Forest.plant
 
@@ -155,7 +156,7 @@ class NftActivity : ComponentActivity() {
             }
 
             is NftViewModel.UiState.Error -> {
-                Toast.makeText(
+                Toasty.error(
                     this,
                     (uiState as NftViewModel.UiState.Error).error,
                     Toast.LENGTH_SHORT

@@ -22,6 +22,7 @@ import com.example.hellocowcow.ui.composables.MainScaffold
 import com.example.hellocowcow.ui.theme.HelloCowCowTheme
 import com.example.hellocowcow.ui.viewmodels.activity.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
 import timber.log.Timber
 import timber.log.Timber.Forest.plant
 
@@ -73,7 +74,7 @@ class MainActivity : ComponentActivity() {
                         is MainViewModel.UiState.Error -> {
                             (uiState as MainViewModel.UiState.Error)
                                 .error.let { err ->
-                                    Toast.makeText(
+                                    Toasty.error(
                                         baseContext,
                                         err,
                                         Toast.LENGTH_SHORT

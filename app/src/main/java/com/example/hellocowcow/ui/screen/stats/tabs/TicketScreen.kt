@@ -29,6 +29,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.example.hellocowcow.R
 import com.example.hellocowcow.ui.viewmodels.screen.stats.TicketViewModel
+import es.dmoral.toasty.Toasty
 
 @Composable
 fun TicketScreen(
@@ -118,7 +119,7 @@ fun TicketScreen(
                                     is TicketViewModel.UiState.Error ->
                                         (uiState as TicketViewModel.UiState.Error)
                                             .error.let { err ->
-                                                Toast.makeText(
+                                                Toasty.error(
                                                     context,
                                                     err,
                                                     Toast.LENGTH_LONG
@@ -181,7 +182,7 @@ fun TicketScreen(
                                     is TicketViewModel.UiState.Error ->
                                         (uiState as TicketViewModel.UiState.Error)
                                             .error.let { err ->
-                                                Toast.makeText(
+                                                Toasty.error(
                                                     context,
                                                     err,
                                                     Toast.LENGTH_LONG

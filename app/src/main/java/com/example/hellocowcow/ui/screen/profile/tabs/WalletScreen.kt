@@ -36,6 +36,7 @@ import com.bumptech.glide.integration.compose.GlideImage
 import com.example.hellocowcow.app.module.nft.NftActivity
 import com.example.hellocowcow.ui.theme.Typography2
 import com.example.hellocowcow.ui.viewmodels.screen.profile.WalletViewModel
+import es.dmoral.toasty.Toasty
 
 @OptIn(ExperimentalGlideComposeApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -134,7 +135,7 @@ fun WalletScreen(
             )
         }
         is WalletViewModel.UiState.Error -> {
-            Toast.makeText(
+            Toasty.error(
                 LocalContext.current,
                 (uiState as WalletViewModel.UiState.Error).error,
                 Toast.LENGTH_LONG

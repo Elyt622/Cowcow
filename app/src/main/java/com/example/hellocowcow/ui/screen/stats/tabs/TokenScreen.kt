@@ -29,6 +29,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.example.hellocowcow.R
 import com.example.hellocowcow.ui.viewmodels.screen.stats.TokenViewModel
+import es.dmoral.toasty.Toasty
 import kotlin.math.roundToInt
 
 @Composable
@@ -127,7 +128,7 @@ fun TokenScreen(
                                     is TokenViewModel.UiStateToken.Error ->
                                         (uiStateT as TokenViewModel.UiStateToken.Error)
                                             .error.let { err ->
-                                                Toast.makeText(
+                                                Toasty.error(
                                                     context,
                                                     err,
                                                     Toast.LENGTH_LONG
@@ -188,7 +189,7 @@ fun TokenScreen(
                                     is TokenViewModel.UiStateReward.Error ->
                                         (uiStateR as TokenViewModel.UiStateReward.Error)
                                             .error.let { err ->
-                                                Toast.makeText(
+                                                Toasty.error(
                                                     context,
                                                     err,
                                                     Toast.LENGTH_LONG
@@ -259,7 +260,7 @@ fun TokenScreen(
                                     is TokenViewModel.UiStateToken.Error ->
                                         (uiStateT as TokenViewModel.UiStateToken.Error)
                                             .error.let { err ->
-                                                Toast.makeText(
+                                                Toasty.error(
                                                     context,
                                                     err,
                                                     Toast.LENGTH_LONG
@@ -328,7 +329,7 @@ fun TokenScreen(
                                     is TokenViewModel.UiStateToken.Error ->
                                         (uiStateT as TokenViewModel.UiStateToken.Error)
                                             .error.let { err ->
-                                                Toast.makeText(
+                                                Toasty.error(
                                                     context,
                                                     err,
                                                     Toast.LENGTH_LONG
@@ -381,7 +382,7 @@ fun TokenScreen(
                                     is TokenViewModel.UiStateToken.Error ->
                                         (uiStateT as TokenViewModel.UiStateToken.Error)
                                             .error.let { err ->
-                                                Toast.makeText(
+                                                Toasty.error(
                                                     context,
                                                     err,
                                                     Toast.LENGTH_LONG
@@ -433,7 +434,7 @@ fun TokenScreen(
                                     is TokenViewModel.UiStateToken.Error ->
                                         (uiStateT as TokenViewModel.UiStateToken.Error)
                                             .error.let { err ->
-                                                Toast.makeText(
+                                                Toasty.error(
                                                     context,
                                                     err,
                                                     Toast.LENGTH_LONG

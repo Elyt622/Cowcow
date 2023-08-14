@@ -36,6 +36,7 @@ import com.bumptech.glide.integration.compose.GlideImage
 import com.example.hellocowcow.app.module.nft.NftActivity
 import com.example.hellocowcow.ui.theme.Typography2
 import com.example.hellocowcow.ui.viewmodels.screen.profile.MarketViewModel
+import es.dmoral.toasty.Toasty
 
 @OptIn(ExperimentalGlideComposeApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -146,7 +147,7 @@ fun MarketScreen(
         }
 
         is MarketViewModel.UiState.Error -> {
-            Toast.makeText(
+            Toasty.error(
                 LocalContext.current,
                 (uiState as MarketViewModel.UiState.Error).error,
                 Toast.LENGTH_LONG

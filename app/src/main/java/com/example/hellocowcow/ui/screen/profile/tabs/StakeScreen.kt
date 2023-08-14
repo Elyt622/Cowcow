@@ -36,6 +36,7 @@ import com.bumptech.glide.integration.compose.GlideImage
 import com.example.hellocowcow.app.module.nft.NftActivity
 import com.example.hellocowcow.ui.theme.Typography2
 import com.example.hellocowcow.ui.viewmodels.screen.profile.StakeViewModel
+import es.dmoral.toasty.Toasty
 
 @OptIn(ExperimentalGlideComposeApi::class,
     ExperimentalMaterial3Api::class
@@ -149,7 +150,7 @@ fun StakeScreen(
             )
         }
         is StakeViewModel.UiState.Error -> {
-            Toast.makeText(
+            Toasty.error(
                 LocalContext.current,
                 (uiState as StakeViewModel.UiState.Error).error,
                 Toast.LENGTH_LONG

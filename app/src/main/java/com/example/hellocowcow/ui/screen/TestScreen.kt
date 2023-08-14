@@ -15,6 +15,7 @@ import com.example.hellocowcow.domain.models.DomainAccount
 import com.example.hellocowcow.ui.composables.CustomDialog
 import com.example.hellocowcow.ui.viewmodels.screen.TestViewModel
 import com.walletconnect.sign.client.SignClient
+import es.dmoral.toasty.Toasty
 import timber.log.Timber
 
 @Composable
@@ -61,7 +62,7 @@ fun TestScreen(
             is TestViewModel.UiState.Error -> {
                 (uiState as TestViewModel.UiState.Error)
                     .error.let { err ->
-                        Toast.makeText(
+                        Toasty.error(
                             LocalContext.current,
                             err,
                             Toast.LENGTH_SHORT
