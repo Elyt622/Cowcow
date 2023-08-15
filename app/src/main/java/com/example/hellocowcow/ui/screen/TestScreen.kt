@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import com.example.hellocowcow.domain.models.DomainAccount
-import com.example.hellocowcow.ui.composables.CustomDialog
+import com.example.hellocowcow.ui.composables.CustomAlert
 import com.example.hellocowcow.ui.viewmodels.screen.TestViewModel
 import com.walletconnect.sign.client.SignClient
 import es.dmoral.toasty.Toasty
@@ -26,18 +26,28 @@ fun TestScreen(
 ) {
 
     val uiState by viewModel.uiState.collectAsState()
+    val context = LocalContext.current
 
     Box(
         contentAlignment = Alignment.Center
     ) {
         Button(
             onClick = {
+                var error = false
                 SignClient.request(
                     request = viewModel.buildClaimRewardRequest(account, topic),
                     onError = { err ->
+                        error = true
                         Timber.tag("ERROR").e(err.throwable)
                     }
                 )
+                if (!error) {
+                    Toasty.normal(
+                        context,
+                        "Request sent to xPortal",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         ) {
             Text(
@@ -51,10 +61,10 @@ fun TestScreen(
             is TestViewModel.UiState.Send -> {
                 (uiState as TestViewModel.UiState.Send)
                     .tx.let { tx ->
-                        CustomDialog(
-                            "Claim Rewards",
+                        CustomAlert(
                             tx = tx,
-                            setShowDialog = { }
+                            onDismissRequest = { },
+                            confirmButton = { }
                         )
                     }
             }
