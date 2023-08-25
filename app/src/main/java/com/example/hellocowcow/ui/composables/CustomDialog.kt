@@ -15,7 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cancel
-import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.HourglassTop
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.ButtonDefaults
@@ -33,32 +33,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.DialogProperties
 import com.example.hellocowcow.domain.models.DomainTransaction
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomAlert(
     tx: DomainTransaction,
-    onDismissRequest: () -> Unit,
-    confirmButton: @Composable () -> Unit,
-    modifier: Modifier = Modifier,
-    dismissButton: (@Composable () -> Unit)? = null,
-    icon: (@Composable () -> Unit)? = null,
-    title: (@Composable () -> Unit)? = null,
-    text: (@Composable () -> Unit)? = null,
-    shape: Shape = AlertDialogDefaults.shape,
-    containerColor: Color = AlertDialogDefaults.containerColor,
-    iconContentColor: Color = AlertDialogDefaults.iconContentColor,
-    titleContentColor: Color = AlertDialogDefaults.titleContentColor,
-    textContentColor: Color = AlertDialogDefaults.textContentColor,
-    tonalElevation: Dp = AlertDialogDefaults.TonalElevation,
-    properties: DialogProperties = DialogProperties()
 ) {
     val context = LocalContext.current
     val openDialog = remember { mutableStateOf(true) }
@@ -118,7 +100,7 @@ fun CustomAlert(
                     }
 
                     Text(
-                        text = "Transaction Completed",
+                        text = "Transaction ${tx.status}",
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.background
                     )
@@ -133,8 +115,9 @@ fun CustomAlert(
                         )
                         Icon(
                             modifier = Modifier.size(12.5.dp),
-                            imageVector = Icons.Filled.CheckCircle,
-                            contentDescription = ""
+                            imageVector = Icons.Filled.HourglassTop,
+                            contentDescription = "",
+                            tint = MaterialTheme.colorScheme.background
                         )
                     }
 
@@ -172,7 +155,8 @@ fun CustomAlert(
                         ),
                         onClick = {
                             val intent = Intent(Intent.ACTION_VIEW)
-                            val url = Uri.parse("https://explorer.multiversx.com/transactions/${tx.txHash}")
+                            val url =
+                                Uri.parse("https://explorer.multiversx.com/transactions/${tx.txHash}")
                             intent.data = url
                             context.startActivity(intent)
                             openDialog.value = false
@@ -188,10 +172,4 @@ fun CustomAlert(
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun CustomAlertPreview() {
-    CustomAlert(DomainTransaction(), onDismissRequest = { /*TODO*/ }, confirmButton = { /*TODO*/ })
 }
