@@ -60,8 +60,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.example.hellocowcow.data.response.proxyXoxnoApi.AttributesResponse
-import com.example.hellocowcow.data.response.proxyXoxnoApi.OffersInfoResponse
+import com.example.hellocowcow.data.retrofit.proxyXoxnoApi.Attributes
+import com.example.hellocowcow.data.retrofit.proxyXoxnoApi.OffersInfo
 import com.example.hellocowcow.domain.models.DomainNft
 import com.example.hellocowcow.ui.theme.HelloCowCowTheme
 import com.example.hellocowcow.ui.viewmodels.activity.NftViewModel
@@ -355,7 +355,7 @@ class NftActivity : ComponentActivity() {
 
     @Composable
     fun AttributesTab(
-        attributes: ArrayList<AttributesResponse>
+        attributes: ArrayList<Attributes>
     ) {
         val cardColors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primary,
@@ -456,7 +456,7 @@ class NftActivity : ComponentActivity() {
     @Composable
     fun OffersTab(
         nftHasOffers: Boolean,
-        offersInfo: ArrayList<OffersInfoResponse>
+        offersInfo: ArrayList<OffersInfo>
     ) {
 
         val cardColors = CardDefaults.cardColors(

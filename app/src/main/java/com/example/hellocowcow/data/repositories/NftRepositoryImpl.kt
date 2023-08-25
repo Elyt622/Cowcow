@@ -3,11 +3,11 @@ package com.example.hellocowcow.data.repositories
 import com.example.hellocowcow.data.network.api.MvxApi
 import com.example.hellocowcow.data.network.api.ProxyXoxnoApi
 import com.example.hellocowcow.data.network.api.XoxnoApi
-import com.example.hellocowcow.data.response.mvxApi.RewardRequest
-import com.example.hellocowcow.data.response.mvxApi.RewardResponse
-import com.example.hellocowcow.data.response.proxyXoxnoApi.CollectionResponse
-import com.example.hellocowcow.data.response.proxyXoxnoApi.UpgradedResponse
-import com.example.hellocowcow.data.response.xoxnoApi.StatsCollectionResponse
+import com.example.hellocowcow.data.retrofit.mvxApi.request.Reward
+import com.example.hellocowcow.data.retrofit.mvxApi.response.Reward
+import com.example.hellocowcow.data.retrofit.proxyXoxnoApi.Collection
+import com.example.hellocowcow.data.retrofit.proxyXoxnoApi.Upgraded
+import com.example.hellocowcow.data.retrofit.xoxnoApi.StatsCollection
 import com.example.hellocowcow.domain.models.DomainNft
 import com.example.hellocowcow.domain.repositories.NftRepository
 import com.example.hellocowcow.ui.viewmodels.util.MySchedulers
@@ -43,8 +43,8 @@ class NftRepositoryImpl @Inject constructor(
 
     override
     fun getAllDataUsers(
-        request: RewardRequest
-    ): Observable<RewardResponse> =
+        request: Reward
+    ): Observable<Reward> =
         mvxApi.getAllDataUsers(request)
             .subscribeOn(mySchedulers.io)
             .observeOn(mySchedulers.main)
@@ -75,7 +75,7 @@ class NftRepositoryImpl @Inject constructor(
     override
     fun getCowsListing(
         address: String
-    ): Observable<CollectionResponse> =
+    ): Observable<Collection> =
         proxyXoxnoApi.getCowsListing(address)
             .subscribeOn(mySchedulers.io)
             .observeOn(mySchedulers.main)
@@ -83,14 +83,14 @@ class NftRepositoryImpl @Inject constructor(
     override
     fun getCowsInWallet(
         address: String
-    ): Observable<CollectionResponse> =
+    ): Observable<Collection> =
         proxyXoxnoApi.getCowsInWallet(address)
             .subscribeOn(mySchedulers.io)
             .observeOn(mySchedulers.main)
 
     override
     fun getUpgradedCowsCount()
-    : Observable<UpgradedResponse> =
+    : Observable<Upgraded> =
         proxyXoxnoApi.getUpgradedCowsCount()
             .subscribeOn(mySchedulers.io)
             .observeOn(mySchedulers.main)
@@ -105,7 +105,7 @@ class NftRepositoryImpl @Inject constructor(
     override
     fun getStatsCollection(
         collection: String
-    ): Observable<StatsCollectionResponse> =
+    ): Observable<StatsCollection> =
         xoxnoApi.getStatsCollection(collection)
             .subscribeOn(mySchedulers.io)
             .observeOn(mySchedulers.main)

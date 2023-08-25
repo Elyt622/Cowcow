@@ -1,7 +1,7 @@
 package com.example.hellocowcow.ui.viewmodels.screen
 
 import androidx.lifecycle.ViewModel
-import com.example.hellocowcow.data.response.mvxApi.TransactionRequest
+import com.example.hellocowcow.data.retrofit.mvxApi.request.Transaction
 import com.example.hellocowcow.domain.models.DomainAccount
 import com.example.hellocowcow.domain.models.DomainTransaction
 import com.example.hellocowcow.domain.repositories.TransactionRepository
@@ -27,7 +27,7 @@ class TestViewModel @Inject constructor(
     val gson: Gson = GsonBuilder().disableHtmlEscaping().create()
     private val openDialogSubject: PublishSubject<Unit> = PublishSubject.create()
 
-    private lateinit var txRequest : TransactionRequest
+    private lateinit var txRequest : Transaction
 
     private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.NoData)
     val uiState: StateFlow<UiState> = _uiState
@@ -79,7 +79,7 @@ class TestViewModel @Inject constructor(
 
     private fun getRequest(
         account: DomainAccount
-    ) = TransactionRequest(
+    ) = Transaction(
             nonce = account.nonce,
             value = "0",
             receiver = "erd1qqqqqqqqqqqqqpgqqgzzsl0re9e3u0t3mhv3jwg6zu63zssd7yqs3uu9jk",
@@ -110,7 +110,7 @@ class TestViewModel @Inject constructor(
 
     private fun getSignatureAndSendRequest(
         response: String,
-        txRequest: TransactionRequest
+        txRequest: Transaction
     ) : Observable<Unit> {
 
         val signatureRegex = """signature=([a-fA-F0-9]+)""".toRegex()

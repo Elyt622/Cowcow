@@ -1,7 +1,7 @@
 package com.example.hellocowcow.data.repositories
 
 import com.example.hellocowcow.data.network.api.MvxApi
-import com.example.hellocowcow.data.response.mvxApi.RewardRequest
+import com.example.hellocowcow.data.retrofit.mvxApi.request.Reward
 import com.example.hellocowcow.domain.models.DomainReward
 import com.example.hellocowcow.domain.models.DomainToken
 import com.example.hellocowcow.domain.repositories.TokenRepository
@@ -23,9 +23,9 @@ class TokenRepositoryImpl @Inject constructor(
 
     override
     fun getTotalRewardsToCollect(
-        rewardRequest: RewardRequest
+        reward: Reward
     ) : Single<DomainReward> =
-        mvxApi.getTotalRewardsToCollect(rewardRequest)
+        mvxApi.getTotalRewardsToCollect(reward)
             .map { it.toDomain() }
             .subscribeOn(mySchedulers.io)
             .observeOn(mySchedulers.main)

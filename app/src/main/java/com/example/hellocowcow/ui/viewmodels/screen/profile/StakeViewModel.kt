@@ -3,7 +3,7 @@ package com.example.hellocowcow.ui.viewmodels.screen.profile
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.hellocowcow.data.response.mvxApi.RewardRequest
+import com.example.hellocowcow.data.retrofit.mvxApi.request.Reward
 import com.example.hellocowcow.domain.models.DomainNft
 import com.example.hellocowcow.domain.repositories.NftRepository
 import com.walletconnect.util.bytesToHex
@@ -41,7 +41,7 @@ class StakeViewModel @Inject constructor(
     @OptIn(ExperimentalEncodingApi::class)
     fun getAllDataForUser() =
         nftRepository.getAllDataUsers(
-            RewardRequest(
+            Reward(
                 "erd1qqqqqqqqqqqqqpgqqgzzsl0re9e3u0t3mhv3jwg6zu63zssd7yqs3uu9jk",
                 "getAllDataForUser",
                 "0",

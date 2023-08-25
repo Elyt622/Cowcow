@@ -1,8 +1,8 @@
 package com.example.hellocowcow.domain.models
 
-import com.example.hellocowcow.data.response.proxyXoxnoApi.MetadataResponse
-import com.example.hellocowcow.data.response.proxyXoxnoApi.OffersInfoResponse
-import com.example.hellocowcow.data.response.proxyXoxnoApi.SaleInfoNftResponse
+import com.example.hellocowcow.data.retrofit.proxyXoxnoApi.Metadata
+import com.example.hellocowcow.data.retrofit.proxyXoxnoApi.OffersInfo
+import com.example.hellocowcow.data.retrofit.proxyXoxnoApi.SaleInfoNft
 
 data class DomainNft (
 
@@ -25,9 +25,9 @@ data class DomainNft (
     var hasOffers            : String?           = null,
     var retries              : Int?              = null,
     var hasSecondNFT         : Boolean?          = false,
-    var metadata             : MetadataResponse? = MetadataResponse(),
-    var saleInfoNft          : SaleInfoNftResponse? = SaleInfoNftResponse(),
-    var offersInfo           : ArrayList<OffersInfoResponse> = arrayListOf(),
+    var metadata             : Metadata? = Metadata(),
+    var saleInfoNft          : SaleInfoNft? = SaleInfoNft(),
+    var offersInfo           : ArrayList<OffersInfo> = arrayListOf(),
     var owner                : String?           = null,
     var floorValue           : Double?           = null,
     var avgValue             : Double?           = null,

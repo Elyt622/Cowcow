@@ -1,7 +1,7 @@
 package com.example.hellocowcow.ui.viewmodels.screen.stats
 
 import androidx.lifecycle.ViewModel
-import com.example.hellocowcow.data.response.mvxApi.RewardRequest
+import com.example.hellocowcow.data.retrofit.mvxApi.request.Reward
 import com.example.hellocowcow.domain.models.DomainReward
 import com.example.hellocowcow.domain.models.DomainToken
 import com.example.hellocowcow.domain.repositories.TokenRepository
@@ -57,7 +57,7 @@ class TokenViewModel @Inject constructor(
 
     private fun getTotalRewardsToCollect() =
         tokenApi.getTotalRewardsToCollect(
-            RewardRequest(
+            Reward(
                 "erd1qqqqqqqqqqqqqpgqqgzzsl0re9e3u0t3mhv3jwg6zu63zssd7yqs3uu9jk",
                 "getTotalRewardsToCollect",
                 "0",
