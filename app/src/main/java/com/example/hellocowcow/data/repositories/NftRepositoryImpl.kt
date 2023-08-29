@@ -3,8 +3,6 @@ package com.example.hellocowcow.data.repositories
 import com.example.hellocowcow.data.network.api.MvxApi
 import com.example.hellocowcow.data.network.api.ProxyXoxnoApi
 import com.example.hellocowcow.data.network.api.XoxnoApi
-import com.example.hellocowcow.data.retrofit.mvxApi.request.Reward
-import com.example.hellocowcow.data.retrofit.mvxApi.response.Reward
 import com.example.hellocowcow.data.retrofit.proxyXoxnoApi.Collection
 import com.example.hellocowcow.data.retrofit.proxyXoxnoApi.Upgraded
 import com.example.hellocowcow.data.retrofit.xoxnoApi.StatsCollection
@@ -43,8 +41,8 @@ class NftRepositoryImpl @Inject constructor(
 
     override
     fun getAllDataUsers(
-        request: Reward
-    ): Observable<Reward> =
+        request: com.example.hellocowcow.data.retrofit.mvxApi.request.Reward
+    ): Observable<com.example.hellocowcow.data.retrofit.mvxApi.response.Reward> =
         mvxApi.getAllDataUsers(request)
             .subscribeOn(mySchedulers.io)
             .observeOn(mySchedulers.main)

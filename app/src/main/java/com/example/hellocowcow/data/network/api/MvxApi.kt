@@ -1,12 +1,10 @@
 package com.example.hellocowcow.data.network.api
 
+import com.example.hellocowcow.data.retrofit.mvxApi.request.Transaction
 import com.example.hellocowcow.data.retrofit.mvxApi.response.Account
 import com.example.hellocowcow.data.retrofit.mvxApi.response.Nft
-import com.example.hellocowcow.data.retrofit.mvxApi.request.Reward
-import com.example.hellocowcow.data.retrofit.mvxApi.response.Reward
 import com.example.hellocowcow.data.retrofit.mvxApi.response.Token
 import com.example.hellocowcow.data.retrofit.mvxApi.response.Transactions
-import com.example.hellocowcow.data.retrofit.mvxApi.request.Transaction
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.Body
@@ -53,13 +51,13 @@ interface MvxApi {
 
     @POST("/query")
     fun getTotalRewardsToCollect(
-        @Body reward: Reward
-    ) : Single<Reward>
+        @Body reward: com.example.hellocowcow.data.retrofit.mvxApi.request.Reward
+    ) : Single<com.example.hellocowcow.data.retrofit.mvxApi.response.Reward>
 
     @POST("/query")
     fun getAllDataUsers(
-        @Body request: Reward
-    ) : Observable<Reward>
+        @Body request: com.example.hellocowcow.data.retrofit.mvxApi.request.Reward
+    ) : Observable<com.example.hellocowcow.data.retrofit.mvxApi.response.Reward>
 
     @POST("/transactions")
     fun sendTransaction(

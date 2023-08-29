@@ -1,7 +1,6 @@
 package com.example.hellocowcow.domain.repositories
 
 import com.example.hellocowcow.data.retrofit.mvxApi.request.Reward
-import com.example.hellocowcow.data.retrofit.mvxApi.response.Reward
 import com.example.hellocowcow.data.retrofit.proxyXoxnoApi.Collection
 import com.example.hellocowcow.data.retrofit.proxyXoxnoApi.Upgraded
 import com.example.hellocowcow.data.retrofit.xoxnoApi.StatsCollection
@@ -21,7 +20,7 @@ interface NftRepository {
 
     fun getAllDataUsers(
         request: Reward
-    ) : Observable<Reward>
+    ) : Observable<com.example.hellocowcow.data.retrofit.mvxApi.response.Reward>
 
     fun getCowsWithCollection(
         identifiers: String,
