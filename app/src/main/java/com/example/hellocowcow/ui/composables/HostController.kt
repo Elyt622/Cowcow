@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import com.example.hellocowcow.data.Data
 import com.example.hellocowcow.domain.models.DomainAccount
 import com.example.hellocowcow.domain.models.ItemNav
-import com.example.hellocowcow.ui.screen.TestScreen
+import com.example.hellocowcow.ui.screen.RaffleScreen
 import com.example.hellocowcow.ui.screen.home.HomeScreen
 import com.example.hellocowcow.ui.screen.profile.ProfileScreen
 import com.example.hellocowcow.ui.screen.stats.StatsScreen
@@ -27,9 +27,9 @@ fun HostController(
             when (it.destination.route) {
 
                 ItemNav.Home.route -> { HomeScreen(hiltViewModel()) }
-                ItemNav.Token.route -> { TestScreen(account, topic, hiltViewModel()) }
+                ItemNav.Token.route -> { RaffleScreen() }
                 ItemNav.Stats.route -> { StatsScreen() }
-                ItemNav.Profile.route -> { ProfileScreen(account) }
+                ItemNav.Profile.route -> { ProfileScreen(account, topic, hiltViewModel()) }
             }
         }
     }
