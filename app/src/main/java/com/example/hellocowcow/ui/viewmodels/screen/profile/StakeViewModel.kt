@@ -8,6 +8,7 @@ import com.example.hellocowcow.domain.models.DomainNft
 import com.example.hellocowcow.domain.repositories.NftRepository
 import com.walletconnect.util.bytesToHex
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,46 +40,39 @@ class StakeViewModel @Inject constructor(
     val uiState: StateFlow<UiState> = _uiState
 
     @OptIn(ExperimentalEncodingApi::class)
-    fun getAllDataForUser() =
-        nftRepository.getAllDataUsers(
-            Reward(
-                "erd1qqqqqqqqqqqqqpgqqgzzsl0re9e3u0t3mhv3jwg6zu63zssd7yqs3uu9jk",
-                "getAllDataForUser",
-                "0",
-                arrayListOf(),
-                address.value
-            )
-        )
+    fun getAllStakingCow() =
+        getAllDataForUser()
             .map { data ->
-            val segmentedHexList = mutableListOf<String>()
-            val decoded: String = Base64.decode(data.returnData[0]).bytesToHex()
-            for (i in decoded.indices step 4) {
-                val endIndex = kotlin.math.min(i + 4, decoded.length)
-                val segment = decoded.substring(i, endIndex)
-                if (!segment.contains("0000"))
-                    if(segment.startsWith("00"))
-                        segmentedHexList.add(segment.substring(2))
-                    else
-                        segmentedHexList.add(segment)
-            }
-            val destinationArray = segmentedHexList
-                .subList(
-                    1,
-                    segmentedHexList[0].toInt(16) + 1)
-                .toList()
-            destinationArray
-        }.map { list ->
-            val mutableList = mutableListOf<String>()
-            for (element in list) {
-                mutableList.add("COW-cd463d-$element")
-            }
-            mutableList
-        }.flatMapIterable { it }
+                val segmentedHexList = mutableListOf<String>()
+                val decoded: String = Base64.decode(data).bytesToHex()
+                for (i in decoded.indices step 4) {
+                    val endIndex = kotlin.math.min(i + 4, decoded.length)
+                    val segment = decoded.substring(i, endIndex)
+                    if (!segment.contains("0000"))
+                        if (segment.startsWith("00"))
+                            segmentedHexList.add(segment.substring(2))
+                        else
+                            segmentedHexList.add(segment)
+                }
+                val destinationArray = segmentedHexList
+                    .subList(
+                        1,
+                        segmentedHexList[0].toInt(16) + 1
+                    )
+                    .toList()
+                destinationArray
+            }.map { list ->
+                val mutableList = mutableListOf<String>()
+                for (element in list) {
+                    mutableList.add("COW-cd463d-$element")
+                }
+                mutableList
+            }.flatMapIterable { it }
             .flatMap { nft ->
                 nftRepository.getNftXoxno(nft).toObservable()
             }.toList()
             .subscribeOn(Schedulers.io())
-            .subscribeBy (
+            .subscribeBy(
                 onSuccess = { nfts ->
                     if (nfts.isEmpty())
                         _uiState.value = UiState.NoData
@@ -89,5 +83,17 @@ class StakeViewModel @Inject constructor(
                     _uiState.value = UiState.Error(error.message.toString())
                 }
             ).isDisposed
+
+    private fun getAllDataForUser()
+    : Observable<String> =
+        nftRepository.getAllDataUsers(
+            Reward(
+                "erd1qqqqqqqqqqqqqpgqqgzzsl0re9e3u0t3mhv3jwg6zu63zssd7yqs3uu9jk",
+                "getAllDataForUser",
+                "0",
+                arrayListOf(),
+                address.value
+            )
+        ).map { it.returnData[0] }
 }
 

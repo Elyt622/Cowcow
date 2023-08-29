@@ -58,7 +58,7 @@ fun StakeScreen(
     // LaunchedEffect runs when the Composable starts up
     LaunchedEffect(Unit) {
         if (!functionExecuted.value) {
-            viewModel.getAllDataForUser()
+            viewModel.getAllStakingCow()
             functionExecuted.value = true
         }
     }
