@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -76,38 +75,39 @@ fun ProfileScreen(
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier
                     .weight(1.0F)
-                    .padding(start = 8.dp),
+                    .padding(start = 12.dp),
             )
 
-            when (uiState) {
-                is ProfileViewModel.UiState.Success -> {
-                    (uiState as ProfileViewModel.UiState.Success)
-                        .data.let { data ->
-                            Button(
-                                modifier = Modifier
-                                    .weight(1.0F)
-                                    .padding(end = 20.dp),
-                                colors = ButtonDefaults.buttonColors(
-                                    contentColor = MaterialTheme.colorScheme.background,
-                                    containerColor = MaterialTheme.colorScheme.primary
-                                ),
-                                onClick = { var error = false
-                                    SignClient.request(
-                                        request = viewModel.buildClaimRewardRequest(account, topic),
-                                        onError = { err ->
-                                            error = true
-                                            Timber.tag("ERROR").e(err.throwable)
-                                        }
-                                    )
-                                    if (!error) {
-                                        Toasty.normal(
-                                            context,
-                                            "Request sent to xPortal",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                }
-                            ) {
+            Button(
+                modifier = Modifier
+                    .weight(1.0F)
+                    .padding(end = 16.dp),
+                colors = ButtonDefaults.buttonColors(
+                    contentColor = MaterialTheme.colorScheme.background,
+                    containerColor = MaterialTheme.colorScheme.primary
+                ),
+                onClick = {
+                    var error = false
+                    SignClient.request(
+                        request = viewModel.buildClaimRewardRequest(account, topic),
+                        onError = { err ->
+                            error = true
+                            Timber.tag("ERROR").e(err.throwable)
+                        }
+                    )
+                    if (!error) {
+                        Toasty.info(
+                            context,
+                            "Request sent to xPortal",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            ) {
+                when (uiState) {
+                    is ProfileViewModel.UiState.Success -> {
+                        (uiState as ProfileViewModel.UiState.Success)
+                            .data.let { data ->
                                 Text(
                                     text = "Claim $data",
                                     style = MaterialTheme.typography.labelMedium,
@@ -116,25 +116,26 @@ fun ProfileScreen(
                                     ImageVector.vectorResource(id = R.drawable.moovelogo),
                                     "Moove Logo",
                                     modifier = Modifier
-                                        .size(18.dp)
+                                        .size(16.dp)
                                         .padding(start = 4.dp)
                                 )
                             }
-                        }
-                }
-
-                is ProfileViewModel.UiState.Loading -> {
-                    Box(
-                        contentAlignment = Alignment.Center
-                    ) {
-                        CircularProgressIndicator(
-                            modifier = Modifier.width(15.dp),
-                            color = MaterialTheme.colorScheme.primary
-                        )
                     }
-                }
 
-                else -> {}
+                    is ProfileViewModel.UiState.Loading -> {
+                        Box(
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator(
+                                modifier = Modifier
+                                    .size(15.dp),
+                                color = MaterialTheme.colorScheme.background
+                            )
+                        }
+                    }
+
+                    else -> {}
+                }
             }
         }
         when (uiStateTx) {
