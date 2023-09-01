@@ -24,8 +24,8 @@ class WalletViewModel @Inject constructor(
     }
 
     sealed class UiState {
-        object NoData : UiState()
-        object Loading : UiState()
+        data object NoData : UiState()
+        data object Loading : UiState()
         data class Success(val data: List<DomainNft>) : UiState()
         data class Error(val error: String) : UiState()
     }

@@ -53,13 +53,13 @@ class ProfileViewModel @Inject constructor(
     val uiState: StateFlow<UiState> = _uiState
 
     sealed class UiStateTx {
-        object NoData : UiStateTx()
+        data object NoData : UiStateTx()
         data class Send(val tx: DomainTransaction) : UiStateTx()
         data class Error(val error: String) : UiStateTx()
     }
 
     sealed class UiState {
-        object Loading : UiState()
+        data object Loading : UiState()
         data class Success(val data: String) : UiState()
         data class Error(val error: String) : UiState()
     }

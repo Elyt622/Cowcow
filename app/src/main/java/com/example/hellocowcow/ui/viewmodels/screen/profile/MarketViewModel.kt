@@ -24,8 +24,8 @@ class MarketViewModel @Inject constructor(
     }
 
     sealed class UiState {
-        object NoData : UiState()
-        object Loading : UiState()
+        data object NoData : UiState()
+        data object Loading : UiState()
         data class Success(val data: List<Nft>) : UiState()
         data class Error(val error: String) : UiState()
     }

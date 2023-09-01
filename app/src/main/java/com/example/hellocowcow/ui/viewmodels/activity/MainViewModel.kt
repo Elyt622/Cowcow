@@ -19,7 +19,7 @@ class MainViewModel @Inject constructor(
 
 
     sealed class UiState {
-        object Loading : UiState()
+        data object Loading : UiState()
         class Success (val data : DomainAccount) : UiState()
         class Error (val error : String) : UiState()
     }

@@ -25,13 +25,13 @@ class TokenViewModel @Inject constructor(
     val uiStateR: StateFlow<UiStateReward> = _uiStateR
 
     sealed class UiStateToken {
-        object Loading : UiStateToken()
+        data object Loading : UiStateToken()
         data class Success(val data: DomainToken) : UiStateToken()
         data class Error(val error: String) : UiStateToken()
     }
 
     sealed class UiStateReward {
-        object Loading : UiStateReward()
+        data object Loading : UiStateReward()
         data class Success(val data: DomainReward) : UiStateReward()
         data class Error(val error: String) : UiStateReward()
     }

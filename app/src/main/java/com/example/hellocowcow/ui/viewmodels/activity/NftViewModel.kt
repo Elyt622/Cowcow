@@ -18,7 +18,7 @@ class NftViewModel @Inject constructor(
     val uiState: StateFlow<UiState> = _uiState
 
     sealed class UiState {
-        object Loading : UiState()
+        data object Loading : UiState()
         class Success(val nft: DomainNft) : UiState()
         class Error(val error: String) : UiState()
     }
