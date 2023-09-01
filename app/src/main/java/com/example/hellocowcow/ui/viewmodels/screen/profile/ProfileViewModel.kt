@@ -105,17 +105,34 @@ class ProfileViewModel @Inject constructor(
 
     private fun getRequest(
         account: DomainAccount
-    ) = Transaction(
-        nonce = account.nonce,
-        value = "0",
-        receiver = "erd1qqqqqqqqqqqqqpgqqgzzsl0re9e3u0t3mhv3jwg6zu63zssd7yqs3uu9jk",
-        sender = account.address,
-        gasPrice = 1000000000L,
-        gasLimit = 30000000L,
-        data = "Y2xhaW1SZXdhcmRz",
-        chainID = "1",
-        version = 1
-    )
+    ) = if (!account.isGuarded)
+            Transaction(
+                nonce = account.nonce,
+                value = "0",
+                receiver = "erd1qqqqqqqqqqqqqpgqqgzzsl0re9e3u0t3mhv3jwg6zu63zssd7yqs3uu9jk",
+                sender = account.address,
+                gasPrice = 1000000000L,
+                gasLimit = 30000000L,
+                data = "Y2xhaW1SZXdhcmRz",
+                chainID = "1",
+                version = 1
+            )
+        else {
+            Transaction(
+                nonce = account.nonce,
+                value = "0",
+                receiver = "erd1qqqqqqqqqqqqqpgqqgzzsl0re9e3u0t3mhv3jwg6zu63zssd7yqs3uu9jk",
+                sender = account.address,
+                gasPrice = 1000000000L,
+                gasLimit = 30000000L,
+                data = "Y2xhaW1SZXdhcmRz",
+                chainID = "1",
+                version = 2,
+                options = 2,
+                guardian = account.activeGuardianAddress,
+            )
+        }
+
 
 
     fun buildClaimRewardRequest(
@@ -140,14 +157,17 @@ class ProfileViewModel @Inject constructor(
     ) : Observable<Unit> {
 
         val signatureRegex = """signature=([a-fA-F0-9]+)""".toRegex()
-        val matchResult = signatureRegex.find(response)
+        val guardianSignatureRegex = """guardianSignature=([a-fA-F0-9]+)""".toRegex()
 
-        val signature = matchResult?.groups?.get(1)?.value
+        val signatureResult = signatureRegex.find(response)
+        val guardianSignatureResult = guardianSignatureRegex.find(response)
+
+        val signature = signatureResult?.groups?.get(1)?.value
+        val guardianSignature = guardianSignatureResult?.groups?.get(1)?.value
 
         if (signature != null) {
-            println("Signature: $signature")
             txRequest.signature = signature
-            Timber.tag("TRANSACTION_AFTER_BUILD").d(txRequest.nonce.toString())
+            txRequest.guardianSignature = guardianSignature.toString()
             transactionRepository.sendTransaction(txRequest)
                 .subscribeBy (
                     onNext = {  tx ->

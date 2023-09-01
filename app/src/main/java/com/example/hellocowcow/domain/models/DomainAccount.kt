@@ -10,5 +10,8 @@ data class DomainAccount (
     var txCount : Int? = null,
     var scrCount : Int? = null,
     var username : String = "",
-    var developerReward : String? = null
+    var developerReward : String? = null,
+    var activeGuardianAddress : String = "",
+    var guardianSignature : String = "",
+    var isGuarded : Boolean = false
 )
