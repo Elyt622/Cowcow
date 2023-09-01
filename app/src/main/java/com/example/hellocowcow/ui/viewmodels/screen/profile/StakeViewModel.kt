@@ -8,14 +8,13 @@ import com.example.hellocowcow.domain.models.DomainNft
 import com.example.hellocowcow.domain.repositories.NftRepository
 import com.walletconnect.util.bytesToHex
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.ipfs.multibase.binary.Base64
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
-import kotlin.io.encoding.Base64
-import kotlin.io.encoding.ExperimentalEncodingApi
 
 @HiltViewModel
 class StakeViewModel @Inject constructor(
@@ -39,12 +38,11 @@ class StakeViewModel @Inject constructor(
     private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val uiState: StateFlow<UiState> = _uiState
 
-    @OptIn(ExperimentalEncodingApi::class)
     fun getAllStakingCow() =
         getAllDataForUser()
             .map { data ->
                 val segmentedHexList = mutableListOf<String>()
-                val decoded: String = Base64.decode(data).bytesToHex()
+                val decoded: String = Base64.decodeBase64(data).bytesToHex()
                 for (i in decoded.indices step 4) {
                     val endIndex = kotlin.math.min(i + 4, decoded.length)
                     val segment = decoded.substring(i, endIndex)
