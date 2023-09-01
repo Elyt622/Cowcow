@@ -32,7 +32,9 @@ data class Account (
             timestamp = timestamp,
             shard = shard,
             rootHash = rootHash,
-            developerReward = developerReward
+            developerReward = developerReward,
+            activeGuardianAddress = activeGuardianAddress,
+            isGuarded = isGuarded
         )
 
 }
