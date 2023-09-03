@@ -9,7 +9,7 @@ import com.example.hellocowcow.domain.models.DomainAccount
 import com.example.hellocowcow.domain.models.DomainTransaction
 import com.example.hellocowcow.domain.repositories.NftRepository
 import com.example.hellocowcow.domain.repositories.TransactionRepository
-import com.example.hellocowcow.ui.viewmodels.util.MyDAppDelegate
+import com.example.hellocowcow.ui.viewmodels.util.MyWalletConnect
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.walletconnect.sign.client.Sign
@@ -31,7 +31,7 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val nftRepository: NftRepository,
     private val transactionRepository: TransactionRepository,
-    private val dAppDelegate: MyDAppDelegate
+    private val wc: MyWalletConnect
 ) : ViewModel() {
 
     private val _address = mutableStateOf("")
@@ -69,7 +69,7 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun onClick() {
-        dAppDelegate.dAppDelegate.wcEventModels.subscribeBy(
+        wc.dAppDelegate.wcEventModels.subscribeBy(
             onNext = { session ->
                 when (session) {
                     is Sign.Model.SessionEvent -> {
