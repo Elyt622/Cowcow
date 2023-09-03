@@ -100,7 +100,6 @@ dependencies {
     // WalletConnect
     implementation 'com.walletconnect:android-core:1.20.0'
     implementation 'com.walletconnect:sign:2.18.0'
-    implementation 'com.walletconnect:auth:1.18.0'
 
     // SplashScreen
     implementation "androidx.core:core-splashscreen:1.0.1"
