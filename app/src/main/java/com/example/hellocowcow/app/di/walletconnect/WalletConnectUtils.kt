@@ -1,7 +1,7 @@
 package com.example.hellocowcow.app.di.walletconnect
 
-import com.example.hellocowcow.ui.viewmodels.util.MyDAppDelegate
-import com.example.hellocowcow.ui.viewmodels.util.MyDAppDelegateImpl
+import com.example.hellocowcow.ui.viewmodels.util.MyWalletConnect
+import com.example.hellocowcow.ui.viewmodels.util.MyWalletConnectImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,7 +13,6 @@ abstract class UtilsWalletConnectModule {
 
     @Binds
     abstract fun bindWalletConnect(
-        dAppDelegateImpl: MyDAppDelegateImpl
-    ): MyDAppDelegate
-
+        walletConnectImpl: MyWalletConnectImpl
+    ): MyWalletConnect
 }
