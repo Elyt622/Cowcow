@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
@@ -33,6 +34,9 @@ import com.example.hellocowcow.app.module.main.activity.MainActivity
 import com.example.hellocowcow.ui.theme.HelloCowCowTheme
 import com.example.hellocowcow.ui.viewmodels.activity.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
+import io.reactivex.rxjava3.kotlin.subscribeBy
+import timber.log.Timber
 
 @AndroidEntryPoint
 class LoginActivity : ComponentActivity() {
@@ -41,41 +45,69 @@ class LoginActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.login()
+            .subscribeBy (
+                onNext = {
+                    val intent = Intent(
+                        this@LoginActivity,
+                        MainActivity::class.java
+                    )
+                        .putExtra("ADDRESS", viewModel.address)
+                        .putExtra("TOPIC", viewModel.topic)
+                    startActivity(intent)
+                    finish()
+                },
+                onError = { err ->
+                    Timber.tag("LOGIN_ERROR").e(err)
+                }
+            ).isDisposed
         setContent {
             HelloCowCowTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Body("CowCow")
+                    Body()
                 }
             }
         }
     }
 
     @Composable
-    fun Body(name: String, modifier: Modifier = Modifier) {
+    fun Body() {
+
+        val context = LocalContext.current
 
         Column (
             Modifier.padding(bottom = 50.dp),
             verticalArrangement = Arrangement.Center
         ){
             Text(
-                text = "Hello $name !",
+                text = "Hello CowCow !",
                 fontSize = 22.sp,
                 color = MaterialTheme.colorScheme.primary,
-                modifier = modifier
+                modifier = Modifier
                     .padding(16.dp)
                     .fillMaxWidth(),
                 textAlign = TextAlign.Center
             )
+
             TextButton(
                 modifier = Modifier
                     .background(color = MaterialTheme.colorScheme.primary)
-                    .border(BorderStroke(0.dp, Color.Red), shape = RoundedCornerShape(0.dp))
+                    .border(
+                        BorderStroke(0.dp, Color.Red),
+                        shape = RoundedCornerShape(0.dp)
+                    )
                     .align(Alignment.CenterHorizontally),
                 onClick = {
-                    viewModel.onClick()
+
+                    Toasty.info(
+                        context,
+                        "Sent on xPortal"
+                    ).show()
+
+                    viewModel.login()
                         .subscribe {
                             val intent = Intent(
                                 this@LoginActivity,
@@ -86,6 +118,7 @@ class LoginActivity : ComponentActivity() {
                             startActivity(intent)
                             finish()
                         }.isDisposed
+
                     startActivity(
                         Intent(
                             Intent.ACTION_VIEW,
@@ -95,10 +128,11 @@ class LoginActivity : ComponentActivity() {
                                     "&isi=1519405832&ibi=" +
                                     "com.multiversx.maiar.wallet" +
                                     "&link=https://maiar.com/?wallet-connect=" +
-                                    "${viewModel.deeplinkPairingUri}"
+                                    "${viewModel.deepLinkUri?.uri}"
                                     ).toUri()
                         )
                     )
+
                 }
             ) {
                 Text(
