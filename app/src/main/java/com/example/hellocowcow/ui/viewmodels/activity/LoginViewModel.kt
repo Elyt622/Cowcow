@@ -3,6 +3,8 @@ package com.example.hellocowcow.ui.viewmodels.activity
 import androidx.lifecycle.ViewModel
 import com.example.hellocowcow.ui.viewmodels.util.MySchedulers
 import com.example.hellocowcow.ui.viewmodels.util.MyWalletConnect
+import com.walletconnect.android.Core
+import com.walletconnect.android.CoreClient
 import com.walletconnect.sign.client.Sign
 import com.walletconnect.sign.client.SignClient
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,19 +21,12 @@ class LoginViewModel @Inject constructor(
     private val mySchedulers: MySchedulers
 ) : ViewModel() {
 
-    val deepLinkUri = wc.dAppDelegate.pairing
-
     var address: String = ""
     var topic: String = ""
 
     private val startActivitySubject: PublishSubject<Unit> = PublishSubject.create()
 
-    init {
-        connect()
-    }
-
     fun login(): Observable<Unit> {
-        connect()
         wc.dAppDelegate
             .wcEventObservable
             .subscribeOn(mySchedulers.io)
@@ -67,28 +62,30 @@ class LoginViewModel @Inject constructor(
         val expiry = (System.currentTimeMillis() / 1000) + TimeUnit.SECONDS.convert(7, TimeUnit.DAYS)
         return mapOf("sessionExpiry" to "$expiry")
     }
-/*
-    fun connectToWallet(pairingTopicPosition: Int = -1, onProposedSequence: (String) -> Unit = {}) {
+
+    fun connectToWallet(
+        pairingTopicPosition: Int = -1,
+        onProposedSequence: (String) -> Unit = {}
+    ) {
         val pairing: Core.Model.Pairing = if (pairingTopicPosition > -1) {
             CoreClient.Pairing.getPairings()[pairingTopicPosition]
         } else {
-            CoreClient.Pairing.create() { error ->
+            CoreClient.Pairing.create { error ->
                 throw IllegalStateException("Creating Pairing failed: ${error.throwable.stackTraceToString()}")
             }!!
         }
-        */
-    fun connect(){
+
         val connectParams =
             Sign.Params.Connect(
                 namespaces = wc.dAppDelegate.namespaces,
                 optionalNamespaces = null,
                 properties = getProperties(),
-                pairing = deepLinkUri!!
+                pairing = pairing
             )
 
         SignClient.connect(connectParams,
             onSuccess = {
-
+                onProposedSequence(pairing.uri)
             },
             onError = { error ->
                 tag("ERROR").e(error.throwable.stackTraceToString())

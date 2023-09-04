@@ -119,20 +119,19 @@ class LoginActivity : ComponentActivity() {
                             finish()
                         }.isDisposed
 
-                    startActivity(
-                        Intent(
+                    viewModel.connectToWallet { uri ->
+                        val xPortalIntent = Intent(
                             Intent.ACTION_VIEW,
-                            (
-                                    "https://xportal.page.link/" +
+                            ("https://xportal.page.link/" +
                                     "?apn=com.multiversx.maiar.wallet" +
                                     "&isi=1519405832&ibi=" +
                                     "com.multiversx.maiar.wallet" +
                                     "&link=https://maiar.com/?wallet-connect=" +
-                                    "${viewModel.deepLinkUri?.uri}"
-                                    ).toUri()
+                                    uri)
+                                .toUri()
                         )
-                    )
-
+                        startActivity(xPortalIntent)
+                    }
                 }
             ) {
                 Text(
