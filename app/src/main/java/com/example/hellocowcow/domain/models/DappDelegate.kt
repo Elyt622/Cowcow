@@ -1,6 +1,5 @@
 package com.example.hellocowcow.domain.models
 
-import com.walletconnect.android.CoreClient
 import com.walletconnect.sign.client.Sign
 import com.walletconnect.sign.client.SignClient
 import io.reactivex.rxjava3.core.Observable
@@ -9,8 +8,6 @@ import io.reactivex.rxjava3.subjects.Subject
 import timber.log.Timber
 
 object DappDelegate: SignClient.DappDelegate {
-
-    val pairing = CoreClient.Pairing.create()
 
     var selectedSessionTopic: String? = null
         private set
