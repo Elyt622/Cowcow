@@ -69,7 +69,9 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun onClick() {
-        wc.dAppDelegate.wcEventModels.subscribeBy(
+        wc.dAppDelegate
+            .wcEventObservable
+            .subscribeBy(
             onNext = { session ->
                 when (session) {
                     is Sign.Model.SessionEvent -> {

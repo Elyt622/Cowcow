@@ -1,19 +1,36 @@
 package com.example.hellocowcow.domain.models
 
+import com.walletconnect.android.CoreClient
 import com.walletconnect.sign.client.Sign
 import com.walletconnect.sign.client.SignClient
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.schedulers.Schedulers
-import io.reactivex.rxjava3.subjects.BehaviorSubject
+import io.reactivex.rxjava3.subjects.PublishSubject
+import io.reactivex.rxjava3.subjects.Subject
 import timber.log.Timber
 
 object DappDelegate: SignClient.DappDelegate {
 
-    private val wcEventModelsSubject: BehaviorSubject<Sign.Model>
-        get() = BehaviorSubject.create()
+    val pairing = CoreClient.Pairing.create()
 
-    val wcEventModels: Observable<Sign.Model>
-        get() = wcEventModelsSubject.hide()
+    var selectedSessionTopic: String? = null
+        private set
+
+    private val chains = listOf("mvx:1")
+    private val methods = listOf(
+        "mvx_signTransaction",
+        "mvx_signTransactions",
+        "mvx_signMessage",
+        "mvx_signLoginToken",
+        "mvx_signNativeAuthToken"
+    )
+    private val events = emptyList<String>()
+    val namespaces =
+        mapOf("mvx" to Sign.Model.Namespace.Proposal(chains, methods, events))
+
+
+    private val wcEventSubject: Subject<Sign.Model> = PublishSubject.create()
+    val wcEventObservable: Observable<Sign.Model> = wcEventSubject.hide()
+
 
     init {
         SignClient.setDappDelegate(this)
@@ -23,12 +40,9 @@ object DappDelegate: SignClient.DappDelegate {
     fun onSessionApproved(
         approvedSession: Sign.Model.ApprovedSession
     ) {
-        Observable
-            .just(approvedSession)
-            .subscribeOn(Schedulers.io())
-            .subscribe{ session ->
-                wcEventModelsSubject.onNext(session)
-            }.isDisposed
+        selectedSessionTopic = approvedSession.topic
+        wcEventSubject.onNext(approvedSession)
+
         Timber.tag("Session_Approved")
             .d("Approved session's topic is: %s", approvedSession.topic)
     }
@@ -37,36 +51,21 @@ object DappDelegate: SignClient.DappDelegate {
     fun onSessionRejected(
         rejectedSession: Sign.Model.RejectedSession
     ) {
-        Observable
-            .just(rejectedSession)
-            .subscribeOn(Schedulers.io())
-            .subscribe{ session ->
-                wcEventModelsSubject.onNext(session)
-            }.isDisposed
+        wcEventSubject.onNext(rejectedSession)
         Timber.tag("Session_Rejected")
-            .d("The wallet rejected the session")
+            .d(rejectedSession.reason)
     }
 
     override
     fun onSessionUpdate(
         updatedSession: Sign.Model.UpdatedSession
     ) {
-        Observable
-            .just(updatedSession)
-            .subscribeOn(Schedulers.io())
-            .subscribe{ session ->
-                wcEventModelsSubject.onNext(session)
-            }.isDisposed
+        wcEventSubject.onNext(updatedSession)
         Timber.tag("Session_Updated").d(updatedSession.toString())
     }
 
     override fun onSessionExtend(session: Sign.Model.Session) {
-        Observable
-            .just(session)
-            .subscribeOn(Schedulers.io())
-            .subscribe{
-                wcEventModelsSubject.onNext(it)
-            }.isDisposed
+        wcEventSubject.onNext(session)
         Timber.tag("Session_Extended").d(session.toString())
     }
 
@@ -74,12 +73,7 @@ object DappDelegate: SignClient.DappDelegate {
     fun onSessionEvent(
         sessionEvent: Sign.Model.SessionEvent
     ) {
-        Observable
-            .just(sessionEvent)
-            .subscribeOn(Schedulers.io())
-            .subscribe{ session ->
-                wcEventModelsSubject.onNext(session)
-            }.isDisposed
+        wcEventSubject.onNext(sessionEvent)
         Timber.tag("Received_Session_Event").d(sessionEvent.toString())
     }
 
@@ -87,12 +81,8 @@ object DappDelegate: SignClient.DappDelegate {
     fun onSessionDelete(
         deletedSession: Sign.Model.DeletedSession
     ) {
-        Observable
-            .just(deletedSession)
-            .subscribeOn(Schedulers.io())
-            .subscribe{ session ->
-                wcEventModelsSubject.onNext(session)
-            }.isDisposed
+        deselectAccountDetails()
+        wcEventSubject.onNext(deletedSession)
         Timber.tag("Session_Deleted").d(deletedSession.toString())
     }
 
@@ -100,12 +90,7 @@ object DappDelegate: SignClient.DappDelegate {
     fun onSessionRequestResponse(
         response: Sign.Model.SessionRequestResponse
     ) {
-        Observable
-            .just(response)
-            .subscribeOn(Schedulers.io())
-            .subscribe{ session ->
-                wcEventModelsSubject.onNext(session)
-            }.isDisposed
+        wcEventSubject.onNext(response)
         Timber.tag("Received_Session_Request_Response").d(response.toString())
     }
 
@@ -113,12 +98,7 @@ object DappDelegate: SignClient.DappDelegate {
     fun onConnectionStateChange(
         state: Sign.Model.ConnectionState
     ) {
-        Observable
-            .just(state)
-            .subscribeOn(Schedulers.io())
-            .subscribe{ session ->
-                wcEventModelsSubject.onNext(session)
-            }.isDisposed
+        wcEventSubject.onNext(state)
         Timber.tag("Connection_State_Changed").d(state.toString())
     }
 
@@ -126,12 +106,12 @@ object DappDelegate: SignClient.DappDelegate {
     fun onError(
         error: Sign.Model.Error
     ) {
-        Observable
-            .just(error)
-            .subscribeOn(Schedulers.io())
-            .subscribe{ session ->
-                wcEventModelsSubject.onNext(session)
-            }.isDisposed
+        wcEventSubject.onNext(error)
         Timber.tag("Error_In_SignClient_SDK").e(error.toString())
     }
+
+    private fun deselectAccountDetails() {
+        selectedSessionTopic = null
+    }
+
 }
