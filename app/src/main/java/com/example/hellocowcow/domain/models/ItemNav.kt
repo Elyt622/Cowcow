@@ -12,8 +12,8 @@ sealed class ItemNav(
     val icon : ImageVector,
     val route : String
 ) {
-    object Home : ItemNav("Home", Icons.Filled.Home, "Home")
-    object Token : ItemNav("Token", Icons.Filled.Money, "Token")
-    object Stats : ItemNav("Stats", Icons.Filled.QueryStats, "Stats")
-    object Profile : ItemNav("Profile", Icons.Filled.Person, "Profile")
+    data object Home : ItemNav("Home", Icons.Filled.Home, "Home")
+    data object Token : ItemNav("Token", Icons.Filled.Money, "Token")
+    data object Stats : ItemNav("Stats", Icons.Filled.QueryStats, "Stats")
+    data object Profile : ItemNav("Profile", Icons.Filled.Person, "Profile")
 }
