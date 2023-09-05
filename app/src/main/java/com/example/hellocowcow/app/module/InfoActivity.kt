@@ -2,7 +2,6 @@ package com.example.hellocowcow.app.module
 
 import android.app.Activity
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -30,7 +29,7 @@ import com.bumptech.glide.integration.compose.GlideImage
 import com.example.hellocowcow.R
 import com.example.hellocowcow.ui.theme.HelloCowCowTheme
 
-class InfoActivity : ComponentActivity() {
+class InfoActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

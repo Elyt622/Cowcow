@@ -3,7 +3,6 @@ package com.example.hellocowcow.app.module.nft
 import android.app.Activity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -60,6 +59,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.example.hellocowcow.app.module.BaseActivity
 import com.example.hellocowcow.data.retrofit.proxyXoxnoApi.Attributes
 import com.example.hellocowcow.data.retrofit.proxyXoxnoApi.OffersInfo
 import com.example.hellocowcow.domain.models.DomainNft
@@ -71,7 +71,7 @@ import timber.log.Timber
 import timber.log.Timber.Forest.plant
 
 @AndroidEntryPoint
-class NftActivity : ComponentActivity() {
+class NftActivity : BaseActivity() {
 
     val viewModel by viewModels<NftViewModel>()
 

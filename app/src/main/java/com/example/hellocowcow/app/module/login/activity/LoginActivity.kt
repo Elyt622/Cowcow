@@ -2,7 +2,6 @@ package com.example.hellocowcow.app.module.login.activity
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.BorderStroke
@@ -30,16 +29,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 import com.example.hellocowcow.R
+import com.example.hellocowcow.app.module.BaseActivity
 import com.example.hellocowcow.app.module.main.activity.MainActivity
 import com.example.hellocowcow.ui.theme.HelloCowCowTheme
 import com.example.hellocowcow.ui.viewmodels.activity.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
+import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import timber.log.Timber
 
 @AndroidEntryPoint
-class LoginActivity : ComponentActivity() {
+class LoginActivity : BaseActivity() {
 
     private val viewModel by viewModels<LoginViewModel>()
 
@@ -117,7 +118,7 @@ class LoginActivity : ComponentActivity() {
                                 .putExtra("TOPIC", viewModel.topic)
                             startActivity(intent)
                             finish()
-                        }.isDisposed
+                        }.addTo(disposable)
 
                     viewModel.connectToWallet { uri ->
                         val xPortalIntent = Intent(
