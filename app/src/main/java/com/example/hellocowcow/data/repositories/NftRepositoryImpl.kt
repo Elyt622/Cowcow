@@ -4,6 +4,7 @@ import com.example.hellocowcow.data.network.api.MvxApi
 import com.example.hellocowcow.data.network.api.ProxyXoxnoApi
 import com.example.hellocowcow.data.network.api.XoxnoApi
 import com.example.hellocowcow.data.retrofit.proxyXoxnoApi.Collection
+import com.example.hellocowcow.data.retrofit.proxyXoxnoApi.Resources
 import com.example.hellocowcow.data.retrofit.proxyXoxnoApi.Upgraded
 import com.example.hellocowcow.data.retrofit.xoxnoApi.StatsCollection
 import com.example.hellocowcow.domain.models.DomainNft
@@ -114,5 +115,14 @@ class NftRepositoryImpl @Inject constructor(
         mvxApi.getTicketsUsedCount()
             .subscribeOn(mySchedulers.io)
             .observeOn(mySchedulers.main)
+
+    override
+    fun getLastTenSold()
+    : Observable<ArrayList<Resources>> =
+        proxyXoxnoApi.getLastTenSold()
+            .map { it.resources }
+            .subscribeOn(mySchedulers.io)
+            .observeOn(mySchedulers.main)
+
 
 }

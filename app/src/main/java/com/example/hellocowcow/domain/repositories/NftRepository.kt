@@ -2,6 +2,7 @@ package com.example.hellocowcow.domain.repositories
 
 import com.example.hellocowcow.data.retrofit.mvxApi.request.Reward
 import com.example.hellocowcow.data.retrofit.proxyXoxnoApi.Collection
+import com.example.hellocowcow.data.retrofit.proxyXoxnoApi.Resources
 import com.example.hellocowcow.data.retrofit.proxyXoxnoApi.Upgraded
 import com.example.hellocowcow.data.retrofit.xoxnoApi.StatsCollection
 import com.example.hellocowcow.domain.models.DomainNft
@@ -52,5 +53,8 @@ interface NftRepository {
 
     fun getTicketsUsedCount()
     : Single<Int>
+
+    fun getLastTenSold()
+    : Observable<ArrayList<Resources>>
 
 }
