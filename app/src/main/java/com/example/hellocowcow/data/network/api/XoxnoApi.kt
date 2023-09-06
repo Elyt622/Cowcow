@@ -7,7 +7,7 @@ import retrofit2.http.Path
 
 interface XoxnoApi {
 
-    @GET("/_next/data/yCfuOGT0VGpaXK22KK71X/collection/{collection}.json")
+    @GET("/_next/data/GoFBuGskB0m-1hX6vImcg/collection/{collection}.json")
     fun getStatsCollection(
         @Path("collection") collection: String
     ): Observable<StatsCollection>
