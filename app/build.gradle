@@ -1,8 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'dagger.hilt.android.plugin'
-    id 'kotlin-kapt'
+    id 'com.google.devtools.ksp'
+    id 'com.google.dagger.hilt.android'
+
 }
 
 android {
@@ -47,7 +48,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.5.1'
+        kotlinCompilerExtensionVersion '1.5.0'
     }
     packagingOptions {
         resources {
@@ -60,7 +61,7 @@ android {
 }
 
 def retrofit_version = "2.9.0"
-def hilt_version = "2.47"
+def hilt_version = "2.48"
 
 dependencies {
 
@@ -119,11 +120,7 @@ dependencies {
 
     // Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
-    implementation "com.google.dagger:dagger-android-support:$hilt_version"
-    kapt "com.google.dagger:hilt-compiler:$hilt_version"
-    // Hilt testing
-    androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
-    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
+    ksp "com.google.dagger:hilt-compiler:$hilt_version"
 
     // Test
     testImplementation 'junit:junit:4.13.2'
