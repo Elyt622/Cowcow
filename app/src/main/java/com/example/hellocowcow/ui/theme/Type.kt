@@ -51,5 +51,13 @@ val Typography2 = Typography(
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     ),
+
+    titleSmall = TextStyle(
+        fontFamily = FontFamily(Font(R.font.fredoka_one)),
+        fontWeight = FontWeight.Bold,
+        fontSize = 18.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp
+    )
 )
 
