@@ -1,11 +1,12 @@
 package com.example.hellocowcow.ui.viewmodels.screen.home
 
-import androidx.lifecycle.ViewModel
+import com.example.hellocowcow.app.module.BaseViewModel
 import com.example.hellocowcow.data.retrofit.proxyXoxnoApi.Resources
 import com.example.hellocowcow.domain.repositories.NftRepository
 import com.example.hellocowcow.domain.repositories.TokenRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +16,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val tokenRepository: TokenRepository,
     val nftRepository: NftRepository
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _uiState : MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val uiState : StateFlow<UiState> = _uiState
@@ -71,7 +72,7 @@ class HomeViewModel @Inject constructor(
             onError = {
                 _uiState.value = UiState.Error(it.message.toString())
             }
-        ).isDisposed
+        ).addTo(disposable)
     }
 
     private fun getLastCowsSold() {
@@ -83,6 +84,6 @@ class HomeViewModel @Inject constructor(
                 onError = {
                     _uiStateSold.value = UiStateSold.Error(it.message.toString())
                 }
-            ).isDisposed
+            ).addTo(disposable)
     }
 }

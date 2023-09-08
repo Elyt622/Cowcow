@@ -2,7 +2,7 @@ package com.example.hellocowcow.ui.viewmodels.screen.profile
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.ViewModel
+import com.example.hellocowcow.app.module.BaseViewModel
 import com.example.hellocowcow.data.retrofit.mvxApi.request.Reward
 import com.example.hellocowcow.domain.models.DomainNft
 import com.example.hellocowcow.domain.repositories.NftRepository
@@ -10,6 +10,7 @@ import com.walletconnect.util.bytesToHex
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.ipfs.multibase.binary.Base64
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class StakeViewModel @Inject constructor(
     private val nftRepository: NftRepository
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _address = mutableStateOf("")
     val address: State<String> get() = _address
@@ -80,7 +81,7 @@ class StakeViewModel @Inject constructor(
                 onError = { error ->
                     _uiState.value = UiState.Error(error.message.toString())
                 }
-            ).isDisposed
+            ).addTo(disposable)
 
     private fun getAllDataForUser()
     : Observable<String> =

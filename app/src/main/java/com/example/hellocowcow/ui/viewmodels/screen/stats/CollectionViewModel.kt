@@ -1,10 +1,11 @@
 package com.example.hellocowcow.ui.viewmodels.screen.stats
 
-import androidx.lifecycle.ViewModel
+import com.example.hellocowcow.app.module.BaseViewModel
 import com.example.hellocowcow.domain.models.CowCollection
 import com.example.hellocowcow.domain.repositories.NftRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CollectionViewModel @Inject constructor(
     private val nftRepository: NftRepository
-) : ViewModel() {
+) : BaseViewModel() {
 
     sealed class UiState {
         data object Loading : UiState()
@@ -56,7 +57,7 @@ class CollectionViewModel @Inject constructor(
             onError = {
                 _uiState.value = UiState.Error(it.message.toString())
             }
-        ).isDisposed
+        ).addTo(disposable)
     }
 
 }

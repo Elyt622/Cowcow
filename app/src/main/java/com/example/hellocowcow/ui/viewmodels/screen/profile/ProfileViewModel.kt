@@ -2,7 +2,7 @@ package com.example.hellocowcow.ui.viewmodels.screen.profile
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.ViewModel
+import com.example.hellocowcow.app.module.BaseViewModel
 import com.example.hellocowcow.data.retrofit.mvxApi.request.Reward
 import com.example.hellocowcow.data.retrofit.mvxApi.request.Transaction
 import com.example.hellocowcow.domain.models.DomainAccount
@@ -17,6 +17,7 @@ import com.walletconnect.util.bytesToHex
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.ipfs.multibase.binary.Base64
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.subjects.PublishSubject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,7 +33,7 @@ class ProfileViewModel @Inject constructor(
     private val nftRepository: NftRepository,
     private val transactionRepository: TransactionRepository,
     private val wc: MyWalletConnect
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _address = mutableStateOf("")
     val address: State<String> get() = _address
@@ -102,7 +103,7 @@ class ProfileViewModel @Inject constructor(
             onError = {
                 Timber.tag("Subscribe_Error")
                     .d(it)
-            }).isDisposed
+            }).addTo(disposable)
     }
 
     private fun getRequest(
@@ -177,7 +178,7 @@ class ProfileViewModel @Inject constructor(
                     },
                     onError = { err ->
                         _uiStateTx.value = UiStateTx.Error(err.message.toString())
-                    }).isDisposed
+                    }).addTo(disposable)
 
         } else {
             println("Signature not found")
@@ -197,7 +198,7 @@ class ProfileViewModel @Inject constructor(
                 onError = { error ->
                     _uiState.value = UiState.Error(error.message.toString())
                 }
-            ).isDisposed
+            ).addTo(disposable)
     }
 
     private fun extractData(

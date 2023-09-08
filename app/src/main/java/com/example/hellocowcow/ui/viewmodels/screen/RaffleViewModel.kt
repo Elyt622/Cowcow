@@ -1,12 +1,12 @@
 package com.example.hellocowcow.ui.viewmodels.screen
 
-import androidx.lifecycle.ViewModel
+import com.example.hellocowcow.app.module.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class RaffleViewModel @Inject constructor(
 
-) : ViewModel() {
+) : BaseViewModel() {
 
 }

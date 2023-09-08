@@ -2,10 +2,11 @@ package com.example.hellocowcow.ui.viewmodels.screen.profile
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.ViewModel
+import com.example.hellocowcow.app.module.BaseViewModel
 import com.example.hellocowcow.domain.models.DomainNft
 import com.example.hellocowcow.domain.repositories.NftRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class WalletViewModel @Inject constructor(
     private val nftRepository: NftRepository
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _address = mutableStateOf("")
     val address: State<String> get() = _address
@@ -61,6 +62,6 @@ class WalletViewModel @Inject constructor(
                 onError = {
                     _uiState.value = UiState.Error(it.message.toString())
                 }
-            )
+            ).addTo(disposable)
 
 }

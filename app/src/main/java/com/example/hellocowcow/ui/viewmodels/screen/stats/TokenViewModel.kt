@@ -1,12 +1,13 @@
 package com.example.hellocowcow.ui.viewmodels.screen.stats
 
-import androidx.lifecycle.ViewModel
+import com.example.hellocowcow.app.module.BaseViewModel
 import com.example.hellocowcow.data.retrofit.mvxApi.request.Reward
 import com.example.hellocowcow.domain.models.DomainReward
 import com.example.hellocowcow.domain.models.DomainToken
 import com.example.hellocowcow.domain.repositories.TokenRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TokenViewModel @Inject constructor(
     private val tokenApi: TokenRepository
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _uiStateT: MutableStateFlow<UiStateToken> = MutableStateFlow(UiStateToken.Loading)
     val uiStateT: StateFlow<UiStateToken> = _uiStateT
@@ -52,7 +53,7 @@ class TokenViewModel @Inject constructor(
                 onError = { error ->
                     _uiStateT.value = UiStateToken.Error(error.message.toString())
                 }
-            ).isDisposed
+            ).addTo(disposable)
     }
 
     private fun getTotalRewardsToCollect() =
@@ -73,6 +74,6 @@ class TokenViewModel @Inject constructor(
                 onError = { error ->
                     _uiStateR.value = UiStateReward.Error(error.message.toString())
                 }
-                ).isDisposed
+                ).addTo(disposable)
             }
 

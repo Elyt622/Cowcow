@@ -1,6 +1,6 @@
 package com.example.hellocowcow.ui.viewmodels.activity
 
-import androidx.lifecycle.ViewModel
+import com.example.hellocowcow.app.module.BaseViewModel
 import com.example.hellocowcow.ui.viewmodels.util.MySchedulers
 import com.example.hellocowcow.ui.viewmodels.util.MyWalletConnect
 import com.walletconnect.android.Core
@@ -9,6 +9,7 @@ import com.walletconnect.sign.client.Sign
 import com.walletconnect.sign.client.SignClient
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.subjects.PublishSubject
 import timber.log.Timber.Forest.tag
@@ -19,7 +20,7 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val wc: MyWalletConnect,
     private val mySchedulers: MySchedulers
-) : ViewModel() {
+) : BaseViewModel() {
 
     var address: String = ""
     var topic: String = ""
@@ -53,7 +54,7 @@ class LoginViewModel @Inject constructor(
                 onError = { err ->
                     tag("Subscribe_Error").d(err)
                 }
-            ).isDisposed
+            ).addTo(disposable)
         return startActivitySubject
     }
 
