@@ -75,7 +75,7 @@ fun StakeScreen(
                     modifier = Modifier.padding(
                         start = 8.dp,
                         end = 8.dp,
-                        bottom = 40.dp
+                        bottom = 80.dp
                     ),
                     columns = GridCells.Adaptive(150.dp),
                     content = {
