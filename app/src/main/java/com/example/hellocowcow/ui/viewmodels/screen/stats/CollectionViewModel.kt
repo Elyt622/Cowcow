@@ -29,7 +29,7 @@ class CollectionViewModel @Inject constructor(
         getCowsCollectionStats()
     }
 
-    private fun getCowsCollectionStats() {
+    private fun getCowsCollectionStats() =
         Observable.zip(
             nftRepository.getStakingCowsCount().toObservable(),
             nftRepository.getUpgradedCowsCount(),
@@ -58,6 +58,6 @@ class CollectionViewModel @Inject constructor(
                 _uiState.value = UiState.Error(it.message.toString())
             }
         ).addTo(disposable)
-    }
+
 
 }

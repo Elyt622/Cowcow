@@ -29,7 +29,7 @@ class TicketViewModel @Inject constructor(
         getTicketCollectionStats()
     }
 
-    private fun getTicketCollectionStats() {
+    private fun getTicketCollectionStats() =
         Observable.zip(
             nftRepository.getStatsCollection(
                 "TICKET-231cd2"
@@ -56,6 +56,5 @@ class TicketViewModel @Inject constructor(
                 _uiState.value = UiState.Error(it.message.toString())
             }
         ).addTo(disposable)
-    }
 
 }

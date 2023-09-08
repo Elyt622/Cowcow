@@ -68,12 +68,12 @@ class LoginViewModel @Inject constructor(
         pairingTopicPosition: Int = -1,
         onProposedSequence: (String) -> Unit = {}
     ) {
-        val pairing: Core.Model.Pairing = if (pairingTopicPosition > -1) {
+        val pairing: Core.Model.Pairing? = if (pairingTopicPosition > -1) {
             CoreClient.Pairing.getPairings()[pairingTopicPosition]
         } else {
             CoreClient.Pairing.create { error ->
                 throw IllegalStateException("Creating Pairing failed: ${error.throwable.stackTraceToString()}")
-            }!!
+            }
         }
 
         val connectParams =
@@ -81,7 +81,7 @@ class LoginViewModel @Inject constructor(
                 namespaces = wc.dAppDelegate.namespaces,
                 optionalNamespaces = null,
                 properties = getProperties(),
-                pairing = pairing
+                pairing = pairing!!
             )
 
         SignClient.connect(connectParams,

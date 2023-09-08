@@ -15,6 +15,6 @@ fun RaffleScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Raffles Soon")
+        Text("SOON")
     }
 }

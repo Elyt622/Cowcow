@@ -35,22 +35,22 @@ class MarketViewModel @Inject constructor(
     val uiState: StateFlow<UiState> = _uiState
 
     fun getCowsListing() =
-            nftRepository.getCowsListing(address.value)
-                .map {
-                    it.groupedByCollection
-                }
-                .flatMapIterable { it }
-                .filter { collection -> collection.ticker == "COW-cd463d" }
-                .toList()
-        .subscribeBy (
-            onSuccess = {
-                if (it.isNotEmpty())
-                    _uiState.value = UiState.Success(it[0].nfts.toList())
-                else
-                    _uiState.value = UiState.NoData
-            },
-            onError = {
-                _uiState.value = UiState.Error(it.message.toString())
+        nftRepository.getCowsListing(address.value)
+            .map {
+                it.groupedByCollection
             }
-        ).addTo(disposable)
+            .flatMapIterable { it }
+            .filter { collection -> collection.ticker == "COW-cd463d" }
+            .toList()
+            .subscribeBy(
+                onSuccess = {
+                    if (it.isNotEmpty())
+                        _uiState.value = UiState.Success(it[0].nfts.toList())
+                    else
+                        _uiState.value = UiState.NoData
+                },
+                onError = {
+                    _uiState.value = UiState.Error(it.message.toString())
+                }
+            ).addTo(disposable)
 }

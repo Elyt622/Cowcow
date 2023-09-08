@@ -69,7 +69,7 @@ class ProfileViewModel @Inject constructor(
         onClick()
     }
 
-    fun onClick() {
+    fun onClick() =
         wc.dAppDelegate
             .wcEventObservable
             .subscribeBy(
@@ -104,7 +104,7 @@ class ProfileViewModel @Inject constructor(
                 Timber.tag("Subscribe_Error")
                     .d(it)
             }).addTo(disposable)
-    }
+
 
     private fun getRequest(
         account: DomainAccount

@@ -49,7 +49,7 @@ class HomeViewModel @Inject constructor(
         getLastCowsSold()
     }
 
-    private fun getSomeStats() {
+    private fun getSomeStats() =
         Observable.zip(
             tokenRepository.getToken("MOOVE-875539").toObservable(),
             nftRepository.getStakingCowsCount().toObservable(),
@@ -73,9 +73,8 @@ class HomeViewModel @Inject constructor(
                 _uiState.value = UiState.Error(it.message.toString())
             }
         ).addTo(disposable)
-    }
 
-    private fun getLastCowsSold() {
+    private fun getLastCowsSold() =
         nftRepository.getLastTenSold()
             .subscribeBy (
                 onNext = {
@@ -85,5 +84,5 @@ class HomeViewModel @Inject constructor(
                     _uiStateSold.value = UiStateSold.Error(it.message.toString())
                 }
             ).addTo(disposable)
-    }
+
 }

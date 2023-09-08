@@ -42,7 +42,7 @@ class TokenViewModel @Inject constructor(
         getTotalRewardsToCollect()
     }
 
-    private fun getTokenInfo() {
+    private fun getTokenInfo() =
         tokenApi.getToken("MOOVE-875539")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -54,7 +54,6 @@ class TokenViewModel @Inject constructor(
                     _uiStateT.value = UiStateToken.Error(error.message.toString())
                 }
             ).addTo(disposable)
-    }
 
     private fun getTotalRewardsToCollect() =
         tokenApi.getTotalRewardsToCollect(
