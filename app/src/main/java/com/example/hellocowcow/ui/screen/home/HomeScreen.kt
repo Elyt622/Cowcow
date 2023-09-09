@@ -5,7 +5,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -107,7 +106,7 @@ fun HomeScreen(
                 ) {
                     Text(
                         text = "STATS",
-                        style = MaterialTheme.typography.bodyMedium
+                        style = MaterialTheme.typography.titleSmall
                     )
                 }
 
@@ -123,7 +122,7 @@ fun HomeScreen(
                 ) {
                     Text(
                         text = "PROFILE",
-                        style = MaterialTheme.typography.bodyMedium
+                        style = MaterialTheme.typography.titleSmall
                     )
                 }
             }
@@ -144,6 +143,24 @@ fun HomeScreen(
                     contentDescription = "Cowcow image",
                     contentScale = ContentScale.Crop
                 )
+
+            Spacer(modifier = Modifier.size(10.dp))
+
+            ElevatedCard(
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.background
+                ),
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            ) {
+                Text(
+                    modifier = Modifier.padding(10.dp),
+                    text = "KEY STATISTICS",
+                    style = MaterialTheme.typography.titleSmall
+                )
+            }
+
+            Spacer(modifier = Modifier.size(10.dp))
 
             Row(
                 Modifier
@@ -168,8 +185,8 @@ fun HomeScreen(
                     ) {
                         Text(
                             modifier = Modifier.padding(10.dp),
-                            text = "Moove Price",
-                            style = MaterialTheme.typography.titleSmall
+                            text = "MOOVE PRICE",
+                            style = MaterialTheme.typography.bodyLarge
                         )
                     }
                     Row(
@@ -257,8 +274,8 @@ fun HomeScreen(
                     ) {
                         Text(
                             modifier = Modifier.padding(10.dp),
-                            text = "MarketCap",
-                            style = MaterialTheme.typography.titleSmall
+                            text = "MARKETCAP",
+                            style = MaterialTheme.typography.bodyLarge
                         )
                     }
                     Row(
@@ -334,8 +351,8 @@ fun HomeScreen(
                     ) {
                         Text(
                             modifier = Modifier.padding(10.dp),
-                            text = "Cows Staked",
-                            style = MaterialTheme.typography.titleSmall
+                            text = "COWS STAKED",
+                            style = MaterialTheme.typography.bodyLarge
                         )
                     }
                     Row(
@@ -403,8 +420,8 @@ fun HomeScreen(
                     ) {
                         Text(
                             modifier = Modifier.padding(10.dp),
-                            text = "Cows Listed",
-                            style = MaterialTheme.typography.titleSmall
+                            text = "COWS LISTED",
+                            style = MaterialTheme.typography.bodyLarge
                         )
                     }
                     Row(
@@ -477,8 +494,8 @@ fun HomeScreen(
                     ) {
                         Text(
                             modifier = Modifier.padding(10.dp),
-                            text = "Floor Price",
-                            style = MaterialTheme.typography.titleSmall
+                            text = "FLOOR PRICE",
+                            style = MaterialTheme.typography.bodyLarge
                         )
                     }
                     Row(
@@ -557,8 +574,8 @@ fun HomeScreen(
                     ) {
                         Text(
                             modifier = Modifier.padding(10.dp),
-                            text = "Total Volume",
-                            style = MaterialTheme.typography.titleSmall
+                            text = "TOTAL VOL.",
+                            style = MaterialTheme.typography.bodyLarge
                         )
                     }
                     Row(
@@ -624,6 +641,22 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.size(15.dp))
 
+            ElevatedCard(
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.background
+                ),
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            ) {
+                Text(
+                    modifier = Modifier.padding(10.dp),
+                    text = "THE LAST 10 SALES",
+                    style = MaterialTheme.typography.titleSmall
+                )
+            }
+
+            Spacer(modifier = Modifier.size(10.dp))
+
             when(uiStateSold) {
                 is HomeViewModel.UiStateSold.Success -> {
                     (uiStateSold as HomeViewModel.UiStateSold.Success)
@@ -634,58 +667,87 @@ fun HomeScreen(
                             content = {
                                 items(listNftSold) { nftSold ->
                                     Spacer(modifier = Modifier.size(8.dp))
-                                    Row(
-                                        Modifier
-                                            .fillMaxWidth()
-                                            .animateItemPlacement(
-                                                tween(durationMillis = 250)
-                                            ),
-                                        verticalAlignment = Alignment.CenterVertically,
-                                        horizontalArrangement = Arrangement.SpaceAround
+                                    ElevatedCard(
+                                        modifier = Modifier.padding(
+                                            start = 8.dp,
+                                            end = 8.dp
+                                        ),
+                                        colors = cardColors,
+                                        elevation = CardDefaults.cardElevation(20.dp)
                                     ) {
-                                        GlideImage(
-                                            model = nftSold.webpUrl,
-                                            contentDescription = "Image Nft",
-                                            modifier = Modifier.size(50.dp)
-                                        )
-                                        Column {
-                                            Text(
-                                                text = "COW",
-                                                style = MaterialTheme.typography.labelSmall
+                                        Row(
+                                            Modifier
+                                                .fillMaxWidth()
+                                                .animateItemPlacement(
+                                                    tween(durationMillis = 250)
+                                                ),
+                                            verticalAlignment = Alignment.CenterVertically
+                                        ) {
+                                            GlideImage(
+                                                model = nftSold.webpUrl,
+                                                contentDescription = "Image Nft",
+                                                modifier = Modifier
+                                                    .size(50.dp)
                                             )
-                                            Text(
-                                                text = "Rank: " + nftSold.rank.toString(),
-                                                style = MaterialTheme.typography.labelSmall
-                                            )
-                                        }
-                                        Column {
-                                            Row(
-                                                verticalAlignment = Alignment.CenterVertically
+                                            Column(
+                                                modifier = Modifier.padding(start = 6.dp)
                                             ) {
                                                 Text(
-                                                    text = nftSold.egldValue.toString(),
+                                                    text = nftSold.name.toString(),
                                                     style = MaterialTheme.typography.labelSmall
                                                 )
-                                                Icon(
-                                                    modifier = Modifier.size(10.dp),
-                                                    imageVector = ImageVector.vectorResource(
-                                                        id = R.drawable.egld
-                                                    ), contentDescription = "EGLD coin Logo"
+                                                Text(
+                                                    text = "Rank: " + nftSold.rank.toString(),
+                                                    style = MaterialTheme.typography.labelSmall
                                                 )
                                             }
-                                            Text(
-                                                text = "$" + nftSold.usdPrice.toString(),
-                                                style = MaterialTheme.typography.labelSmall
-                                            )
+                                            Column(
+                                                modifier = Modifier.padding(start = 6.dp)
+                                            ) {
+                                                Row(
+                                                    verticalAlignment = Alignment.CenterVertically
+                                                ) {
+                                                    Text(
+                                                        text = nftSold.egldValue.toString(),
+                                                        style = MaterialTheme.typography.labelSmall
+                                                    )
+                                                    Icon(
+                                                        modifier = Modifier.size(10.dp),
+                                                        imageVector = ImageVector.vectorResource(
+                                                            id = R.drawable.egld
+                                                        ), contentDescription = "EGLD coin Logo"
+                                                    )
+                                                }
+                                                Text(
+                                                    text = "$" + nftSold.usdPrice.toString(),
+                                                    style = MaterialTheme.typography.labelSmall
+                                                )
+                                            }
+                                            Column(
+                                                modifier = Modifier.padding(start = 6.dp)
+                                            ) {
+                                                Text(
+                                                    text = "FROM",
+                                                    style = MaterialTheme.typography.labelSmall
+                                                )
+                                                Text(
+                                                    text = nftSold.sellerUsername.toString(),
+                                                    style = MaterialTheme.typography.labelSmall
+                                                )
+                                            }
+                                            Column(
+                                                modifier = Modifier.padding(start = 6.dp)
+                                            ) {
+                                                Text(
+                                                    text = "TO",
+                                                    style = MaterialTheme.typography.labelSmall
+                                                )
+                                                Text(
+                                                    text = nftSold.buyerUsername.toString(),
+                                                    style = MaterialTheme.typography.labelSmall
+                                                )
+                                            }
                                         }
-                                        Text(
-                                            text = nftSold.sellerUsername.toString(),
-                                            style = MaterialTheme.typography.labelSmall
-                                        )
-                                        Text(
-                                            text = nftSold.buyerUsername.toString(),
-                                            style = MaterialTheme.typography.labelSmall
-                                        )
                                     }
                                 }
                             }
