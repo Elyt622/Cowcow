@@ -10,10 +10,12 @@ import com.example.hellocowcow.R
 
 // Set of Material typography styles to start with
 
+val fredokaOneFont = Font(R.font.fredoka_one)
+
 val Typography2 = Typography(
 
     bodyLarge = TextStyle(
-        fontFamily = FontFamily(Font(R.font.fredoka_one)),
+        fontFamily = FontFamily(fredokaOneFont),
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 24.sp,
@@ -21,7 +23,7 @@ val Typography2 = Typography(
     ),
 
     bodyMedium = TextStyle(
-        fontFamily = FontFamily(Font(R.font.fredoka_one)),
+        fontFamily = FontFamily(fredokaOneFont),
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
         lineHeight = 24.sp,
@@ -29,7 +31,7 @@ val Typography2 = Typography(
     ),
 
     labelSmall = TextStyle(
-        fontFamily = FontFamily(Font(R.font.fredoka_one)),
+        fontFamily = FontFamily(fredokaOneFont),
         fontWeight = FontWeight.Normal,
         fontSize = 11.5.sp,
         lineHeight = 24.sp,
@@ -37,15 +39,23 @@ val Typography2 = Typography(
     ),
 
     labelMedium = TextStyle(
-        fontFamily = FontFamily(Font(R.font.fredoka_one)),
+        fontFamily = FontFamily(fredokaOneFont),
         fontWeight = FontWeight.Normal,
         fontSize = 12.5.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     ),
 
+    titleLarge = TextStyle(
+        fontFamily = FontFamily(fredokaOneFont),
+        fontWeight = FontWeight.Bold,
+        fontSize = 28.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp
+    ),
+
     titleMedium = TextStyle(
-        fontFamily = FontFamily(Font(R.font.fredoka_one)),
+        fontFamily = FontFamily(fredokaOneFont),
         fontWeight = FontWeight.Bold,
         fontSize = 20.sp,
         lineHeight = 24.sp,
@@ -53,7 +63,7 @@ val Typography2 = Typography(
     ),
 
     titleSmall = TextStyle(
-        fontFamily = FontFamily(Font(R.font.fredoka_one)),
+        fontFamily = FontFamily(fredokaOneFont),
         fontWeight = FontWeight.Bold,
         fontSize = 18.sp,
         lineHeight = 24.sp,
