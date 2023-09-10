@@ -22,15 +22,16 @@ fun HostController(
     NavHost(
         navController = navHostController,
         startDestination = ItemNav.Home.route
-    ) {Data.items.forEach {
-            item -> composable(item.route) {
-            when (it.destination.route) {
-                ItemNav.Home.route -> { HomeScreen(navHostController, hiltViewModel()) }
-                ItemNav.Token.route -> { RaffleScreen() }
-                ItemNav.Stats.route -> { StatsScreen() }
-                ItemNav.Profile.route -> { ProfileScreen(account, topic, hiltViewModel()) }
+    ) {
+        Data.items.forEach { item ->
+            composable(item.route) {
+                when (it.destination.route) {
+                    ItemNav.Home.route -> { HomeScreen(navHostController, hiltViewModel()) }
+                    ItemNav.Raffles.route -> { RaffleScreen() }
+                    ItemNav.Stats.route -> { StatsScreen() }
+                    ItemNav.Profile.route -> { ProfileScreen(account, topic, hiltViewModel()) }
+                }
             }
         }
-    }
     }
 }

@@ -13,7 +13,7 @@ sealed class ItemNav(
     val route : String
 ) {
     data object Home : ItemNav("Home", Icons.Filled.Home, "Home")
-    data object Token : ItemNav("Token", Icons.Filled.Money, "Token")
+    data object Raffles : ItemNav("Raffles", Icons.Filled.Money, "Raffles")
     data object Stats : ItemNav("Stats", Icons.Filled.QueryStats, "Stats")
     data object Profile : ItemNav("Profile", Icons.Filled.Person, "Profile")
 }

@@ -5,7 +5,7 @@ import com.example.hellocowcow.domain.models.ItemNav
 object Data {
     val items = listOf(
         ItemNav.Home,
-        ItemNav.Token,
+        ItemNav.Raffles,
         ItemNav.Stats,
         ItemNav.Profile
     )
