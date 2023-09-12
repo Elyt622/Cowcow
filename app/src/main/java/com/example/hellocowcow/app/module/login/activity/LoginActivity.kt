@@ -46,22 +46,6 @@ class LoginActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.login()
-            .subscribeBy (
-                onNext = {
-                    val intent = Intent(
-                        this@LoginActivity,
-                        MainActivity::class.java
-                    )
-                        .putExtra("ADDRESS", viewModel.address)
-                        .putExtra("TOPIC", viewModel.topic)
-                    startActivity(intent)
-                    finish()
-                },
-                onError = { err ->
-                    Timber.tag("LOGIN_ERROR").e(err)
-                }
-            ).isDisposed
         setContent {
             HelloCowCowTheme {
                 Surface(
@@ -108,17 +92,7 @@ class LoginActivity : BaseActivity() {
                         "Sent on xPortal"
                     ).show()
 
-                    viewModel.login()
-                        .subscribe {
-                            val intent = Intent(
-                                this@LoginActivity,
-                                MainActivity::class.java
-                            )
-                                .putExtra("ADDRESS", viewModel.address)
-                                .putExtra("TOPIC", viewModel.topic)
-                            startActivity(intent)
-                            finish()
-                        }.addTo(disposable)
+                    login()
 
                     viewModel.connectToWallet { uri ->
                         val xPortalIntent = Intent(
@@ -144,5 +118,23 @@ class LoginActivity : BaseActivity() {
             }
         }
     }
+
+    private fun login() =
+        viewModel.login()
+            .subscribeBy (
+                onNext = {
+                    val intent = Intent(
+                        this@LoginActivity,
+                        MainActivity::class.java
+                    )
+                        .putExtra("ADDRESS", viewModel.address)
+                        .putExtra("TOPIC", viewModel.topic)
+                    startActivity(intent)
+                    finish()
+                },
+                onError = { err ->
+                    Timber.tag("LOGIN_ERROR").e(err)
+                }
+            ).addTo(disposable)
 
 }

@@ -84,6 +84,7 @@ class LoginViewModel @Inject constructor(
                 pairing = pairing!!
             )
 
+        // Todo pairing must be not null
         SignClient.connect(connectParams,
             onSuccess = {
                 onProposedSequence(pairing.uri)
