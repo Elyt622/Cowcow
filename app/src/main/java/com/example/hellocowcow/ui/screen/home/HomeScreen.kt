@@ -58,7 +58,6 @@ fun HomeScreen(
     val uiStateSold by viewModel.uiStateSold.collectAsState()
     val isDarkTheme = isSystemInDarkTheme()
 
-
     val cardColors = CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.primary,
         contentColor = Color.Black
@@ -70,24 +69,19 @@ fun HomeScreen(
             .verticalScroll(rememberScrollState())
     ) {
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.padding(top = 30.dp)
         ) {
-            if(isDarkTheme)
-                GlideImage(
-                    modifier = Modifier
-                        .size(120.dp),
-                    model = R.drawable.hello_dark,
-                    contentDescription = "Hello CowCow text",
-                    contentScale = ContentScale.None
-                )
-            else
-                GlideImage(
-                    modifier = Modifier
-                        .size(120.dp),
-                    model = R.drawable.hello_light,
-                    contentDescription = "Hello CowCow text",
-                    contentScale = ContentScale.None
-                )
+            Text(
+                text = "HELLO",
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.primary
+            )
+            Text(
+                text = "COWCOW",
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.primary
+            )
 
             Spacer(modifier = Modifier.size(10.dp))
 
