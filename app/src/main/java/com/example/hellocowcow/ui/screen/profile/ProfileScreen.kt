@@ -143,7 +143,7 @@ fun ProfileScreen(
                 (uiStateTx as ProfileViewModel.UiStateTx.Send)
                     .tx.let { tx ->
                         CustomAlert(
-                            tx = tx,
+                            tx = tx
                         )
                     }
             }
