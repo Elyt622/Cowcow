@@ -40,7 +40,7 @@ import com.example.hellocowcow.domain.models.DomainTransaction
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomAlert(
-    tx: DomainTransaction,
+    tx: DomainTransaction
 ) {
     val context = LocalContext.current
     val openDialog = remember { mutableStateOf(true) }
