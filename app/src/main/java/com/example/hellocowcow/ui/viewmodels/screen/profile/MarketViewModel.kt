@@ -3,7 +3,7 @@ package com.example.hellocowcow.ui.viewmodels.screen.profile
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import com.example.hellocowcow.app.module.BaseViewModel
-import com.example.hellocowcow.data.retrofit.proxyXoxnoApi.Nft
+import com.example.hellocowcow.domain.models.DomainNft
 import com.example.hellocowcow.domain.repositories.NftRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.kotlin.addTo
@@ -27,7 +27,7 @@ class MarketViewModel @Inject constructor(
     sealed class UiState {
         data object NoData : UiState()
         data object Loading : UiState()
-        data class Success(val data: List<Nft>) : UiState()
+        data class Success(val data: List<DomainNft>) : UiState()
         data class Error(val error: String) : UiState()
     }
 
@@ -42,10 +42,20 @@ class MarketViewModel @Inject constructor(
             .flatMapIterable { it }
             .filter { collection -> collection.ticker == "COW-cd463d" }
             .toList()
+            .map {
+                if (it.isNotEmpty())
+                    it[0].nfts
+                else
+                    listOf()
+            }
+            .toObservable()
+            .flatMapIterable { it }
+            .map { it.toDomain() }
+            .toList()
             .subscribeBy(
                 onSuccess = {
                     if (it.isNotEmpty())
-                        _uiState.value = UiState.Success(it[0].nfts.toList())
+                        _uiState.value = UiState.Success(it)
                     else
                         _uiState.value = UiState.NoData
                 },
