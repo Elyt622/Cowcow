@@ -10,14 +10,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.hellocowcow.app.module.BaseActivity
-import com.example.hellocowcow.domain.models.DomainAccount
 import com.example.hellocowcow.ui.composables.MainScaffold
 import com.example.hellocowcow.ui.theme.HelloCowCowTheme
 import com.example.hellocowcow.ui.viewmodels.activity.MainViewModel
@@ -68,7 +66,7 @@ class MainActivity : BaseActivity() {
                         is MainViewModel.UiState.Success -> {
                             (uiState as MainViewModel.UiState.Success)
                                 .data.let { account ->
-                                    Body(account, topic)
+                                    MainScaffold(account, topic)
                                 }
                         }
                         is MainViewModel.UiState.Error -> {
@@ -86,13 +84,4 @@ class MainActivity : BaseActivity() {
             }
         }
     }
-
-    @Composable
-    fun Body(
-        account: DomainAccount,
-        topic: String
-    ) {
-        MainScaffold(account, topic)
-    }
-
 }
