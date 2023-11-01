@@ -105,9 +105,14 @@ class NftRepositoryImpl @Inject constructor(
     fun getStatsCollection(
         collection: String
     ): Observable<StatsCollection> =
-        xoxnoApi.getStatsCollection(collection)
-            .subscribeOn(mySchedulers.io)
+        xoxnoApi.getDynamicId().flatMap { dynamicId ->
+            xoxnoApi.getStatsCollection(
+                dynamicId.buildId.toString(),
+                collection
+            ).subscribeOn(mySchedulers.io)
+        }.subscribeOn(mySchedulers.io)
             .observeOn(mySchedulers.main)
+
 
     override
     fun getTicketsUsedCount()
