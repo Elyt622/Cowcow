@@ -1,7 +1,5 @@
 package com.example.hellocowcow.ui.screen.profile.tabs
 
-import android.content.Context
-import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,8 +21,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.example.hellocowcow.app.module.nft.NftActivity
 import com.example.hellocowcow.ui.composables.NftCard
+import com.example.hellocowcow.ui.composables.onClicked
 import com.example.hellocowcow.ui.theme.Typography2
 import com.example.hellocowcow.ui.viewmodels.screen.profile.StakeViewModel
 import es.dmoral.toasty.Toasty
@@ -103,15 +101,6 @@ fun StakeScreen(
     }
 
 
-}
-
-fun onClicked(context: Context, nftId: String) {
-    val intent = Intent(
-        context,
-        NftActivity::class.java
-    )
-    intent.putExtra("IDENTIFIER", nftId)
-    context.startActivity(intent)
 }
 
 

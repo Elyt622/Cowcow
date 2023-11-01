@@ -1,5 +1,7 @@
 package com.example.hellocowcow.ui.composables
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.example.hellocowcow.app.module.nft.NftActivity
 import com.example.hellocowcow.domain.models.DomainNft
 import com.example.hellocowcow.ui.theme.Typography2
 
@@ -83,4 +86,13 @@ fun NftCard(nft: DomainNft, onClicked: () -> Unit) {
             )
         }
     }
+}
+
+fun onClicked(context: Context, nftId: String) {
+    val intent = Intent(
+        context,
+        NftActivity::class.java
+    )
+    intent.putExtra("IDENTIFIER", nftId)
+    context.startActivity(intent)
 }
