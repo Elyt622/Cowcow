@@ -47,6 +47,19 @@ fun CollectionScreen(
         contentColor = Color.Black
     )
 
+    when(uiState) {
+        is CollectionViewModel.UiState.Error ->
+            (uiState as CollectionViewModel.UiState.Error)
+                .error.let { err ->
+                    Toasty.error(
+                        context,
+                        err,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+        else -> {}
+    }
+
     Surface(
         modifier = Modifier
             .padding(bottom = 40.dp, top = 10.dp)
@@ -120,16 +133,7 @@ fun CollectionScreen(
                                                     style = MaterialTheme.typography.bodyLarge
                                                 )
                                             }
-
-                                    is CollectionViewModel.UiState.Error ->
-                                        (uiState as CollectionViewModel.UiState.Error)
-                                            .error.let { err ->
-                                                Toasty.error(
-                                                    context,
-                                                    err,
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            }
+                                    else -> {}
                                 }
                             }
                         }
@@ -172,16 +176,7 @@ fun CollectionScreen(
                                                     style = MaterialTheme.typography.bodyLarge,
                                                 )
                                             }
-
-                                    is CollectionViewModel.UiState.Error ->
-                                        (uiState as CollectionViewModel.UiState.Error)
-                                            .error.let { err ->
-                                                Toasty.error(
-                                                    context,
-                                                    err,
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            }
+                                    else -> {}
                                 }
                             }
                         }
@@ -229,16 +224,7 @@ fun CollectionScreen(
                                                     style = MaterialTheme.typography.bodyLarge
                                                 )
                                             }
-
-                                    is CollectionViewModel.UiState.Error ->
-                                        (uiState as CollectionViewModel.UiState.Error)
-                                            .error.let { err ->
-                                                Toasty.error(
-                                                    context,
-                                                    err,
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            }
+                                    else -> {}
                                 }
                             }
                         }
@@ -282,16 +268,7 @@ fun CollectionScreen(
                                                     style = MaterialTheme.typography.bodyLarge
                                                 )
                                             }
-
-                                    is CollectionViewModel.UiState.Error ->
-                                        (uiState as CollectionViewModel.UiState.Error)
-                                            .error.let { err ->
-                                                Toasty.error(
-                                                    context,
-                                                    err,
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            }
+                                    else -> {}
                                 }
                             }
                         }
@@ -335,16 +312,7 @@ fun CollectionScreen(
                                                     style = MaterialTheme.typography.bodyLarge
                                                 )
                                             }
-
-                                    is CollectionViewModel.UiState.Error ->
-                                        (uiState as CollectionViewModel.UiState.Error)
-                                            .error.let { err ->
-                                                Toasty.error(
-                                                    context,
-                                                    err,
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            }
+                                    else -> {}
                                 }
 
                                 Image(
@@ -403,16 +371,7 @@ fun CollectionScreen(
                                                     style = MaterialTheme.typography.bodyLarge
                                                 )
                                             }
-
-                                    is CollectionViewModel.UiState.Error ->
-                                        (uiState as CollectionViewModel.UiState.Error)
-                                            .error.let { err ->
-                                                Toasty.error(
-                                                    context,
-                                                    err,
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            }
+                                    else -> {}
                                 }
                             }
                         }
@@ -456,16 +415,7 @@ fun CollectionScreen(
                                                     style = MaterialTheme.typography.bodyLarge
                                                 )
                                             }
-
-                                    is CollectionViewModel.UiState.Error ->
-                                        (uiState as CollectionViewModel.UiState.Error)
-                                            .error.let { err ->
-                                                Toasty.error(
-                                                    context,
-                                                    err,
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            }
+                                    else -> {}
                                 }
                             }
                         }
@@ -509,16 +459,7 @@ fun CollectionScreen(
                                                     style = MaterialTheme.typography.bodyLarge
                                                 )
                                             }
-
-                                    is CollectionViewModel.UiState.Error ->
-                                        (uiState as CollectionViewModel.UiState.Error)
-                                            .error.let { err ->
-                                                Toasty.error(
-                                                    context,
-                                                    err,
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            }
+                                    else -> {}
                                 }
 
                                 Icon(
@@ -574,16 +515,7 @@ fun CollectionScreen(
                                                     style = MaterialTheme.typography.bodyLarge
                                                 )
                                             }
-
-                                    is CollectionViewModel.UiState.Error ->
-                                        (uiState as CollectionViewModel.UiState.Error)
-                                            .error.let { err ->
-                                                Toasty.error(
-                                                    context,
-                                                    err,
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            }
+                                    else -> {}
                                 }
                             }
                         }
@@ -626,16 +558,7 @@ fun CollectionScreen(
                                                     style = MaterialTheme.typography.bodyLarge,
                                                 )
                                             }
-
-                                    is CollectionViewModel.UiState.Error ->
-                                        (uiState as CollectionViewModel.UiState.Error)
-                                            .error.let { err ->
-                                                Toasty.error(
-                                                    context,
-                                                    err,
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            }
+                                    else -> {}
                                 }
                             }
                         }
@@ -682,16 +605,7 @@ fun CollectionScreen(
                                                     style = MaterialTheme.typography.bodyLarge
                                                 )
                                             }
-
-                                    is CollectionViewModel.UiState.Error ->
-                                        (uiState as CollectionViewModel.UiState.Error)
-                                            .error.let { err ->
-                                                Toasty.error(
-                                                    context,
-                                                    err,
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            }
+                                    else -> {}
                                 }
                             }
                         }

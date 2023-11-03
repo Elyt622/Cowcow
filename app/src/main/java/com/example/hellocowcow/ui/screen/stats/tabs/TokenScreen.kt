@@ -52,6 +52,18 @@ fun TokenScreen(
             .verticalScroll(rememberScrollState()),
         color = MaterialTheme.colorScheme.background
     ) {
+        when (uiStateT) {
+            is TokenViewModel.UiStateToken.Error ->
+                (uiStateT as TokenViewModel.UiStateToken.Error)
+                    .error.let { err ->
+                        Toasty.error(
+                            context,
+                            err,
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+            else -> {}
+        }
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -124,16 +136,7 @@ fun TokenScreen(
                                                     style = MaterialTheme.typography.bodyLarge
                                                 )
                                             }
-
-                                    is TokenViewModel.UiStateToken.Error ->
-                                        (uiStateT as TokenViewModel.UiStateToken.Error)
-                                            .error.let { err ->
-                                                Toasty.error(
-                                                    context,
-                                                    err,
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            }
+                                    else -> {}
                                 }
 
                                 Image(
@@ -186,15 +189,7 @@ fun TokenScreen(
                                                 )
                                             }
 
-                                    is TokenViewModel.UiStateReward.Error ->
-                                        (uiStateR as TokenViewModel.UiStateReward.Error)
-                                            .error.let { err ->
-                                                Toasty.error(
-                                                    context,
-                                                    err,
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            }
+                                    else -> {}
                                 }
 
                                 Image(
@@ -257,15 +252,7 @@ fun TokenScreen(
                                                 )
                                             }
 
-                                    is TokenViewModel.UiStateToken.Error ->
-                                        (uiStateT as TokenViewModel.UiStateToken.Error)
-                                            .error.let { err ->
-                                                Toasty.error(
-                                                    context,
-                                                    err,
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            }
+                                    else -> {}
                                 }
 
                                 Image(
@@ -325,16 +312,7 @@ fun TokenScreen(
                                                     style = MaterialTheme.typography.bodyLarge
                                                 )
                                             }
-
-                                    is TokenViewModel.UiStateToken.Error ->
-                                        (uiStateT as TokenViewModel.UiStateToken.Error)
-                                            .error.let { err ->
-                                                Toasty.error(
-                                                    context,
-                                                    err,
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            }
+                                    else -> {}
                                 }
                             }
                         }
@@ -379,15 +357,7 @@ fun TokenScreen(
                                                 )
                                             }
 
-                                    is TokenViewModel.UiStateToken.Error ->
-                                        (uiStateT as TokenViewModel.UiStateToken.Error)
-                                            .error.let { err ->
-                                                Toasty.error(
-                                                    context,
-                                                    err,
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            }
+                                    else -> {}
                                 }
                             }
                         }
@@ -431,15 +401,7 @@ fun TokenScreen(
                                                 )
                                             }
 
-                                    is TokenViewModel.UiStateToken.Error ->
-                                        (uiStateT as TokenViewModel.UiStateToken.Error)
-                                            .error.let { err ->
-                                                Toasty.error(
-                                                    context,
-                                                    err,
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            }
+                                    else -> {}
                                 }
                             }
                         }

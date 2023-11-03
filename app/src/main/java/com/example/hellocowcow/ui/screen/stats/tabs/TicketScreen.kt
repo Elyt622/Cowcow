@@ -44,6 +44,18 @@ fun TicketScreen(
         contentColor = Color.Black
     )
 
+    when(uiState) {
+        is TicketViewModel.UiState.Error ->
+            (uiState as TicketViewModel.UiState.Error)
+                .error.let { err ->
+                    Toasty.error(
+                        context,
+                        err,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+        else -> {}
+    }
     Surface(
         modifier = Modifier
             .padding(bottom = 40.dp, top = 10.dp)
@@ -115,16 +127,7 @@ fun TicketScreen(
                                                     style = MaterialTheme.typography.bodyLarge
                                                 )
                                             }
-
-                                    is TicketViewModel.UiState.Error ->
-                                        (uiState as TicketViewModel.UiState.Error)
-                                            .error.let { err ->
-                                                Toasty.error(
-                                                    context,
-                                                    err,
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            }
+                                    else -> {}
                                 }
 
                                 Image(
@@ -178,16 +181,7 @@ fun TicketScreen(
                                                     style = MaterialTheme.typography.bodyLarge
                                                 )
                                             }
-
-                                    is TicketViewModel.UiState.Error ->
-                                        (uiState as TicketViewModel.UiState.Error)
-                                            .error.let { err ->
-                                                Toasty.error(
-                                                    context,
-                                                    err,
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            }
+                                    else -> {}
                                 }
 
                                 Image(
