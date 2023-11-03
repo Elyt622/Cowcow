@@ -10,13 +10,14 @@ import com.example.hellocowcow.domain.models.DomainAccount
 @Composable
 fun MainScaffold(
     account: DomainAccount,
-    topic: String
+    topic: String?
 ) {
 
     val navController = rememberNavController()
 
-    Scaffold(
-        content = { HostController(navHostController = navController, account, topic) },
-        bottomBar = { BottomBar(navController = navController) }
-    )
+    if (topic != null)
+        Scaffold(
+            content = { HostController(navHostController = navController, account, topic) },
+            bottomBar = { BottomBar(navController = navController) }
+        )
 }
