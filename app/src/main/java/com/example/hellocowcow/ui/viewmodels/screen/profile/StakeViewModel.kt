@@ -6,7 +6,7 @@ import com.example.hellocowcow.app.module.BaseViewModel
 import com.example.hellocowcow.data.retrofit.mvxApi.request.Reward
 import com.example.hellocowcow.domain.models.DomainNft
 import com.example.hellocowcow.domain.repositories.NftRepository
-import com.walletconnect.util.bytesToHex
+import com.reown.util.bytesToHex
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.ipfs.multibase.binary.Base64
 import io.reactivex.rxjava3.core.Observable

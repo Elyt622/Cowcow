@@ -12,8 +12,8 @@ import com.example.hellocowcow.domain.repositories.TransactionRepository
 import com.example.hellocowcow.ui.viewmodels.util.MyWalletConnect
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.walletconnect.sign.client.Sign
-import com.walletconnect.util.bytesToHex
+import com.reown.sign.client.Sign
+import com.reown.util.bytesToHex
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.ipfs.multibase.binary.Base64
 import io.reactivex.rxjava3.core.Observable

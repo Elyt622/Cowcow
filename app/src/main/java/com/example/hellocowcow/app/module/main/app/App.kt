@@ -2,11 +2,11 @@ package com.example.hellocowcow.app.module.main.app
 
 import android.app.Application
 import com.example.hellocowcow.R
-import com.walletconnect.android.Core
-import com.walletconnect.android.CoreClient
-import com.walletconnect.android.relay.ConnectionType
-import com.walletconnect.sign.client.Sign
-import com.walletconnect.sign.client.SignClient
+import com.reown.android.Core
+import com.reown.android.CoreClient
+import com.reown.android.relay.ConnectionType
+import com.reown.sign.client.Sign
+import com.reown.sign.client.SignClient
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 import timber.log.Timber.Forest.plant
@@ -36,13 +36,13 @@ class App : Application() {
             application = this,
             metaData = appMetaData
         ) { error ->
-                tag("CoreClient_Initialization_Error")
+                tag("CoreClient_Init_Error")
                 .e(error.throwable.stackTraceToString())
         }
         val init = Sign.Params.Init(core = CoreClient)
 
         SignClient.initialize(init) { error ->
-            tag("SignClient_Initialization_Error")
+            tag("SignClient_Init_Error")
                 .e(error.toString())
         }
     }

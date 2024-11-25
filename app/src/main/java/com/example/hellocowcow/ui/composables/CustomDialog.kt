@@ -16,8 +16,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cancel
 import androidx.compose.material.icons.filled.HourglassTop
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AlertDialogDefaults
+import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -46,10 +46,9 @@ fun CustomAlert(
     val openDialog = remember { mutableStateOf(true) }
 
     if (openDialog.value) {
-        AlertDialog(
-            onDismissRequest = {
-                openDialog.value = false
-            }
+        BasicAlertDialog(onDismissRequest = {
+            openDialog.value = false
+        }
         ) {
             Surface(
                 modifier = Modifier
@@ -136,13 +135,13 @@ fun CustomAlert(
                             )
                             Text(
                                 text = tx.txHash?.substring(0..8)
-                                        + "..." +
-                                        tx.txHash
-                                            ?.substring(
-                                                tx.txHash!!.length - 8
-                                                        until
-                                                        tx.txHash!!.length
-                                            ),
+                                    + "..." +
+                                    tx.txHash
+                                        ?.substring(
+                                            tx.txHash!!.length - 8
+                                                until
+                                                tx.txHash!!.length
+                                        ),
                                 style = MaterialTheme.typography.labelMedium
                             )
                         }

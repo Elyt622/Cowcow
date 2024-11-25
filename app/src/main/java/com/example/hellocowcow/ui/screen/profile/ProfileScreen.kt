@@ -40,7 +40,7 @@ import com.example.hellocowcow.ui.viewmodels.screen.profile.MarketViewModel
 import com.example.hellocowcow.ui.viewmodels.screen.profile.ProfileViewModel
 import com.example.hellocowcow.ui.viewmodels.screen.profile.StakeViewModel
 import com.example.hellocowcow.ui.viewmodels.screen.profile.WalletViewModel
-import com.walletconnect.sign.client.SignClient
+import com.reown.sign.client.SignClient
 import es.dmoral.toasty.Toasty
 import timber.log.Timber
 

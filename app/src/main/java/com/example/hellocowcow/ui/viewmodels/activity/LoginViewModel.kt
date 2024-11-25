@@ -3,10 +3,10 @@ package com.example.hellocowcow.ui.viewmodels.activity
 import com.example.hellocowcow.app.module.BaseViewModel
 import com.example.hellocowcow.ui.viewmodels.util.MySchedulers
 import com.example.hellocowcow.ui.viewmodels.util.MyWalletConnect
-import com.walletconnect.android.Core
-import com.walletconnect.android.CoreClient
-import com.walletconnect.sign.client.Sign
-import com.walletconnect.sign.client.SignClient
+import com.reown.android.Core
+import com.reown.android.CoreClient
+import com.reown.sign.client.Sign
+import com.reown.sign.client.SignClient
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.addTo

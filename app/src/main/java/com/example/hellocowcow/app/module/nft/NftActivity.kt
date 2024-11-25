@@ -6,7 +6,6 @@ import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,12 +22,11 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
-import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
@@ -69,6 +67,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
 import timber.log.Timber
 import timber.log.Timber.Forest.plant
+import java.util.Locale
 
 @AndroidEntryPoint
 class NftActivity : BaseActivity() {
@@ -123,7 +122,7 @@ class NftActivity : BaseActivity() {
                         if (upAvailable) {
                             IconButton(onClick = { onUpClicked() }) {
                                 Icon(
-                                    imageVector = Icons.Filled.ArrowBack,
+                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                                     contentDescription = "Back",
                                     tint = MaterialTheme.colorScheme.primary
                                 )
@@ -210,12 +209,8 @@ class NftActivity : BaseActivity() {
                         userScrollEnabled = true,
                         reverseLayout = false,
                         contentPadding = PaddingValues(0.dp),
-                        beyondBoundsPageCount = 0,
                         pageSize = PageSize.Fill,
                         key = null,
-                        pageNestedScrollConnection = PagerDefaults.pageNestedScrollConnection(
-                            Orientation.Horizontal
-                        ),
                         pageContent = { index ->
                             Box(contentAlignment = Alignment.Center) {
                                 CircularProgressIndicator(
@@ -411,6 +406,7 @@ class NftActivity : BaseActivity() {
                                             Text(
                                                 text = "Floor: " +
                                                         String.format(
+                                                            Locale.getDefault(),
                                                             "%.2f",
                                                             attribute.floorPrice
                                                         ),
@@ -435,6 +431,7 @@ class NftActivity : BaseActivity() {
                                             text = attribute.occurance.toString()
                                                     + " ("
                                                     + String.format(
+                                                Locale.getDefault(),
                                                 "%.2f",
                                                 attribute.frequency!! * 100.0
                                             )

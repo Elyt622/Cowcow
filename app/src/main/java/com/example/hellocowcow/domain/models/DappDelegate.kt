@@ -1,7 +1,7 @@
 package com.example.hellocowcow.domain.models
 
-import com.walletconnect.sign.client.Sign
-import com.walletconnect.sign.client.SignClient
+import com.reown.sign.client.Sign
+import com.reown.sign.client.SignClient
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
@@ -66,6 +66,10 @@ object DappDelegate: SignClient.DappDelegate {
         Timber.tag("Session_Extended").d(session.toString())
     }
 
+    @Deprecated(
+        "onSessionEvent is deprecated. Use onEvent instead. Using both will result in duplicate events.",
+        replaceWith = ReplaceWith("onEvent(event)")
+    )
     override
     fun onSessionEvent(
         sessionEvent: Sign.Model.SessionEvent
@@ -88,7 +92,7 @@ object DappDelegate: SignClient.DappDelegate {
         response: Sign.Model.SessionRequestResponse
     ) {
         wcEventSubject.onNext(response)
-        Timber.tag("Received_Session_Request_Response").d(response.toString())
+        Timber.tag("Session_Request_Resp").d(response.toString())
     }
 
     override
@@ -96,7 +100,7 @@ object DappDelegate: SignClient.DappDelegate {
         state: Sign.Model.ConnectionState
     ) {
         wcEventSubject.onNext(state)
-        Timber.tag("Connection_State_Changed").d(state.toString())
+        Timber.tag("Connection_State").d(state.toString())
     }
 
     override
@@ -105,6 +109,14 @@ object DappDelegate: SignClient.DappDelegate {
     ) {
         wcEventSubject.onNext(error)
         Timber.tag("Error_In_SignClient_SDK").e(error.toString())
+    }
+
+    override fun onProposalExpired(proposal: Sign.Model.ExpiredProposal) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onRequestExpired(request: Sign.Model.ExpiredRequest) {
+        TODO("Not yet implemented")
     }
 
     private fun deselectAccountDetails() {

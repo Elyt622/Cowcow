@@ -46,6 +46,7 @@ import com.example.hellocowcow.R
 import com.example.hellocowcow.domain.models.ItemNav
 import com.example.hellocowcow.ui.viewmodels.screen.home.HomeViewModel
 import es.dmoral.toasty.Toasty
+import java.util.Locale
 
 @OptIn(ExperimentalGlideComposeApi::class, ExperimentalFoundationApi::class)
 @Composable
@@ -206,7 +207,7 @@ fun HomeScreen(
                                                 .data.let { stats ->
                                                     Text(
                                                         modifier = Modifier.padding(10.dp),
-                                                        text = String.format(
+                                                        text = String.format(Locale.getDefault(),
                                                             "%.3f",
                                                             stats.moovePrice
                                                         ),
@@ -296,6 +297,7 @@ fun HomeScreen(
                                                     Text(
                                                         modifier = Modifier.padding(10.dp),
                                                         text = String.format(
+                                                            Locale.getDefault(),
                                                             "%.0f",
                                                             stats.mooveMC
                                                         ) + "$",
@@ -596,6 +598,7 @@ fun HomeScreen(
                                                     Text(
                                                         modifier = Modifier.padding(10.dp),
                                                         text = String.format(
+                                                            Locale.getDefault(),
                                                             "%.2f",
                                                             stats.totalEgldVolume
                                                         ),
@@ -669,12 +672,14 @@ fun HomeScreen(
                                         colors = cardColors,
                                         elevation = CardDefaults.cardElevation(20.dp)
                                     ) {
+                                        Modifier
+                                            .fillMaxWidth()
                                         Row(
-                                            Modifier
-                                                .fillMaxWidth()
-                                                .animateItemPlacement(
-                                                    tween(durationMillis = 250)
-                                                ),
+                                            Modifier.animateItem(
+                                                fadeInSpec = null,
+                                                fadeOutSpec = null,
+                                                placementSpec = tween(durationMillis = 250)
+                                            ),
                                             verticalAlignment = Alignment.CenterVertically
                                         ) {
                                             GlideImage(
