@@ -29,76 +29,79 @@ import es.dmoral.toasty.Toasty
 
 @Composable
 fun StakeScreen(
-    viewModel: StakeViewModel
+  viewModel: StakeViewModel
 ) {
-    val uiState by viewModel.uiState.collectAsState()
-    val context = LocalContext.current
+  val uiState by viewModel.uiState.collectAsState()
+  val context = LocalContext.current
 
-    val functionExecuted = remember { mutableStateOf(false) }
+  val functionExecuted = remember { mutableStateOf(false) }
 
-    // LaunchedEffect runs when the Composable starts up
-    LaunchedEffect(Unit) {
-        if (!functionExecuted.value) {
-            viewModel.getAllStakingCow()
-            functionExecuted.value = true
-        }
+  // LaunchedEffect runs when the Composable starts up
+  LaunchedEffect(Unit) {
+    if (!functionExecuted.value) {
+      viewModel.getAllStakingCow()
+      functionExecuted.value = true
+    }
+  }
+
+  when (uiState) {
+    is StakeViewModel.UiState.Success -> {
+      (uiState as StakeViewModel.UiState.Success).data.let { nfts ->
+        Text(
+          modifier = Modifier.padding(start = 8.dp, top = 8.dp),
+          text = "Cows: " + nfts.size.toString(),
+          style = MaterialTheme.typography.labelMedium
+        )
+        LazyVerticalGrid(
+          modifier = Modifier.padding(
+            start = 8.dp,
+            end = 8.dp,
+            bottom = 80.dp
+          ),
+          columns = GridCells.Adaptive(150.dp),
+          content = {
+            items(nfts) { nft ->
+              NftCard(nft = nft) {
+                nft.identifier?.let {
+                  onClicked(context, it)
+                }
+              }
+            }
+          }
+        )
+      }
     }
 
-    when (uiState) {
-        is StakeViewModel.UiState.Success -> {
-            (uiState as StakeViewModel.UiState.Success).data.let { nfts ->
-                Text(
-                    modifier = Modifier.padding(start = 8.dp, top = 8.dp),
-                    text = "Cows: " + nfts.size.toString(),
-                    style = MaterialTheme.typography.labelMedium
-                )
-                LazyVerticalGrid(
-                    modifier = Modifier.padding(
-                        start = 8.dp,
-                        end = 8.dp,
-                        bottom = 80.dp
-                    ),
-                    columns = GridCells.Adaptive(150.dp),
-                    content = {
-                        items(nfts) { nft ->
-                            NftCard(nft = nft) {
-                                nft.identifier?.let {
-                                    onClicked(context, it)
-                                }
-                            }
-                        }
-                    }
-                )
-            }
-        }
-        is StakeViewModel.UiState.Loading -> Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            CircularProgressIndicator(
-                modifier = Modifier.width(60.dp),
-                color = MaterialTheme.colorScheme.primary
-            )
-        }
-        is StakeViewModel.UiState.Error -> {
-            Toasty.error(
-                LocalContext.current,
-                (uiState as StakeViewModel.UiState.Error).error,
-                Toast.LENGTH_LONG
-            ).show()
-        }
-        is StakeViewModel.UiState.NoData -> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "No NFT in staking !",
-                    style = Typography2.bodyLarge
-                )
-            }
-        }
+    is StakeViewModel.UiState.Loading -> Box(
+      modifier = Modifier.fillMaxSize(),
+      contentAlignment = Alignment.Center
+    ) {
+      CircularProgressIndicator(
+        modifier = Modifier.width(60.dp),
+        color = MaterialTheme.colorScheme.primary
+      )
     }
+
+    is StakeViewModel.UiState.Error -> {
+      Toasty.error(
+        LocalContext.current,
+        (uiState as StakeViewModel.UiState.Error).error,
+        Toast.LENGTH_LONG
+      ).show()
+    }
+
+    is StakeViewModel.UiState.NoData -> {
+      Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+      ) {
+        Text(
+          text = "No NFT in staking !",
+          style = Typography2.bodyLarge
+        )
+      }
+    }
+  }
 
 
 }

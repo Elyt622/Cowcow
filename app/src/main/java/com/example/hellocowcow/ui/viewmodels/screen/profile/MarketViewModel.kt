@@ -14,53 +14,53 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MarketViewModel @Inject constructor(
-    private val nftRepository: NftRepository
+  private val nftRepository: NftRepository
 ) : BaseViewModel() {
 
-    private val _address = mutableStateOf("")
-    val address: State<String> get() = _address
+  private val _address = mutableStateOf("")
+  val address: State<String> get() = _address
 
-    fun setAddress(value: String) {
-        _address.value = value
-    }
+  fun setAddress(value: String) {
+    _address.value = value
+  }
 
-    sealed class UiState {
-        data object NoData : UiState()
-        data object Loading : UiState()
-        data class Success(val data: List<DomainNft>) : UiState()
-        data class Error(val error: String) : UiState()
-    }
+  sealed class UiState {
+    data object NoData : UiState()
+    data object Loading : UiState()
+    data class Success(val data: List<DomainNft>) : UiState()
+    data class Error(val error: String) : UiState()
+  }
 
-    private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
-    val uiState: StateFlow<UiState> = _uiState
+  private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
+  val uiState: StateFlow<UiState> = _uiState
 
-    fun getCowsListing() =
-        nftRepository.getCowsListing(address.value)
-            .map {
-                it.groupedByCollection
-            }
-            .flatMapIterable { it }
-            .filter { collection -> collection.ticker == "COW-cd463d" }
-            .toList()
-            .map {
-                if (it.isNotEmpty())
-                    it[0].nfts
-                else
-                    listOf()
-            }
-            .toObservable()
-            .flatMapIterable { it }
-            .map { it.toDomain() }
-            .toList()
-            .subscribeBy(
-                onSuccess = {
-                    if (it.isNotEmpty())
-                        _uiState.value = UiState.Success(it)
-                    else
-                        _uiState.value = UiState.NoData
-                },
-                onError = {
-                    _uiState.value = UiState.Error(it.message.toString())
-                }
-            ).addTo(disposable)
+  fun getCowsListing() =
+    nftRepository.getCowsListing(address.value)
+      .map {
+        it.groupedByCollection
+      }
+      .flatMapIterable { it }
+      .filter { collection -> collection.ticker == "COW-cd463d" }
+      .toList()
+      .map {
+        if (it.isNotEmpty())
+          it[0].nfts
+        else
+          listOf()
+      }
+      .toObservable()
+      .flatMapIterable { it }
+      .map { it.toDomain() }
+      .toList()
+      .subscribeBy(
+        onSuccess = {
+          if (it.isNotEmpty())
+            _uiState.value = UiState.Success(it)
+          else
+            _uiState.value = UiState.NoData
+        },
+        onError = {
+          _uiState.value = UiState.Error(it.message.toString())
+        }
+      ).addTo(disposable)
 }

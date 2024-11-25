@@ -12,29 +12,29 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val accountRepository: AccountRepository
+  private val accountRepository: AccountRepository
 ) : BaseViewModel() {
 
-    private var _currentAccount : MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
-    val currentAccount : StateFlow<UiState> get() = _currentAccount
+  private var _currentAccount: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
+  val currentAccount: StateFlow<UiState> get() = _currentAccount
 
 
-    sealed class UiState {
-        data object Loading : UiState()
-        class Success (val data : DomainAccount) : UiState()
-        class Error (val error : String) : UiState()
-    }
+  sealed class UiState {
+    data object Loading : UiState()
+    class Success(val data: DomainAccount) : UiState()
+    class Error(val error: String) : UiState()
+  }
 
-    fun getAccount(
-        address: String
-    ) = accountRepository.getAccount(address)
-            .subscribeBy (
-                onSuccess = { account ->
-                    _currentAccount.value = UiState.Success(account)
-                },
-                onError = {
-                    _currentAccount.value = UiState.Error(it.toString())
-                }
-            ).addTo(disposable)
+  fun getAccount(
+    address: String
+  ) = accountRepository.getAccount(address)
+    .subscribeBy(
+      onSuccess = { account ->
+        _currentAccount.value = UiState.Success(account)
+      },
+      onError = {
+        _currentAccount.value = UiState.Error(it.toString())
+      }
+    ).addTo(disposable)
 
 }

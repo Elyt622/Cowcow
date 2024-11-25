@@ -6,8 +6,8 @@ import io.reactivex.rxjava3.core.Observable
 
 interface TransactionRepository {
 
-    fun sendTransaction(
-        tx: Transaction
-    ) : Observable<DomainTransaction>
+  fun sendTransaction(
+    tx: Transaction
+  ): Observable<DomainTransaction>
 
 }

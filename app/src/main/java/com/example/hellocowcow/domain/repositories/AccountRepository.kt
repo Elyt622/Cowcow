@@ -5,8 +5,8 @@ import io.reactivex.rxjava3.core.Single
 
 interface AccountRepository {
 
-    fun getAccount(
-        address: String
-    ) : Single<DomainAccount>
+  fun getAccount(
+    address: String
+  ): Single<DomainAccount>
 
 }

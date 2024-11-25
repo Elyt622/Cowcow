@@ -10,15 +10,15 @@ import com.example.hellocowcow.app.module.main.activity.MainActivity
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : BaseActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        startActivity(
-            Intent(
-                this@SplashActivity,
-                MainActivity::class.java
-            )
-        )
-        installSplashScreen()
-        finish()
-    }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    startActivity(
+      Intent(
+        this@SplashActivity,
+        MainActivity::class.java
+      )
+    )
+    installSplashScreen()
+    finish()
+  }
 }

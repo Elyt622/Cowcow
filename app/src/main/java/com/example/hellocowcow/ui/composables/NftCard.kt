@@ -31,68 +31,68 @@ import com.example.hellocowcow.ui.theme.Typography2
 @Composable
 fun NftCard(nft: DomainNft, onClicked: () -> Unit) {
 
-    val cardColors = CardDefaults.cardColors(
-        containerColor = MaterialTheme.colorScheme.primary,
-        contentColor = Color.Black
-    )
+  val cardColors = CardDefaults.cardColors(
+    containerColor = MaterialTheme.colorScheme.primary,
+    contentColor = Color.Black
+  )
 
-    ElevatedCard(
-        colors = cardColors,
-        modifier = Modifier.padding(8.dp),
-        elevation = CardDefaults.cardElevation(8.dp),
-        onClick = {
-            onClicked()
-        }
-    ) {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            CircularProgressIndicator(
-                modifier = Modifier.size(16.dp),
-                color = MaterialTheme.colorScheme.background
-            )
-            GlideImage(
-                model = nft.url,
-                contentDescription = nft.collection,
-                modifier = Modifier
-                    .padding(
-                        start = 8.dp,
-                        end = 8.dp,
-                        top = 8.dp
-                    )
-            )
-            if (nft.hasSecondNFT == true)
-                Icon(
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .align(Alignment.TopEnd),
-                    imageVector = Icons.Filled.Upgrade,
-                    contentDescription = Icons.Filled.Upgrade.name,
-                    tint = MaterialTheme.colorScheme.background
-                )
-        }
-
-        Column(
-            Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                color = MaterialTheme.colorScheme.background,
-                text = nft.name.toString(),
-                style = Typography2.bodyLarge
-            )
-        }
+  ElevatedCard(
+    colors = cardColors,
+    modifier = Modifier.padding(8.dp),
+    elevation = CardDefaults.cardElevation(8.dp),
+    onClick = {
+      onClicked()
     }
+  ) {
+    Box(
+      modifier = Modifier.fillMaxSize(),
+      contentAlignment = Alignment.Center
+    ) {
+      CircularProgressIndicator(
+        modifier = Modifier.size(16.dp),
+        color = MaterialTheme.colorScheme.background
+      )
+      GlideImage(
+        model = nft.url,
+        contentDescription = nft.collection,
+        modifier = Modifier
+          .padding(
+            start = 8.dp,
+            end = 8.dp,
+            top = 8.dp
+          )
+      )
+      if (nft.hasSecondNFT == true)
+        Icon(
+          modifier = Modifier
+            .padding(8.dp)
+            .align(Alignment.TopEnd),
+          imageVector = Icons.Filled.Upgrade,
+          contentDescription = Icons.Filled.Upgrade.name,
+          tint = MaterialTheme.colorScheme.background
+        )
+    }
+
+    Column(
+      Modifier
+        .align(Alignment.CenterHorizontally)
+        .padding(8.dp),
+      horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+      Text(
+        color = MaterialTheme.colorScheme.background,
+        text = nft.name.toString(),
+        style = Typography2.bodyLarge
+      )
+    }
+  }
 }
 
 fun onClicked(context: Context, nftId: String) {
-    val intent = Intent(
-        context,
-        NftActivity::class.java
-    )
-    intent.putExtra("IDENTIFIER", nftId)
-    context.startActivity(intent)
+  val intent = Intent(
+    context,
+    NftActivity::class.java
+  )
+  intent.putExtra("IDENTIFIER", nftId)
+  context.startActivity(intent)
 }

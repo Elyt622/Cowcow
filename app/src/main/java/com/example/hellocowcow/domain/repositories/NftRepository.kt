@@ -11,50 +11,50 @@ import io.reactivex.rxjava3.core.Single
 
 interface NftRepository {
 
-    fun getAllCowsInWallet(
-        address: String
-    ) : Single<List<DomainNft>>
+  fun getAllCowsInWallet(
+    address: String
+  ): Single<List<DomainNft>>
 
-    fun getNftMvx(
-        identifier: String
-    ) : Single<DomainNft>
+  fun getNftMvx(
+    identifier: String
+  ): Single<DomainNft>
 
-    fun getAllDataUsers(
-        request: Reward
-    ) : Observable<com.example.hellocowcow.data.retrofit.mvxApi.response.Reward>
+  fun getAllDataUsers(
+    request: Reward
+  ): Observable<com.example.hellocowcow.data.retrofit.mvxApi.response.Reward>
 
-    fun getCowsWithCollection(
-        identifiers: String,
-        size: Int,
-        from: Int
-    ) : Single<List<DomainNft>>
+  fun getCowsWithCollection(
+    identifiers: String,
+    size: Int,
+    from: Int
+  ): Single<List<DomainNft>>
 
-    fun getNftXoxno(
-        identifier: String
-    ) : Single<DomainNft>
+  fun getNftXoxno(
+    identifier: String
+  ): Single<DomainNft>
 
-    fun getCowsListing(
-        address: String
-    ): Observable<Collection>
+  fun getCowsListing(
+    address: String
+  ): Observable<Collection>
 
-    fun getCowsInWallet(
-        address: String
-    ): Observable<Collection>
+  fun getCowsInWallet(
+    address: String
+  ): Observable<Collection>
 
-    fun getUpgradedCowsCount()
-    : Observable<Upgraded>
+  fun getUpgradedCowsCount()
+      : Observable<Upgraded>
 
-    fun getStakingCowsCount()
-    : Single<Int>
+  fun getStakingCowsCount()
+      : Single<Int>
 
-    fun getStatsCollection(
-        collection: String
-    ): Observable<StatsCollection>
+  fun getStatsCollection(
+    collection: String
+  ): Observable<StatsCollection>
 
-    fun getTicketsUsedCount()
-    : Single<Int>
+  fun getTicketsUsedCount()
+      : Single<Int>
 
-    fun getLastTenSold()
-    : Observable<ArrayList<Resources>>
+  fun getLastTenSold()
+      : Observable<ArrayList<Resources>>
 
 }

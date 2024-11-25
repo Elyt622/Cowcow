@@ -15,42 +15,43 @@ import com.example.hellocowcow.data.Data
 @Composable
 fun BottomBar(navController: NavController) {
 
-    fun onClick(route: String) {
-        navController.navigate(route){
-            navController.graph.startDestinationRoute?.let {
-                popUpTo(it) { saveState = true }
-            }
-        launchSingleTop = true
-        }
+  fun onClick(route: String) {
+    navController.navigate(route) {
+      navController.graph.startDestinationRoute?.let {
+        popUpTo(it) { saveState = true }
+      }
+      launchSingleTop = true
     }
+  }
 
-    val navStackBackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navStackBackEntry?.destination?.route
+  val navStackBackEntry by navController.currentBackStackEntryAsState()
+  val currentRoute = navStackBackEntry?.destination?.route
 
-    NavigationBar (
-        containerColor = MaterialTheme.colorScheme.background
-    ) {
-        Data.items.forEach { item ->
-            NavigationBarItem(
-                icon = { Icon(imageVector = item.icon, contentDescription = item.label) },
-                label =
-                { if(currentRoute == item.route)
-                    Text(
-                        text = item.label,
-                        style = MaterialTheme.typography.labelSmall
-                    )
-                },
-                selected = currentRoute == item.label,
-                onClick = { onClick(item.route) },
-                colors =
-                    NavigationBarItemDefaults.colors(
-                        selectedIconColor = MaterialTheme.colorScheme.background,
-                        selectedTextColor = MaterialTheme.colorScheme.primary,
-                        indicatorColor = MaterialTheme.colorScheme.primary,
-                        unselectedTextColor = MaterialTheme.colorScheme.secondary,
-                        unselectedIconColor = MaterialTheme.colorScheme.secondary
-                    )
-                )
-            }
-        }
+  NavigationBar(
+    containerColor = MaterialTheme.colorScheme.background
+  ) {
+    Data.items.forEach { item ->
+      NavigationBarItem(
+        icon = { Icon(imageVector = item.icon, contentDescription = item.label) },
+        label =
+        {
+          if (currentRoute == item.route)
+            Text(
+              text = item.label,
+              style = MaterialTheme.typography.labelSmall
+            )
+        },
+        selected = currentRoute == item.label,
+        onClick = { onClick(item.route) },
+        colors =
+        NavigationBarItemDefaults.colors(
+          selectedIconColor = MaterialTheme.colorScheme.background,
+          selectedTextColor = MaterialTheme.colorScheme.primary,
+          indicatorColor = MaterialTheme.colorScheme.primary,
+          unselectedTextColor = MaterialTheme.colorScheme.secondary,
+          unselectedIconColor = MaterialTheme.colorScheme.secondary
+        )
+      )
+    }
+  }
 }

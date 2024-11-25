@@ -10,24 +10,24 @@ import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 class TokenRepositoryImpl @Inject constructor(
-    private val mySchedulers: MySchedulers,
-    private val mvxApi: MvxApi
+  private val mySchedulers: MySchedulers,
+  private val mvxApi: MvxApi
 ) : TokenRepository {
 
-    override fun getToken(
-        id: String
-    ): Single<DomainToken> =
-        mvxApi.getToken(id).map { it.toDomain() }
-            .subscribeOn(mySchedulers.io)
-            .observeOn(mySchedulers.main)
+  override fun getToken(
+    id: String
+  ): Single<DomainToken> =
+    mvxApi.getToken(id).map { it.toDomain() }
+      .subscribeOn(mySchedulers.io)
+      .observeOn(mySchedulers.main)
 
-    override
-    fun getTotalRewardsToCollect(
-        reward: Reward
-    ) : Single<DomainReward> =
-        mvxApi.getTotalRewardsToCollect(reward)
-            .map { it.toDomain() }
-            .subscribeOn(mySchedulers.io)
-            .observeOn(mySchedulers.main)
+  override
+  fun getTotalRewardsToCollect(
+    reward: Reward
+  ) : Single<DomainReward> =
+    mvxApi.getTotalRewardsToCollect(reward)
+      .map { it.toDomain() }
+      .subscribeOn(mySchedulers.io)
+      .observeOn(mySchedulers.main)
 
 }

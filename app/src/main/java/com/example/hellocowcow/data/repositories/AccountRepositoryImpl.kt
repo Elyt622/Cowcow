@@ -9,16 +9,16 @@ import javax.inject.Inject
 
 
 class AccountRepositoryImpl @Inject constructor(
-    private val mySchedulers: MySchedulers,
-    private val mvxApi: MvxApi
+  private val mySchedulers: MySchedulers,
+  private val mvxApi: MvxApi
 ) : AccountRepository{
-    override
-    fun getAccount(
-        address: String
-    ): Single<DomainAccount> =
-        mvxApi.getAccount(address)
-            .map { it.toDomain() }
-            .subscribeOn(mySchedulers.io)
-            .observeOn(mySchedulers.main)
+  override
+  fun getAccount(
+    address: String
+  ): Single<DomainAccount> =
+    mvxApi.getAccount(address)
+      .map { it.toDomain() }
+      .subscribeOn(mySchedulers.io)
+      .observeOn(mySchedulers.main)
 
 }

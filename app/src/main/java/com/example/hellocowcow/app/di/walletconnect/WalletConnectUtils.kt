@@ -11,8 +11,8 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 abstract class UtilsWalletConnectModule {
 
-    @Binds
-    abstract fun bindWalletConnect(
-        walletConnectImpl: MyWalletConnectImpl
-    ): MyWalletConnect
+  @Binds
+  abstract fun bindWalletConnect(
+    walletConnectImpl: MyWalletConnectImpl
+  ): MyWalletConnect
 }

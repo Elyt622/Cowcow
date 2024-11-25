@@ -29,78 +29,78 @@ import es.dmoral.toasty.Toasty
 
 @Composable
 fun MarketScreen(
-    viewModel: MarketViewModel
+  viewModel: MarketViewModel
 ) {
-    val uiState by viewModel.uiState.collectAsState()
-    val context = LocalContext.current
+  val uiState by viewModel.uiState.collectAsState()
+  val context = LocalContext.current
 
-    val functionExecuted = remember { mutableStateOf(false) }
+  val functionExecuted = remember { mutableStateOf(false) }
 
-    // LaunchedEffect runs when the Composable starts up
-    LaunchedEffect(Unit) {
-        if (!functionExecuted.value) {
-            viewModel.getCowsListing()
-            functionExecuted.value = true
-        }
+  // LaunchedEffect runs when the Composable starts up
+  LaunchedEffect(Unit) {
+    if (!functionExecuted.value) {
+      viewModel.getCowsListing()
+      functionExecuted.value = true
+    }
+  }
+
+  when (uiState) {
+    is MarketViewModel.UiState.Success -> {
+      (uiState as MarketViewModel.UiState.Success).data.let { nfts ->
+        Text(
+          modifier = Modifier.padding(start = 8.dp, top = 8.dp),
+          text = "Cows: " + nfts.size.toString(),
+          style = MaterialTheme.typography.labelMedium
+        )
+        LazyVerticalGrid(
+          modifier = Modifier.padding(
+            start = 8.dp,
+            end = 8.dp,
+            bottom = 40.dp
+          ),
+          columns = GridCells.Adaptive(150.dp),
+          content = {
+            items(nfts) { nft ->
+              NftCard(nft = nft) {
+                nft.identifier?.let {
+                  onClicked(context, it)
+                }
+              }
+            }
+          }
+        )
+      }
     }
 
-    when (uiState) {
-        is MarketViewModel.UiState.Success -> {
-            (uiState as MarketViewModel.UiState.Success).data.let { nfts ->
-                Text(
-                    modifier = Modifier.padding(start = 8.dp, top = 8.dp),
-                    text = "Cows: " + nfts.size.toString(),
-                    style = MaterialTheme.typography.labelMedium
-                )
-                LazyVerticalGrid(
-                    modifier = Modifier.padding(
-                        start = 8.dp,
-                        end = 8.dp,
-                        bottom = 40.dp
-                    ),
-                    columns = GridCells.Adaptive(150.dp),
-                    content = {
-                        items(nfts) { nft ->
-                            NftCard(nft = nft) {
-                                nft.identifier?.let {
-                                    onClicked(context, it)
-                                }
-                            }
-                        }
-                    }
-                )
-            }
-        }
-
-        is MarketViewModel.UiState.Loading -> Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            CircularProgressIndicator(
-                modifier = Modifier.width(60.dp),
-                color = MaterialTheme.colorScheme.primary
-            )
-        }
-
-        is MarketViewModel.UiState.Error -> {
-            Toasty.error(
-                LocalContext.current,
-                (uiState as MarketViewModel.UiState.Error).error,
-                Toast.LENGTH_LONG
-            ).show()
-        }
-
-        is MarketViewModel.UiState.NoData -> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "No NFT on the market place !",
-                    style = Typography2.bodyLarge
-                )
-            }
-        }
+    is MarketViewModel.UiState.Loading -> Box(
+      modifier = Modifier.fillMaxSize(),
+      contentAlignment = Alignment.Center
+    ) {
+      CircularProgressIndicator(
+        modifier = Modifier.width(60.dp),
+        color = MaterialTheme.colorScheme.primary
+      )
     }
+
+    is MarketViewModel.UiState.Error -> {
+      Toasty.error(
+        LocalContext.current,
+        (uiState as MarketViewModel.UiState.Error).error,
+        Toast.LENGTH_LONG
+      ).show()
+    }
+
+    is MarketViewModel.UiState.NoData -> {
+      Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+      ) {
+        Text(
+          text = "No NFT on the market place !",
+          style = Typography2.bodyLarge
+        )
+      }
+    }
+  }
 }
 

@@ -20,41 +20,41 @@ import javax.inject.Singleton
 @Module
 object NetworkModule {
 
-    private const val customTimeout = 6L
+  private const val customTimeout = 6L
 
-    private val httpClient = OkHttpClient.Builder()
-        .connectTimeout(customTimeout, TimeUnit.SECONDS)
-        .retryOnConnectionFailure(true)
-        .build()
+  private val httpClient = OkHttpClient.Builder()
+    .connectTimeout(customTimeout, TimeUnit.SECONDS)
+    .retryOnConnectionFailure(true)
+    .build()
 
-    @Provides
-    @Singleton
-    fun provideMvxApi() : MvxApi =
-        Retrofit.Builder()
-            .baseUrl("https://api.multiversx.com/")
-            .client(httpClient)
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .build().create(MvxApi::class.java)
+  @Provides
+  @Singleton
+  fun provideMvxApi() : MvxApi =
+    Retrofit.Builder()
+      .baseUrl("https://api.multiversx.com/")
+      .client(httpClient)
+      .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+      .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+      .build().create(MvxApi::class.java)
 
-    @Provides
-    @Singleton
-    fun provideProxyXoxnoApi(): ProxyXoxnoApi =
-        Retrofit.Builder()
-            .baseUrl("https://proxy-api.xoxno.com/")
-            .client(httpClient)
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .build().create(ProxyXoxnoApi::class.java)
+  @Provides
+  @Singleton
+  fun provideProxyXoxnoApi(): ProxyXoxnoApi =
+    Retrofit.Builder()
+      .baseUrl("https://proxy-api.xoxno.com/")
+      .client(httpClient)
+      .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+      .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+      .build().create(ProxyXoxnoApi::class.java)
 
-    @Provides
-    @Singleton
-    fun provideXoxnoApi() : XoxnoApi =
-        Retrofit.Builder()
-            .baseUrl("https://xoxno.com/")
-            .client(httpClient)
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .build().create(XoxnoApi::class.java)
+  @Provides
+  @Singleton
+  fun provideXoxnoApi() : XoxnoApi =
+    Retrofit.Builder()
+      .baseUrl("https://xoxno.com/")
+      .client(httpClient)
+      .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+      .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+      .build().create(XoxnoApi::class.java)
 
 }

@@ -29,69 +29,73 @@ import com.example.hellocowcow.ui.viewmodels.screen.stats.TokenViewModel
 
 @Composable
 fun StatsScreen() {
-    Surface(
-        Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
+  Surface(
+    Modifier.fillMaxSize(),
+    color = MaterialTheme.colorScheme.background
+  ) {
+    Column(
+      horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = "Moove Forward.",
-                fontSize = 22.sp,
-                color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier
-                    .padding(top = 20.dp),
-                fontWeight = FontWeight.Bold
-            )
+      Text(
+        text = "Moove Forward.",
+        fontSize = 22.sp,
+        color = MaterialTheme.colorScheme.primary,
+        modifier = Modifier
+          .padding(top = 20.dp),
+        fontWeight = FontWeight.Bold
+      )
 
-            Text(
-                text = "Moove Together.",
-                fontSize = 22.sp,
-                color = MaterialTheme.colorScheme.onPrimary,
-                fontWeight = FontWeight.ExtraBold
-            )
-        }
-        TabScreen()
+      Text(
+        text = "Moove Together.",
+        fontSize = 22.sp,
+        color = MaterialTheme.colorScheme.onPrimary,
+        fontWeight = FontWeight.ExtraBold
+      )
     }
+    TabScreen()
+  }
 }
 
 @Composable
 fun TabScreen() {
 
-    var tabIndex by remember { mutableIntStateOf(0) }
+  var tabIndex by remember { mutableIntStateOf(0) }
 
-    val tabs = listOf("Moove", "Cow", "Ticket")
+  val tabs = listOf("Moove", "Cow", "Ticket")
 
-    Column(modifier = Modifier.padding(top = 90.dp).fillMaxWidth()) {
-        TabRow(
-            selectedTabIndex = tabIndex,
-            containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = MaterialTheme.colorScheme.background
-        ) {
-            tabs.forEachIndexed { index, title ->
-                Tab(
-                    text = { Text(title, style = MaterialTheme.typography.bodyLarge) },
-                    selected = tabIndex == index,
-                    onClick = { tabIndex = index },
-                    selectedContentColor = MaterialTheme.colorScheme.background,
-                    unselectedContentColor = MaterialTheme.colorScheme.background
-                )
-            }
-        }
-        when (tabIndex) {
-            0 -> {
-                val viewModel: TokenViewModel = hiltViewModel()
-                TokenScreen(viewModel)
-            }
-            1 -> {
-                val viewModel: CollectionViewModel = hiltViewModel()
-                CollectionScreen(viewModel)
-            }
-            2 -> {
-                val viewModel: TicketViewModel = hiltViewModel()
-                TicketScreen(viewModel)
-            }
-        }
+  Column(modifier = Modifier
+    .padding(top = 90.dp)
+    .fillMaxWidth()) {
+    TabRow(
+      selectedTabIndex = tabIndex,
+      containerColor = MaterialTheme.colorScheme.primary,
+      contentColor = MaterialTheme.colorScheme.background
+    ) {
+      tabs.forEachIndexed { index, title ->
+        Tab(
+          text = { Text(title, style = MaterialTheme.typography.bodyLarge) },
+          selected = tabIndex == index,
+          onClick = { tabIndex = index },
+          selectedContentColor = MaterialTheme.colorScheme.background,
+          unselectedContentColor = MaterialTheme.colorScheme.background
+        )
+      }
     }
+    when (tabIndex) {
+      0 -> {
+        val viewModel: TokenViewModel = hiltViewModel()
+        TokenScreen(viewModel)
+      }
+
+      1 -> {
+        val viewModel: CollectionViewModel = hiltViewModel()
+        CollectionScreen(viewModel)
+      }
+
+      2 -> {
+        val viewModel: TicketViewModel = hiltViewModel()
+        TicketScreen(viewModel)
+      }
+    }
+  }
 }

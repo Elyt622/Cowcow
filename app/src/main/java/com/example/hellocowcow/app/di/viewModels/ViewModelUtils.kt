@@ -11,9 +11,9 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 abstract class UtilsPresenterModule {
 
-    @Binds
-    abstract fun bindNetworkSchedulers(
-        networkSchedulers: MySchedulersImpl
-    ): MySchedulers
+  @Binds
+  abstract fun bindNetworkSchedulers(
+    networkSchedulers: MySchedulersImpl
+  ): MySchedulers
 
 }

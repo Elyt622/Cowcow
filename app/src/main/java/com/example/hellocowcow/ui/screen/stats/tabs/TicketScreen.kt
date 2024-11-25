@@ -33,172 +33,177 @@ import es.dmoral.toasty.Toasty
 
 @Composable
 fun TicketScreen(
-    viewModel: TicketViewModel
+  viewModel: TicketViewModel
 ) {
-    val context = LocalContext.current
+  val context = LocalContext.current
 
-    val uiState by viewModel.uiState.collectAsState()
+  val uiState by viewModel.uiState.collectAsState()
 
-    val cardColors = CardDefaults.cardColors(
-        containerColor = MaterialTheme.colorScheme.primary,
-        contentColor = Color.Black
-    )
+  val cardColors = CardDefaults.cardColors(
+    containerColor = MaterialTheme.colorScheme.primary,
+    contentColor = Color.Black
+  )
 
-    when(uiState) {
-        is TicketViewModel.UiState.Error ->
-            (uiState as TicketViewModel.UiState.Error)
-                .error.let { err ->
-                    Toasty.error(
-                        context,
-                        err,
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-        else -> {}
-    }
-    Surface(
-        modifier = Modifier
-            .padding(bottom = 40.dp, top = 10.dp)
-            .verticalScroll(rememberScrollState()),
-        color = MaterialTheme.colorScheme.background
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Card(
-                Modifier.padding(8.dp).align(Alignment.CenterHorizontally),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.secondary,
-                    contentColor = Color.Black
-                )
-            ) {
-                Spacer(modifier = Modifier.size(10.dp))
-                ElevatedCard(
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
-                        contentColor = MaterialTheme.colorScheme.background
-                    ),
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                ) {
-                    Text(
-                        modifier = Modifier.padding(10.dp),
-                        text = "Tickets",
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                }
-                Row(
-                    Modifier
-                        .align(Alignment.CenterHorizontally)
-                ) {
-                    Column(
-                        Modifier
-                            .padding(8.dp)
-                            .weight(1f),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = "Ticket FP",
-                            style = MaterialTheme.typography.labelMedium
-                        )
-
-                        Spacer(modifier = Modifier.size(10.dp))
-
-                        ElevatedCard(
-                            colors = cardColors,
-                            elevation = CardDefaults.cardElevation(20.dp)
-                        ) {
-                            Row(
-                                Modifier.padding(8.dp)
-                            ) {
-                                when (uiState) {
-                                    is TicketViewModel.UiState.Loading ->
-                                        Box(
-                                            modifier = Modifier.size(16.dp),
-                                            contentAlignment = Alignment.Center
-                                        ) {
-                                            CircularProgressIndicator(color = Color.Black)
-                                        }
-
-                                    is TicketViewModel.UiState.Success ->
-                                        (uiState as TicketViewModel.UiState.Success)
-                                            .data.let { collection ->
-                                                Text(
-                                                    text = collection.floorPrice.toString(),
-                                                    style = MaterialTheme.typography.bodyLarge
-                                                )
-                                            }
-                                    else -> {}
-                                }
-
-                                Image(
-                                    modifier = Modifier
-                                        .align(Alignment.CenterVertically)
-                                        .padding(start = 4.dp)
-                                        .size(16.dp),
-                                    imageVector = ImageVector
-                                        .vectorResource(id = R.drawable.egld),
-                                    contentDescription = ""
-                                )
-                            }
-                        }
-                    }
-
-
-                    Column(
-                        Modifier
-                            .padding(8.dp)
-                            .weight(1f),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = "Tickets Used",
-                            style = MaterialTheme.typography.labelMedium
-                        )
-
-                        Spacer(modifier = Modifier.size(10.dp))
-
-                        ElevatedCard(
-                            colors = cardColors,
-                            elevation = CardDefaults.cardElevation(20.dp)
-                        ) {
-                            Row(
-                                Modifier.padding(8.dp)
-                            ) {
-                                when (uiState) {
-                                    is TicketViewModel.UiState.Loading ->
-                                        Box(
-                                            modifier = Modifier.size(16.dp),
-                                            contentAlignment = Alignment.Center
-                                        ) {
-                                            CircularProgressIndicator(color = Color.Black)
-                                        }
-
-                                    is TicketViewModel.UiState.Success ->
-                                        (uiState as TicketViewModel.UiState.Success)
-                                            .data.let { collection ->
-                                                Text(
-                                                    text = collection.ticketsUsed.toString(),
-                                                    style = MaterialTheme.typography.bodyLarge
-                                                )
-                                            }
-                                    else -> {}
-                                }
-
-                                Image(
-                                    modifier = Modifier
-                                        .align(Alignment.CenterVertically)
-                                        .padding(start = 4.dp)
-                                        .size(16.dp),
-                                    imageVector = ImageVector
-                                        .vectorResource(id = R.drawable.ticket),
-                                    contentDescription = ""
-                                )
-                            }
-                        }
-                    }
-                }
-                Spacer(modifier = Modifier.size(12.dp))
-            }
+  when (uiState) {
+    is TicketViewModel.UiState.Error ->
+      (uiState as TicketViewModel.UiState.Error)
+        .error.let { err ->
+          Toasty.error(
+            context,
+            err,
+            Toast.LENGTH_LONG
+          ).show()
         }
+
+    else -> {}
+  }
+  Surface(
+    modifier = Modifier
+      .padding(bottom = 40.dp, top = 10.dp)
+      .verticalScroll(rememberScrollState()),
+    color = MaterialTheme.colorScheme.background
+  ) {
+    Column(
+      horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+      Card(
+        Modifier
+          .padding(8.dp)
+          .align(Alignment.CenterHorizontally),
+        colors = CardDefaults.cardColors(
+          containerColor = MaterialTheme.colorScheme.secondary,
+          contentColor = Color.Black
+        )
+      ) {
+        Spacer(modifier = Modifier.size(10.dp))
+        ElevatedCard(
+          colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = MaterialTheme.colorScheme.background
+          ),
+          modifier = Modifier.align(Alignment.CenterHorizontally)
+        ) {
+          Text(
+            modifier = Modifier.padding(10.dp),
+            text = "Tickets",
+            style = MaterialTheme.typography.titleMedium
+          )
+        }
+        Row(
+          Modifier
+            .align(Alignment.CenterHorizontally)
+        ) {
+          Column(
+            Modifier
+              .padding(8.dp)
+              .weight(1f),
+            horizontalAlignment = Alignment.CenterHorizontally
+          ) {
+            Text(
+              text = "Ticket FP",
+              style = MaterialTheme.typography.labelMedium
+            )
+
+            Spacer(modifier = Modifier.size(10.dp))
+
+            ElevatedCard(
+              colors = cardColors,
+              elevation = CardDefaults.cardElevation(20.dp)
+            ) {
+              Row(
+                Modifier.padding(8.dp)
+              ) {
+                when (uiState) {
+                  is TicketViewModel.UiState.Loading ->
+                    Box(
+                      modifier = Modifier.size(16.dp),
+                      contentAlignment = Alignment.Center
+                    ) {
+                      CircularProgressIndicator(color = Color.Black)
+                    }
+
+                  is TicketViewModel.UiState.Success ->
+                    (uiState as TicketViewModel.UiState.Success)
+                      .data.let { collection ->
+                        Text(
+                          text = collection.floorPrice.toString(),
+                          style = MaterialTheme.typography.bodyLarge
+                        )
+                      }
+
+                  else -> {}
+                }
+
+                Image(
+                  modifier = Modifier
+                    .align(Alignment.CenterVertically)
+                    .padding(start = 4.dp)
+                    .size(16.dp),
+                  imageVector = ImageVector
+                    .vectorResource(id = R.drawable.egld),
+                  contentDescription = ""
+                )
+              }
+            }
+          }
+
+
+          Column(
+            Modifier
+              .padding(8.dp)
+              .weight(1f),
+            horizontalAlignment = Alignment.CenterHorizontally
+          ) {
+            Text(
+              text = "Tickets Used",
+              style = MaterialTheme.typography.labelMedium
+            )
+
+            Spacer(modifier = Modifier.size(10.dp))
+
+            ElevatedCard(
+              colors = cardColors,
+              elevation = CardDefaults.cardElevation(20.dp)
+            ) {
+              Row(
+                Modifier.padding(8.dp)
+              ) {
+                when (uiState) {
+                  is TicketViewModel.UiState.Loading ->
+                    Box(
+                      modifier = Modifier.size(16.dp),
+                      contentAlignment = Alignment.Center
+                    ) {
+                      CircularProgressIndicator(color = Color.Black)
+                    }
+
+                  is TicketViewModel.UiState.Success ->
+                    (uiState as TicketViewModel.UiState.Success)
+                      .data.let { collection ->
+                        Text(
+                          text = collection.ticketsUsed.toString(),
+                          style = MaterialTheme.typography.bodyLarge
+                        )
+                      }
+
+                  else -> {}
+                }
+
+                Image(
+                  modifier = Modifier
+                    .align(Alignment.CenterVertically)
+                    .padding(start = 4.dp)
+                    .size(16.dp),
+                  imageVector = ImageVector
+                    .vectorResource(id = R.drawable.ticket),
+                  contentDescription = ""
+                )
+              }
+            }
+          }
+        }
+        Spacer(modifier = Modifier.size(12.dp))
+      }
     }
+  }
 }

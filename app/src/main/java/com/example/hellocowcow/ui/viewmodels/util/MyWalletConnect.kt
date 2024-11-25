@@ -4,8 +4,8 @@ import com.example.hellocowcow.domain.models.DappDelegate
 import javax.inject.Inject
 
 interface DAppDelegateProvider {
-    val dAppDelegate: DappDelegate
-        get() = DappDelegate
+  val dAppDelegate: DappDelegate
+    get() = DappDelegate
 }
 
 interface MyWalletConnect : DAppDelegateProvider

@@ -8,12 +8,12 @@ import androidx.compose.material.icons.filled.QueryStats
 import androidx.compose.ui.graphics.vector.ImageVector
 
 sealed class ItemNav(
-    val label : String,
-    val icon : ImageVector,
-    val route : String
+  val label: String,
+  val icon: ImageVector,
+  val route: String
 ) {
-    data object Home : ItemNav("Home", Icons.Filled.Home, "Home")
-    data object Raffles : ItemNav("Raffles", Icons.Filled.Money, "Raffles")
-    data object Stats : ItemNav("Stats", Icons.Filled.QueryStats, "Stats")
-    data object Profile : ItemNav("Profile", Icons.Filled.Person, "Profile")
+  data object Home : ItemNav("Home", Icons.Filled.Home, "Home")
+  data object Raffles : ItemNav("Raffles", Icons.Filled.Money, "Raffles")
+  data object Stats : ItemNav("Stats", Icons.Filled.QueryStats, "Stats")
+  data object Profile : ItemNav("Profile", Icons.Filled.Person, "Profile")
 }

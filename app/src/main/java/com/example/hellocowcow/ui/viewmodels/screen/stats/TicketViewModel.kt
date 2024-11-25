@@ -13,48 +13,48 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TicketViewModel @Inject constructor(
-    private val nftRepository: NftRepository
+  private val nftRepository: NftRepository
 ) : BaseViewModel() {
 
-    sealed class UiState {
-        data object Loading : UiState()
-        data class Success(val data: TicketCollection) : UiState()
-        data class Error(val error: String) : UiState()
-    }
+  sealed class UiState {
+    data object Loading : UiState()
+    data class Success(val data: TicketCollection) : UiState()
+    data class Error(val error: String) : UiState()
+  }
 
-    private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
-    val uiState: StateFlow<UiState> = _uiState
+  private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
+  val uiState: StateFlow<UiState> = _uiState
 
-    init {
-        getTicketCollectionStats()
-    }
+  init {
+    getTicketCollectionStats()
+  }
 
-    private fun getTicketCollectionStats() =
-        Observable.zip(
-            nftRepository.getStatsCollection(
-                "TICKET-231cd2"
-            ).map { it.pageProps!! },
-            nftRepository.getTicketsUsedCount().toObservable()
-        ) { stats, ticketUsed ->
-            TicketCollection(
-                holdersCount = stats.holdersCount,
-                listedCount = stats.listedNFTs,
-                floorPrice = stats.fallBackFloor,
-                athEgldPrice = stats.profileFallback?.statistics?.tradeData?.athEgldPrice,
-                totalTrades = stats.profileFallback?.statistics?.tradeData?.totalTrades,
-                followAccountsCount = stats.profileFallback?.statistics?.other?.followCount,
-                dayEgldVolume = stats.profileFallback?.statistics?.tradeData?.dayEgldVolume,
-                weekEgldVolume = stats.profileFallback?.statistics?.tradeData?.weekEgldVolume,
-                totalEgldVolume = stats.profileFallback?.statistics?.tradeData?.totalEgldVolume,
-                ticketsUsed = ticketUsed
-            )
-        }.subscribeBy(
-            onNext = {
-                _uiState.value = UiState.Success(it)
-            },
-            onError = {
-                _uiState.value = UiState.Error(it.message.toString())
-            }
-        ).addTo(disposable)
+  private fun getTicketCollectionStats() =
+    Observable.zip(
+      nftRepository.getStatsCollection(
+        "TICKET-231cd2"
+      ).map { it.pageProps!! },
+      nftRepository.getTicketsUsedCount().toObservable()
+    ) { stats, ticketUsed ->
+      TicketCollection(
+        holdersCount = stats.holdersCount,
+        listedCount = stats.listedNFTs,
+        floorPrice = stats.fallBackFloor,
+        athEgldPrice = stats.profileFallback?.statistics?.tradeData?.athEgldPrice,
+        totalTrades = stats.profileFallback?.statistics?.tradeData?.totalTrades,
+        followAccountsCount = stats.profileFallback?.statistics?.other?.followCount,
+        dayEgldVolume = stats.profileFallback?.statistics?.tradeData?.dayEgldVolume,
+        weekEgldVolume = stats.profileFallback?.statistics?.tradeData?.weekEgldVolume,
+        totalEgldVolume = stats.profileFallback?.statistics?.tradeData?.totalEgldVolume,
+        ticketsUsed = ticketUsed
+      )
+    }.subscribeBy(
+      onNext = {
+        _uiState.value = UiState.Success(it)
+      },
+      onError = {
+        _uiState.value = UiState.Error(it.message.toString())
+      }
+    ).addTo(disposable)
 
 }

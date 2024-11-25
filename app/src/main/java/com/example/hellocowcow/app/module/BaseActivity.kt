@@ -5,11 +5,11 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 open class BaseActivity : ComponentActivity() {
 
-    protected val disposable = CompositeDisposable()
+  protected val disposable = CompositeDisposable()
 
-    override
-    fun onDestroy() {
-        super.onDestroy()
-        disposable.clear()
-    }
+  override
+  fun onDestroy() {
+    super.onDestroy()
+    disposable.clear()
+  }
 }

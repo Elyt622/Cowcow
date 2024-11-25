@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Attributes (
 
-    @SerializedName("trait_type" ) var traitType : String? = null,
-    @SerializedName("value"      ) var value     : String? = null
+  @SerializedName("trait_type" ) var traitType : String? = null,
+  @SerializedName("value"      ) var value     : String? = null
 
 )

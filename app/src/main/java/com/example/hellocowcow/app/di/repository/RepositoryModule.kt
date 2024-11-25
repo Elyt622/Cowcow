@@ -18,24 +18,24 @@ import dagger.hilt.android.components.ViewModelComponent
 @Module
 abstract class RepositoryModule {
 
-    @Binds
-    abstract fun bindTokenRepository(
-        tokenRepositoryImpl: TokenRepositoryImpl
-    ) : TokenRepository
+  @Binds
+  abstract fun bindTokenRepository(
+    tokenRepositoryImpl: TokenRepositoryImpl
+  ) : TokenRepository
 
-    @Binds
-    abstract fun bindTransactionRepository(
-        transactionRepositoryImpl: TransactionRepositoryImpl
-    ) : TransactionRepository
+  @Binds
+  abstract fun bindTransactionRepository(
+    transactionRepositoryImpl: TransactionRepositoryImpl
+  ) : TransactionRepository
 
-    @Binds
-    abstract fun bindNftRepository(
-        nftRepositoryImpl: NftRepositoryImpl
-    ) : NftRepository
+  @Binds
+  abstract fun bindNftRepository(
+    nftRepositoryImpl: NftRepositoryImpl
+  ) : NftRepository
 
-    @Binds
-    abstract fun bindAccountRepository(
-        accountRepositoryImpl: AccountRepositoryImpl
-    ) : AccountRepository
+  @Binds
+  abstract fun bindAccountRepository(
+    accountRepositoryImpl: AccountRepositoryImpl
+  ) : AccountRepository
 
 }

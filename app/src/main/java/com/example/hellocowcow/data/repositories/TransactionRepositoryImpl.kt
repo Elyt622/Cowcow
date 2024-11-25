@@ -9,17 +9,17 @@ import io.reactivex.rxjava3.core.Observable
 import javax.inject.Inject
 
 class TransactionRepositoryImpl @Inject constructor(
-    private val mySchedulers: MySchedulers,
-    private val mvxApi: MvxApi
+  private val mySchedulers: MySchedulers,
+  private val mvxApi: MvxApi
 ) : TransactionRepository {
 
-    override
-    fun sendTransaction(
-        tx: Transaction
-    ) : Observable<DomainTransaction> =
-        mvxApi.sendTransaction(tx)
-            .map { it.toDomain() }
-            .subscribeOn(mySchedulers.io)
-            .observeOn(mySchedulers.main)
+  override
+  fun sendTransaction(
+    tx: Transaction
+  ) : Observable<DomainTransaction> =
+    mvxApi.sendTransaction(tx)
+      .map { it.toDomain() }
+      .subscribeOn(mySchedulers.io)
+      .observeOn(mySchedulers.main)
 
 }

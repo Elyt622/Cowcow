@@ -42,99 +42,99 @@ import timber.log.Timber
 @AndroidEntryPoint
 class LoginActivity : BaseActivity() {
 
-    private val viewModel by viewModels<LoginViewModel>()
+  private val viewModel by viewModels<LoginViewModel>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            HelloCowCowTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Body()
-                }
-            }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContent {
+      HelloCowCowTheme {
+        Surface(
+          modifier = Modifier.fillMaxSize(),
+          color = MaterialTheme.colorScheme.background
+        ) {
+          Body()
         }
+      }
     }
+  }
 
-    @Composable
-    fun Body() {
+  @Composable
+  fun Body() {
 
-        val context = LocalContext.current
+    val context = LocalContext.current
 
-        Column (
-            Modifier.padding(bottom = 50.dp),
-            verticalArrangement = Arrangement.Center
-        ){
-            Text(
-                text = "Hello CowCow !",
-                fontSize = 22.sp,
-                color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
-                textAlign = TextAlign.Center
+    Column (
+      Modifier.padding(bottom = 50.dp),
+      verticalArrangement = Arrangement.Center
+    ){
+      Text(
+        text = "Hello CowCow !",
+        fontSize = 22.sp,
+        color = MaterialTheme.colorScheme.primary,
+        modifier = Modifier
+          .padding(16.dp)
+          .fillMaxWidth(),
+        textAlign = TextAlign.Center
+      )
+
+      TextButton(
+        modifier = Modifier
+          .background(color = MaterialTheme.colorScheme.primary)
+          .border(
+            BorderStroke(0.dp, Color.Red),
+            shape = RoundedCornerShape(0.dp)
+          )
+          .align(Alignment.CenterHorizontally),
+        onClick = {
+
+          Toasty.info(
+            context,
+            "Sent on xPortal"
+          ).show()
+
+          login()
+
+          viewModel.connectToWallet { uri ->
+            val xPortalIntent = Intent(
+              Intent.ACTION_VIEW,
+              ("https://xportal.page.link/" +
+                  "?apn=com.multiversx.maiar.wallet" +
+                  "&isi=1519405832&ibi=" +
+                  "com.multiversx.maiar.wallet" +
+                  "&link=https://maiar.com/?wallet-connect=" +
+                  uri)
+                .toUri()
             )
-
-            TextButton(
-                modifier = Modifier
-                    .background(color = MaterialTheme.colorScheme.primary)
-                    .border(
-                        BorderStroke(0.dp, Color.Red),
-                        shape = RoundedCornerShape(0.dp)
-                    )
-                    .align(Alignment.CenterHorizontally),
-                onClick = {
-
-                    Toasty.info(
-                        context,
-                        "Sent on xPortal"
-                    ).show()
-
-                    login()
-
-                    viewModel.connectToWallet { uri ->
-                        val xPortalIntent = Intent(
-                            Intent.ACTION_VIEW,
-                            ("https://xportal.page.link/" +
-                                    "?apn=com.multiversx.maiar.wallet" +
-                                    "&isi=1519405832&ibi=" +
-                                    "com.multiversx.maiar.wallet" +
-                                    "&link=https://maiar.com/?wallet-connect=" +
-                                    uri)
-                                .toUri()
-                        )
-                        startActivity(xPortalIntent)
-                    }
-                }
-            ) {
-                Text(
-                    text = "xPortal",
-                    fontSize = 18.sp,
-                    color = MaterialTheme.colorScheme.background,
-                    fontFamily = FontFamily(Font(R.font.fredoka_one))
-                )
-            }
+            startActivity(xPortalIntent)
+          }
         }
+      ) {
+        Text(
+          text = "xPortal",
+          fontSize = 18.sp,
+          color = MaterialTheme.colorScheme.background,
+          fontFamily = FontFamily(Font(R.font.fredoka_one))
+        )
+      }
     }
+  }
 
-    private fun login() =
-        viewModel.login()
-            .subscribeBy (
-                onNext = {
-                    val intent = Intent(
-                        this@LoginActivity,
-                        MainActivity::class.java
-                    )
-                        .putExtra("ADDRESS", viewModel.address)
-                        .putExtra("TOPIC", viewModel.topic)
-                    startActivity(intent)
-                    finish()
-                },
-                onError = { err ->
-                    Timber.tag("LOGIN_ERROR").e(err)
-                }
-            ).addTo(disposable)
+  private fun login() =
+    viewModel.login()
+      .subscribeBy (
+        onNext = {
+          val intent = Intent(
+            this@LoginActivity,
+            MainActivity::class.java
+          )
+            .putExtra("ADDRESS", viewModel.address)
+            .putExtra("TOPIC", viewModel.topic)
+          startActivity(intent)
+          finish()
+        },
+        onError = { err ->
+          Timber.tag("LOGIN_ERROR").e(err)
+        }
+      ).addTo(disposable)
 
 }

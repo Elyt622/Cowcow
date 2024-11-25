@@ -40,135 +40,135 @@ import com.example.hellocowcow.domain.models.DomainTransaction
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomAlert(
-    tx: DomainTransaction
+  tx: DomainTransaction
 ) {
-    val context = LocalContext.current
-    val openDialog = remember { mutableStateOf(true) }
+  val context = LocalContext.current
+  val openDialog = remember { mutableStateOf(true) }
 
-    if (openDialog.value) {
-        BasicAlertDialog(onDismissRequest = {
-            openDialog.value = false
-        }
-        ) {
-            Surface(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(4.dp)
-                    .height(300.dp)
-                    .border(
-                        BorderStroke(
-                            width = 1.dp,
-                            color = Color.Black
-                        )
-                    ),
-                color = MaterialTheme.colorScheme.primary,
-                shape = MaterialTheme.shapes.large,
-                tonalElevation = AlertDialogDefaults.TonalElevation
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Box(
-                            modifier = Modifier.weight(1f),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = "Transaction Details",
-                                style = MaterialTheme.typography.titleMedium,
-                                color = MaterialTheme.colorScheme.background
-                            )
-                        }
-
-                        Icon(
-                            imageVector = Icons.Filled.Cancel,
-                            contentDescription = "",
-                            tint = MaterialTheme.colorScheme.background,
-                            modifier = Modifier
-                                .size(24.dp)
-                                .clickable { openDialog.value = false }
-                        )
-                    }
-
-                    Text(
-                        text = "Transaction ${tx.status}",
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.background
-                    )
-
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = "Status: ${tx.status}",
-                            style = MaterialTheme.typography.labelMedium,
-                            color = MaterialTheme.colorScheme.background
-                        )
-                        Icon(
-                            modifier = Modifier.size(12.5.dp),
-                            imageVector = Icons.Filled.HourglassTop,
-                            contentDescription = "",
-                            tint = MaterialTheme.colorScheme.background
-                        )
-                    }
-
-                    Card(
-                        colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.background,
-                            contentColor = MaterialTheme.colorScheme.primary
-                        )
-                    ) {
-                        Row(
-                            modifier = Modifier.padding(8.dp),
-                        ) {
-                            Text(
-                                text = "Tx Hash: ",
-                                style = MaterialTheme.typography.labelMedium
-                            )
-                            Text(
-                                text = tx.txHash?.substring(0..8)
-                                    + "..." +
-                                    tx.txHash
-                                        ?.substring(
-                                            tx.txHash!!.length - 8
-                                                until
-                                                tx.txHash!!.length
-                                        ),
-                                style = MaterialTheme.typography.labelMedium
-                            )
-                        }
-                    }
-
-                    TextButton(
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primary,
-                            contentColor = MaterialTheme.colorScheme.background,
-                        ),
-                        onClick = {
-                            val intent = Intent(Intent.ACTION_VIEW)
-                            val url =
-                                Uri.parse("https://explorer.multiversx.com/transactions/${tx.txHash}")
-                            intent.data = url
-                            context.startActivity(intent)
-                            openDialog.value = false
-                        },
-                        modifier = Modifier.align(Alignment.CenterHorizontally)
-                    ) {
-                        Text(
-                            text = "VIEW ON EXPLORER",
-                            style = MaterialTheme.typography.bodyMedium
-                        )
-                    }
-                }
-            }
-        }
+  if (openDialog.value) {
+    BasicAlertDialog(onDismissRequest = {
+      openDialog.value = false
     }
+    ) {
+      Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(4.dp)
+            .height(300.dp)
+            .border(
+                BorderStroke(
+                    width = 1.dp,
+                    color = Color.Black
+                )
+            ),
+        color = MaterialTheme.colorScheme.primary,
+        shape = MaterialTheme.shapes.large,
+        tonalElevation = AlertDialogDefaults.TonalElevation
+      ) {
+        Column(
+          modifier = Modifier
+              .fillMaxWidth()
+              .padding(8.dp),
+          horizontalAlignment = Alignment.CenterHorizontally,
+          verticalArrangement = Arrangement.SpaceBetween
+        ) {
+          Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+          ) {
+            Box(
+              modifier = Modifier.weight(1f),
+              contentAlignment = Alignment.Center
+            ) {
+              Text(
+                text = "Transaction Details",
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.background
+              )
+            }
+
+            Icon(
+              imageVector = Icons.Filled.Cancel,
+              contentDescription = "",
+              tint = MaterialTheme.colorScheme.background,
+              modifier = Modifier
+                  .size(24.dp)
+                  .clickable { openDialog.value = false }
+            )
+          }
+
+          Text(
+            text = "Transaction ${tx.status}",
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.background
+          )
+
+          Row(
+            verticalAlignment = Alignment.CenterVertically
+          ) {
+            Text(
+              text = "Status: ${tx.status}",
+              style = MaterialTheme.typography.labelMedium,
+              color = MaterialTheme.colorScheme.background
+            )
+            Icon(
+              modifier = Modifier.size(12.5.dp),
+              imageVector = Icons.Filled.HourglassTop,
+              contentDescription = "",
+              tint = MaterialTheme.colorScheme.background
+            )
+          }
+
+          Card(
+            colors = CardDefaults.cardColors(
+              containerColor = MaterialTheme.colorScheme.background,
+              contentColor = MaterialTheme.colorScheme.primary
+            )
+          ) {
+            Row(
+              modifier = Modifier.padding(8.dp),
+            ) {
+              Text(
+                text = "Tx Hash: ",
+                style = MaterialTheme.typography.labelMedium
+              )
+              Text(
+                text = tx.txHash?.substring(0..8)
+                    + "..." +
+                    tx.txHash
+                      ?.substring(
+                        tx.txHash!!.length - 8
+                            until
+                            tx.txHash!!.length
+                      ),
+                style = MaterialTheme.typography.labelMedium
+              )
+            }
+          }
+
+          TextButton(
+            colors = ButtonDefaults.buttonColors(
+              containerColor = MaterialTheme.colorScheme.primary,
+              contentColor = MaterialTheme.colorScheme.background,
+            ),
+            onClick = {
+              val intent = Intent(Intent.ACTION_VIEW)
+              val url =
+                Uri.parse("https://explorer.multiversx.com/transactions/${tx.txHash}")
+              intent.data = url
+              context.startActivity(intent)
+              openDialog.value = false
+            },
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+          ) {
+            Text(
+              text = "VIEW ON EXPLORER",
+              style = MaterialTheme.typography.bodyMedium
+            )
+          }
+        }
+      }
+    }
+  }
 }

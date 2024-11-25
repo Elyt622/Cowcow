@@ -27,61 +27,61 @@ import timber.log.Timber.Forest.plant
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
-    private val viewModel by viewModels<MainViewModel>()
+  private val viewModel by viewModels<MainViewModel>()
 
-    private lateinit var address: String
-    private lateinit var topic: String
+  private lateinit var address: String
+  private lateinit var topic: String
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        plant(Timber.DebugTree())
+  override fun onCreate(savedInstanceState: Bundle?) {
+    plant(Timber.DebugTree())
 
-        super.onCreate(savedInstanceState)
-        address = intent.getStringExtra("ADDRESS").toString()
-        topic = intent.getStringExtra("TOPIC").toString()
+    super.onCreate(savedInstanceState)
+    address = intent.getStringExtra("ADDRESS").toString()
+    topic = intent.getStringExtra("TOPIC").toString()
 
-        viewModel.getAccount(address)
+    viewModel.getAccount(address)
 
-        setContent {
-            val uiState by viewModel.currentAccount.collectAsState()
-            HelloCowCowTheme {
-                Surface(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    color = MaterialTheme
-                        .colorScheme
-                        .background
-                ) {
-                    when (uiState) {
-                        is MainViewModel.UiState.Loading -> {
-                            Box(
-                                modifier = Modifier.fillMaxSize(),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                CircularProgressIndicator(
-                                    modifier = Modifier.width(60.dp),
-                                    color = MaterialTheme.colorScheme.primary
-                                )
-                            }
-                        }
-                        is MainViewModel.UiState.Success -> {
-                            (uiState as MainViewModel.UiState.Success)
-                                .data.let { account ->
-                                    MainScaffold(account, topic)
-                                }
-                        }
-                        is MainViewModel.UiState.Error -> {
-                            (uiState as MainViewModel.UiState.Error)
-                                .error.let { err ->
-                                    Toasty.error(
-                                        baseContext,
-                                        err,
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-                        }
-                    }
+    setContent {
+      val uiState by viewModel.currentAccount.collectAsState()
+      HelloCowCowTheme {
+        Surface(
+          modifier = Modifier
+            .fillMaxSize(),
+          color = MaterialTheme
+            .colorScheme
+            .background
+        ) {
+          when (uiState) {
+            is MainViewModel.UiState.Loading -> {
+              Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+              ) {
+                CircularProgressIndicator(
+                  modifier = Modifier.width(60.dp),
+                  color = MaterialTheme.colorScheme.primary
+                )
+              }
+            }
+            is MainViewModel.UiState.Success -> {
+              (uiState as MainViewModel.UiState.Success)
+                .data.let { account ->
+                  MainScaffold(account, topic)
                 }
             }
+            is MainViewModel.UiState.Error -> {
+              (uiState as MainViewModel.UiState.Error)
+                .error.let { err ->
+                  Toasty.error(
+                    baseContext,
+                    err,
+                    Toast.LENGTH_SHORT
+                  ).show()
+                }
+            }
+          }
         }
+      }
     }
+  }
 }

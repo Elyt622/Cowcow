@@ -6,13 +6,13 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 interface MainSchedulerProvider {
-    val main: Scheduler
-        get() = AndroidSchedulers.mainThread()
+  val main: Scheduler
+    get() = AndroidSchedulers.mainThread()
 }
 
 interface IOSchedulerProvider {
-    val io: Scheduler
-        get() = Schedulers.io()
+  val io: Scheduler
+    get() = Schedulers.io()
 }
 
 interface MySchedulers : MainSchedulerProvider, IOSchedulerProvider

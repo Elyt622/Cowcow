@@ -12,29 +12,29 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NftViewModel @Inject constructor(
-    private val nftRepository: NftRepository
+  private val nftRepository: NftRepository
 ) : BaseViewModel() {
 
-    private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
-    val uiState: StateFlow<UiState> = _uiState
+  private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
+  val uiState: StateFlow<UiState> = _uiState
 
-    sealed class UiState {
-        data object Loading : UiState()
-        class Success(val nft: DomainNft) : UiState()
-        class Error(val error: String) : UiState()
-    }
+  sealed class UiState {
+    data object Loading : UiState()
+    class Success(val nft: DomainNft) : UiState()
+    class Error(val error: String) : UiState()
+  }
 
-    fun getNft(
-        identifier: String
-    ) = nftRepository.getNftXoxno(identifier)
-            .subscribeBy (
-                onSuccess = { nft ->
-                    _uiState.value = UiState.Success(nft)
-                },
-                onError = { error ->
-                    _uiState.value = UiState.Error(error.message.toString())
-                }
-            ).addTo(disposable)
+  fun getNft(
+    identifier: String
+  ) = nftRepository.getNftXoxno(identifier)
+    .subscribeBy(
+      onSuccess = { nft ->
+        _uiState.value = UiState.Success(nft)
+      },
+      onError = { error ->
+        _uiState.value = UiState.Error(error.message.toString())
+      }
+    ).addTo(disposable)
 
 
 }
