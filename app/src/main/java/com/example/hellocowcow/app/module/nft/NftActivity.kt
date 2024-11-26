@@ -83,7 +83,7 @@ class NftActivity : BaseActivity() {
     identifier = intent.getStringExtra("IDENTIFIER").toString()
     viewModel.getNft(identifier)
     setContent {
-      HelloCowCowTheme {
+      HelloCowCowTheme(dynamicColor = false) {
         // A surface container using the 'background' color from the theme
         Surface(
           modifier = Modifier

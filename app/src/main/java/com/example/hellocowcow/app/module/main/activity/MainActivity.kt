@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.width
@@ -43,13 +44,11 @@ class MainActivity : BaseActivity() {
 
     setContent {
       val uiState by viewModel.currentAccount.collectAsState()
-      HelloCowCowTheme {
+      HelloCowCowTheme(dynamicColor = false) {
         Surface(
           modifier = Modifier
-            .fillMaxSize(),
-          color = MaterialTheme
-            .colorScheme
-            .background
+            .background(MaterialTheme.colorScheme.background)
+            .fillMaxSize()
         ) {
           when (uiState) {
             is MainViewModel.UiState.Loading -> {

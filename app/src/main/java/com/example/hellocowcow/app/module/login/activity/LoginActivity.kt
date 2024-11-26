@@ -47,7 +47,7 @@ class LoginActivity : BaseActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContent {
-      HelloCowCowTheme {
+      HelloCowCowTheme(dynamicColor = false) {
         Surface(
           modifier = Modifier.fillMaxSize(),
           color = MaterialTheme.colorScheme.background
