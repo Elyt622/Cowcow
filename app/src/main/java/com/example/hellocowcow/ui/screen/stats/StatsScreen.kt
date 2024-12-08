@@ -21,10 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.hellocowcow.ui.screen.stats.tabs.CollectionScreen
-import com.example.hellocowcow.ui.screen.stats.tabs.TicketScreen
 import com.example.hellocowcow.ui.screen.stats.tabs.TokenScreen
 import com.example.hellocowcow.ui.viewmodels.screen.stats.CollectionViewModel
-import com.example.hellocowcow.ui.viewmodels.screen.stats.TicketViewModel
 import com.example.hellocowcow.ui.viewmodels.screen.stats.TokenViewModel
 
 @Composable
@@ -61,7 +59,7 @@ fun TabScreen() {
 
   var tabIndex by remember { mutableIntStateOf(0) }
 
-  val tabs = listOf("Moove", "Cow", "Ticket")
+  val tabs = listOf("Moove", "Cow")
 
   Column(modifier = Modifier
     .padding(top = 90.dp)
@@ -90,11 +88,6 @@ fun TabScreen() {
       1 -> {
         val viewModel: CollectionViewModel = hiltViewModel()
         CollectionScreen(viewModel)
-      }
-
-      2 -> {
-        val viewModel: TicketViewModel = hiltViewModel()
-        TicketScreen(viewModel)
       }
     }
   }
