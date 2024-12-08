@@ -6,8 +6,9 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
 import timber.log.Timber
+import timber.log.Timber.Forest.plant
 
-object DappDelegate: SignClient.DappDelegate {
+object DAppDelegate: SignClient.DappDelegate {
 
   var selectedSessionTopic: String? = null
     private set
@@ -28,9 +29,10 @@ object DappDelegate: SignClient.DappDelegate {
   private val wcEventSubject: Subject<Sign.Model> = PublishSubject.create()
   val wcEventObservable: Observable<Sign.Model> = wcEventSubject.hide()
 
-
   init {
+    plant(Timber.DebugTree())
     SignClient.setDappDelegate(this)
+    Timber.tag("DEBUG").d(SignClient.getListOfActiveSessions().toString())
   }
 
   override
@@ -111,12 +113,16 @@ object DappDelegate: SignClient.DappDelegate {
     Timber.tag("Error_In_SignClient_SDK").e(error.toString())
   }
 
-  override fun onProposalExpired(proposal: Sign.Model.ExpiredProposal) {
-    TODO("Not yet implemented")
+  override
+  fun onProposalExpired(proposal: Sign.Model.ExpiredProposal) {
+    wcEventSubject.onNext(proposal)
+    Timber.tag("Proposal_Expired").w(proposal.toString())
   }
 
-  override fun onRequestExpired(request: Sign.Model.ExpiredRequest) {
-    TODO("Not yet implemented")
+  override
+  fun onRequestExpired(request: Sign.Model.ExpiredRequest) {
+    wcEventSubject.onNext(request)
+    Timber.tag("Request_Expired").w(request.toString())
   }
 
   private fun deselectAccountDetails() {

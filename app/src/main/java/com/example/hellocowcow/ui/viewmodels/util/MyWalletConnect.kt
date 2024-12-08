@@ -1,11 +1,11 @@
 package com.example.hellocowcow.ui.viewmodels.util
 
-import com.example.hellocowcow.domain.models.DappDelegate
+import com.example.hellocowcow.domain.models.DAppDelegate
 import javax.inject.Inject
 
 interface DAppDelegateProvider {
-  val dAppDelegate: DappDelegate
-    get() = DappDelegate
+  val dAppDelegate: DAppDelegate
+    get() = DAppDelegate
 }
 
 interface MyWalletConnect : DAppDelegateProvider
