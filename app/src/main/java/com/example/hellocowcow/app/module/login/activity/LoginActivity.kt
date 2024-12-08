@@ -35,8 +35,6 @@ import com.example.hellocowcow.ui.theme.HelloCowCowTheme
 import com.example.hellocowcow.ui.viewmodels.activity.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
-import io.reactivex.rxjava3.kotlin.addTo
-import io.reactivex.rxjava3.kotlin.subscribeBy
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -63,10 +61,10 @@ class LoginActivity : BaseActivity() {
 
     val context = LocalContext.current
 
-    Column (
+    Column(
       Modifier.padding(bottom = 50.dp),
       verticalArrangement = Arrangement.Center
-    ){
+    ) {
       Text(
         text = "Hello CowCow !",
         fontSize = 22.sp,
@@ -86,27 +84,11 @@ class LoginActivity : BaseActivity() {
           )
           .align(Alignment.CenterHorizontally),
         onClick = {
-
           Toasty.info(
             context,
             "Sent on xPortal"
           ).show()
-
           login()
-
-          viewModel.connectToWallet { uri ->
-            val xPortalIntent = Intent(
-              Intent.ACTION_VIEW,
-              ("https://xportal.page.link/" +
-                  "?apn=com.multiversx.maiar.wallet" +
-                  "&isi=1519405832&ibi=" +
-                  "com.multiversx.maiar.wallet" +
-                  "&link=https://maiar.com/?wallet-connect=" +
-                  uri)
-                .toUri()
-            )
-            startActivity(xPortalIntent)
-          }
         }
       ) {
         Text(
@@ -120,21 +102,43 @@ class LoginActivity : BaseActivity() {
   }
 
   private fun login() =
-    viewModel.login()
-      .subscribeBy (
-        onNext = {
-          val intent = Intent(
-            this@LoginActivity,
-            MainActivity::class.java
-          )
-            .putExtra("ADDRESS", viewModel.address)
-            .putExtra("TOPIC", viewModel.topic)
-          startActivity(intent)
-          finish()
-        },
-        onError = { err ->
-          Timber.tag("LOGIN_ERROR").e(err)
-        }
-      ).addTo(disposable)
+    viewModel.handleExistingSession(
+      onSessionAvailable = { address, topic ->
+        Timber.tag("Session").d("Reusing existing session with topic: $topic")
+        Toasty.info(this, "Session réutilisée : $address").show()
+        navigateToMainActivity(address, topic)
+      },
+      onNoSession = {
+        Timber.tag("Session").d("No existing session found, starting a new connection.")
+        startNewConnection()
+      }
+    )
+
+  private fun navigateToMainActivity(address: String, topic: String) {
+    val intent = Intent(this, MainActivity::class.java).apply {
+      putExtra("ADDRESS", address)
+      putExtra("TOPIC", topic)
+    }
+    startActivity(intent)
+    finish()
+  }
+
+  private fun startNewConnection() {
+    viewModel.connectToWallet(
+      onProposedSequence = { uri ->
+        val xPortalIntent = Intent(
+          Intent.ACTION_VIEW,
+          ("https://maiar.page.link/" +
+              "?apn=com.multiversx.maiar.wallet" +
+              "&isi=1519405832&ibi=" +
+              "com.multiversx.maiar.wallet" +
+              "&link=https://maiar.com/?wallet-connect=" +
+              uri)
+            .toUri()
+        )
+        startActivity(xPortalIntent)
+      }
+    )
+  }
 
 }

@@ -1,90 +1,107 @@
 package com.example.hellocowcow.ui.viewmodels.activity
 
 import com.example.hellocowcow.app.module.BaseViewModel
-import com.example.hellocowcow.ui.viewmodels.util.MySchedulers
 import com.example.hellocowcow.ui.viewmodels.util.MyWalletConnect
 import com.reown.android.Core
 import com.reown.android.CoreClient
 import com.reown.sign.client.Sign
 import com.reown.sign.client.SignClient
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.kotlin.addTo
-import io.reactivex.rxjava3.kotlin.subscribeBy
-import io.reactivex.rxjava3.subjects.PublishSubject
+import timber.log.Timber
+import timber.log.Timber.Forest.plant
 import timber.log.Timber.Forest.tag
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-  private val wc: MyWalletConnect,
-  private val mySchedulers: MySchedulers
+  private val wc: MyWalletConnect
 ) : BaseViewModel() {
 
-  var address: String = ""
-  var topic: String = ""
-
-  private val startActivitySubject: PublishSubject<Unit> = PublishSubject.create()
-
-  fun login(): Observable<Unit> {
-    wc.dAppDelegate
-      .wcEventObservable
-      .subscribeOn(mySchedulers.io)
-      .observeOn(mySchedulers.main)
-      .subscribeBy(
-        onNext = { session ->
-          when (session) {
-            is Sign.Model.ApprovedSession -> {
-              tag("Approve").d(topic)
-              topic = session.topic
-              address = session.accounts[0].removePrefix("mvx:1:")
-              startActivitySubject.onNext(Unit)
-            }
-
-            is Sign.Model.RejectedSession -> {
-              tag("Rejected").d("Rejected")
-            }
-
-            else -> {
-              session.toString()
-            }
-          }
-        },
-        onError = { err ->
-          tag("Subscribe_Error").d(err)
-        }
-      ).addTo(disposable)
-    return startActivitySubject
+  init {
+    plant(Timber.DebugTree())
   }
 
+  var address: String = ""
+
+  fun handleExistingSession(
+    onSessionAvailable: (String, String) -> Unit,
+    onNoSession: () -> Unit
+  ) {
+    val activeSessions = SignClient.getListOfActiveSessions()
+
+    if (activeSessions.isNotEmpty()) {
+      val activeSession = activeSessions.first()
+      val topic = activeSession.topic
+      val accounts = activeSession.namespaces.values
+        .flatMap { it.accounts }
+        .firstOrNull()
+        ?.removePrefix("mvx:1:")
+        ?: ""
+
+      if (accounts.isNotEmpty()) {
+        onSessionAvailable(accounts, topic)
+      } else {
+        tag("Session").d("No valid accounts found in the active session.")
+        onNoSession()
+      }
+    } else {
+      tag("Session").d("No active session found.")
+      onNoSession()
+    }
+  }
 
   private fun getProperties(): Map<String, String> {
-    val expiry = (System.currentTimeMillis() / 1000) + TimeUnit.SECONDS.convert(7, TimeUnit.DAYS)
+    val expiry = (System.currentTimeMillis() / 1000) +
+        TimeUnit.SECONDS.convert(7, TimeUnit.DAYS)
     return mapOf("sessionExpiry" to "$expiry")
   }
 
   fun connectToWallet(
     pairingTopicPosition: Int = -1,
-    onProposedSequence: (String) -> Unit = {}
+    onProposedSequence: (String) -> Unit = {},
+    onSessionAvailable: (String, String) -> Unit = { _, _ -> },
+    onNoSession: () -> Unit = {}
+  ) {
+    handleExistingSession(
+      onSessionAvailable = { address, topic ->
+        tag("Session").d("Reusing existing session: Address=$address, Topic=$topic")
+        onSessionAvailable(address, topic)
+      },
+      onNoSession = {
+        tag("Session").d("No active session found, creating a new one.")
+        createNewConnection(pairingTopicPosition, onProposedSequence)
+        onNoSession()
+      }
+    )
+  }
+
+  private fun createNewConnection(
+    pairingTopicPosition: Int,
+    onProposedSequence: (String) -> Unit
   ) {
     val pairing: Core.Model.Pairing? = if (pairingTopicPosition > -1) {
-      CoreClient.Pairing.getPairings()[pairingTopicPosition]
+      CoreClient.Pairing.getPairings().getOrNull(pairingTopicPosition)
     } else {
       CoreClient.Pairing.create { error ->
-        throw IllegalStateException("Creating Pairing failed: ${error.throwable.stackTraceToString()}")
+        throw IllegalStateException(
+          "Creating Pairing failed: ${error.throwable.stackTraceToString()}"
+        )
       }
     }
 
-    val connectParams =
-      Sign.Params.Connect(
-        namespaces = wc.dAppDelegate.namespaces,
-        optionalNamespaces = null,
-        properties = getProperties(),
-        pairing = pairing!!
-      )
+    if (pairing == null) {
+      tag("ERROR").e("Failed to create or retrieve a pairing.")
+      return
+    }
 
-    // Todo pairing must be not null
+    val connectParams = Sign.Params.Connect(
+      namespaces = wc.dAppDelegate.namespaces,
+      optionalNamespaces = null,
+      properties = getProperties(),
+      pairing = pairing
+    )
+
     SignClient.connect(connectParams,
       onSuccess = {
         onProposedSequence(pairing.uri)
@@ -94,5 +111,4 @@ class LoginViewModel @Inject constructor(
       }
     )
   }
-
 }
